@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login – Internal Portal</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="js/supabase.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>Internal Portal Login</h2>
+
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="login()">Log In</button>
+
+    <p id="status"></p>
+  </div>
+
+  <script>
+    async function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        document.getElementById("status").innerText = error.message;
+      } else {
+        window.location.href = "dashboard.html";
+      }
+    }
+
+    // Optional: Redirect if already logged in
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) window.location.href = "dashboard.html";
+    });
+  </script>
+</body>
+</html>
