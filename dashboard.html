@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard – Internal Portal</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="js/supabase.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>Welcome to the Internal Portal</h2>
+    <p id="user-email"></p>
+
+    <div id="admin-panel" style="display: none; margin-top: 20px;">
+      <h3>Admin Panel</h3>
+      <p>Upload form and admin tools will go here.</p>
+    </div>
+
+    <button onclick="logout()">Log Out</button>
+  </div>
+
+  <script>
+    async function checkSession() {
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (!session) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      const user = session.user;
+      document.getElementById("user-email").innerText = "Logged in as " + user.email;
+
+      // TODO: Replace this with real role check later
+      // For now, make a specific email an "admin"
+      const admins = ["ddale@bajco.net"]; // replace with your admin emails
+
+      if (admins.includes(user.email)) {
+        document.getElementById("admin-panel").style.display = "block";
+      }
+    }
+
+    function logout() {
+      supabase.auth.signOut().then(() => {
+        window.location.href = "login.html";
+      });
+    }
+
+    checkSession();
+  </script>
+</body>
+</html>
