@@ -1,115 +1,123 @@
-<div class="container">
-  <h2>Welcome to the Internal Portal</h2>
-  <p id="user-email"></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard – Internal Portal</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="js/supabase.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>Welcome to the Internal Portal</h2>
+    <p id="user-email"></p>
 
-  <section id="stores-section">
-    <h3>Store Locations</h3>
-    <div id="stores-list">Loading stores…</div>
-  </section>
+    <section id="stores-section">
+      <h3>Store Locations</h3>
+      <div id="stores-list">Loading stores…</div>
+    </section>
 
-  <div id="admin-panel" style="display:none; margin-top:20px;">
-    <h3>Admin Panel</h3>
-    <p>Upload form and admin tools will go here.</p>
+    <div id="admin-panel" style="display:none; margin-top:20px;">
+      <h3>Admin Panel</h3>
+      <p>Upload form and admin tools will go here.</p>
+    </div>
+
+    <button onclick="logout()">Log Out</button>
   </div>
 
-  <button onclick="logout()">Log Out</button>
-</div>
+  <script>
+    async function checkSession() {
+      const { data: { session } } = await supabaseClient.auth.getSession();
 
-<script>
-  async function checkSession() {
-    const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        window.location.href = "login.html";
+        return;
+      }
 
-    if (!session) {
-      window.location.href = "login.html";
-      return;
+      const user = session.user;
+      document.getElementById("user-email").innerText = "Logged in as " + user.email;
+
+      const admins = ["david@bajco.net", "ashley@bajco.net"];
+      if (admins.includes(user.email)) {
+        document.getElementById("admin-panel").style.display = "block";
+      }
+
+      loadStores();
     }
 
-    const user = session.user;
-    document.getElementById("user-email").innerText = "Logged in as " + user.email;
+    async function loadStores() {
+      const { data: stores, error } = await supabaseClient.from("stores").select("*");
 
-    // Show admin panel for specified emails (placeholder logic)
-    const admins = ["david@bajco.net", "ashley@bajco.net"];
-    if (admins.includes(user.email)) {
-      document.getElementById("admin-panel").style.display = "block";
+      const container = document.getElementById("stores-list");
+
+      if (error) {
+        container.innerText = "Error loading stores: " + error.message;
+        return;
+      }
+
+      if (!stores.length) {
+        container.innerText = "No stores found.";
+        return;
+      }
+
+      container.innerHTML = "";
+
+      for (const store of stores) {
+        const storeDiv = document.createElement("div");
+        storeDiv.classList.add("store");
+
+        const header = document.createElement("h4");
+        header.textContent = `${store.store_number} - ${store.store_name}`;
+        storeDiv.appendChild(header);
+
+        const photosDiv = document.createElement("div");
+        photosDiv.id = `photos-for-store-${store.id}`;
+        photosDiv.innerText = "Loading photos...";
+        storeDiv.appendChild(photosDiv);
+
+        container.appendChild(storeDiv);
+
+        loadPhotos(store.id);
+      }
     }
 
-    // Load stores and photos
-    loadStores();
-  }
+    async function loadPhotos(storeId) {
+      const { data: photos, error } = await supabaseClient
+        .from("photos")
+        .select("*")
+        .eq("store_id", storeId);
 
-  async function loadStores() {
-    const { data: stores, error } = await supabase.from("stores").select("*");
+      const photosDiv = document.getElementById(`photos-for-store-${storeId}`);
 
-    if (error) {
-      document.getElementById("stores-list").innerText = "Error loading stores: " + error.message;
-      return;
+      if (error) {
+        photosDiv.innerText = "Error loading photos: " + error.message;
+        return;
+      }
+
+      if (!photos.length) {
+        photosDiv.innerText = "No photos uploaded yet.";
+        return;
+      }
+
+      photosDiv.innerHTML = "";
+
+      for (const photo of photos) {
+        const img = document.createElement("img");
+        img.src = photo.image_url;
+        img.alt = `Photo for store ${storeId}`;
+        img.style = "max-width:150px; margin:5px; border-radius:8px; box-shadow:0 0 5px rgba(0,0,0,0.2);";
+        photosDiv.appendChild(img);
+      }
     }
 
-    if (!stores.length) {
-      document.getElementById("stores-list").innerText = "No stores found.";
-      return;
+    function logout() {
+      supabaseClient.auth.signOut().then(() => {
+        window.location.href = "login.html";
+      });
     }
 
-    // Clear existing content
-    const container = document.getElementById("stores-list");
-    container.innerHTML = "";
-
-    for (const store of stores) {
-      const storeDiv = document.createElement("div");
-      storeDiv.classList.add("store");
-
-      // Store header
-      const header = document.createElement("h4");
-      header.textContent = `${store.store_number} - ${store.store_name}`;
-      storeDiv.appendChild(header);
-
-      // Placeholder for photos (will load next)
-      const photosDiv = document.createElement("div");
-      photosDiv.id = `photos-for-store-${store.id}`;
-      photosDiv.innerText = "Loading photos...";
-      storeDiv.appendChild(photosDiv);
-
-      container.appendChild(storeDiv);
-
-      // Load photos for this store
-      loadPhotos(store.id);
-    }
-  }
-
-  async function loadPhotos(storeId) {
-    const { data: photos, error } = await supabase
-      .from("photos")
-      .select("*")
-      .eq("store_id", storeId);
-
-    const photosDiv = document.getElementById(`photos-for-store-${storeId}`);
-
-    if (error) {
-      photosDiv.innerText = "Error loading photos: " + error.message;
-      return;
-    }
-
-    if (!photos.length) {
-      photosDiv.innerText = "No photos uploaded yet.";
-      return;
-    }
-
-    photosDiv.innerHTML = ""; // Clear loading text
-
-    for (const photo of photos) {
-      const img = document.createElement("img");
-      img.src = photo.image_url;
-      img.alt = `Photo for store ${storeId}`;
-      img.style = "max-width:150px; margin:5px; border-radius:8px; box-shadow:0 0 5px rgba(0,0,0,0.2);";
-      photosDiv.appendChild(img);
-    }
-  }
-
-  function logout() {
-    supabase.auth.signOut().then(() => {
-      window.location.href = "login.html";
-    });
-  }
-
-  checkSession();
-</script>
+    checkSession();
+  </script>
+</body>
+</html>
