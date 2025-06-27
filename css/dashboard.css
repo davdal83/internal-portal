@@ -83,3 +83,47 @@ async function logout() {
   await supabaseClient.auth.signOut();
   window.location.href = "login.html";
 }
+
+/* css/dashboard.css */
+.stores-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.store-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  cursor: pointer;
+  width: 260px;
+  transition: transform 0.2s ease;
+}
+
+.store-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+.store-header {
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.store-header-overlay {
+  background: rgba(0,0,0,0.5);
+  color: white;
+  padding: 0.5rem 1rem;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.store-content {
+  padding: 1rem;
+}
+
