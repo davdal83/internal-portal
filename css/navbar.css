@@ -1,126 +1,75 @@
-/* navbar.css */
+/* css/navbar.css */
 
 .navbar {
-  background-color: #2D5D2A; /* Papa John's dark green */
+  background-color: #2D5D2A;
   color: white;
-  padding: 0.75rem 1.5rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 0.75rem 1.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  position: relative;
-  z-index: 10;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .nav-brand {
   font-size: 1.4rem;
   font-weight: bold;
-  letter-spacing: 0.5px;
-  user-select: none;
 }
 
-/* Nav links container */
 .nav-links {
   list-style: none;
   display: flex;
   gap: 1.5rem;
+  align-items: center;
   margin: 0;
   padding: 0;
-  align-items: center;
-  user-select: none;
 }
 
-/* Links and buttons style */
 .nav-links li a,
 .nav-links li button,
-.nav-links li span {
+.welcome-msg {
   color: white;
-  text-decoration: none;
-  font-weight: 500;
   background: none;
   border: none;
   cursor: pointer;
   font-size: 1rem;
-  padding: 0;
-  user-select: none;
+  font-weight: 500;
+  text-decoration: none;
   transition: opacity 0.2s ease;
 }
 
 .nav-links li a:hover,
-.nav-links li button:hover,
-.nav-links li span:hover {
+.nav-links li button:hover {
   opacity: 0.8;
 }
 
-.welcome-msg {
-  font-weight: 600;
-  font-size: 1rem;
-  user-select: none;
-}
-
-/* Hamburger toggle button */
-.nav-toggle {
+.hamburger {
   display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 25px;
-  height: 21px;
+  background: none;
+  color: white;
+  font-size: 1.6rem;
+  border: none;
   cursor: pointer;
-  user-select: none;
 }
 
-.nav-toggle span {
-  display: block;
-  height: 3px;
-  background: white;
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
-
-/* Hamburger open state */
-.nav-toggle.open span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-
-.nav-toggle.open span:nth-child(2) {
-  opacity: 0;
-}
-
-.nav-toggle.open span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
-
-/* Responsive styles */
+/* Responsive menu */
 @media (max-width: 768px) {
-  .nav-toggle {
-    display: flex;
+  .hamburger {
+    display: block;
   }
 
   .nav-links {
+    display: none;
     flex-direction: column;
-    background-color: #2D5D2A;
     width: 100%;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
+    padding-top: 0.75rem;
   }
 
-  .nav-links.open {
-    max-height: 500px; /* large enough to show all links */
+  .nav-links.active {
+    display: flex;
   }
 
   .nav-links li {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .nav-links li a,
-  .nav-links li button,
-  .nav-links li span {
-    display: block;
-    width: 100%;
+    margin-bottom: 0.5rem;
   }
 }
