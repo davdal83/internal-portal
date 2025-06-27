@@ -142,9 +142,11 @@
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
+  justify-content: center; /* ✅ this centers the last row */
 }
+
 
 .feature-card {
   background-color: var(--white);
