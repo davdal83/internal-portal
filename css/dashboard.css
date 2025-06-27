@@ -1,217 +1,85 @@
-/* --- Global Reset & Base Styles --- */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+// js/dashboard.js
+document.addEventListener("DOMContentLoaded", () => {
+  checkSession();
 
-body {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f9fafb;
-  color: #222;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  document.getElementById("logout-button").addEventListener("click", logout);
+});
 
-/* --- Navbar Styles --- */
-.navbar {
-  background-color: #2D5D2A; /* Papa John's dark green */
-  color: white;
-  padding: 0.75rem 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  gap: 1rem;
-}
+async function checkSession() {
+  try {
+    const { data, error } = await supabaseClient.auth.getSession();
+    if (error) throw error;
 
-.nav-brand {
-  font-size: 1.4rem;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-}
+    if (!data.session) {
+      window.location.href = "login.html";
+      return;
+    }
 
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
-  margin: 0;
-  padding: 0;
-  align-items: center;
-  flex-wrap: wrap;
-}
+    const user = data.session.user;
+    const displayName = user.user_metadata?.full_name || user.email || "User";
+    document.getElementById("nav-welcome").innerText = `Welcome, ${displayName}`;
 
-.nav-links li {
-  margin: 0;
-}
-
-.nav-links li a,
-.nav-links li button,
-.nav-links li span.welcome-msg {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 0;
-  user-select: none;
-  transition: opacity 0.2s ease;
-}
-
-.nav-links li a:hover,
-.nav-links li button:hover {
-  opacity: 0.8;
-}
-
-.welcome-msg {
-  font-weight: 600;
-  font-size: 1rem;
-  margin-left: auto;
-  user-select: none;
-}
-
-/* Responsive Navbar */
-@media (max-width: 600px) {
-  .nav-links {
-    flex-direction: column;
-    gap: 0.75rem;
-    width: 100%;
-  }
-  .welcome-msg {
-    margin-left: 0;
+    document.getElementById("stores-section").style.display = "block";
+    loadStores();
+  } catch (err) {
+    console.error("Session error:", err);
+    window.location.href = "login.html";
   }
 }
 
-/* --- Stores Container --- */
-.stores-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 1rem;
-  padding: 0 1rem;
-}
+async function loadStores() {
+  const { data: stores, error } = await supabaseClient
+    .from("stores")
+    .select("id, store_name, store_number, general_manager, header_image_url");
 
-/* --- Store Card --- */
-.store-card {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 280px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
-  user-select: none;
-  overflow: hidden;
-}
-
-.store-card:hover,
-.store-card:focus {
-  box-shadow: 0 4px 14px rgba(0, 77, 153, 0.4);
-  transform: translateY(-4px);
-  outline: none;
-}
-
-/* Store header with background image */
-.store-header {
-  position: relative;
-  width: 100%;
-  height: 160px;
-  background-size: cover;
-  background-position: center center;
-  border-radius: 8px 8px 0 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  color: white;
-  display: flex;
-  align-items: flex-end;
-}
-
-.store-header-overlay {
-  background: rgba(0, 0, 0, 0.5);
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
-
-.store-header-overlay h3 {
-  margin: 0;
-  font-size: 1.3rem;
-  font-weight: 700;
-}
-
-.store-header-overlay p {
-  margin: 0.1rem 0 0;
-  font-weight: 500;
-  font-size: 1rem;
-}
-
-/* Store content text */
-.store-content {
-  padding: 1rem;
-  flex-grow: 1;
-}
-
-.store-content p {
-  margin: 0.3rem 0;
-  font-weight: 600;
-  color: #333;
-}
-
-/* --- Responsive Adjustments --- */
-@media (max-width: 900px) {
-  .stores-container {
-    justify-content: space-around;
+  if (error) {
+    alert("Failed to load stores: " + error.message);
+    return;
   }
-  .store-card {
-    max-width: 45%;
-  }
+
+  const container = document.getElementById("stores-container");
+  container.innerHTML = "";
+
+  stores.forEach((store) => {
+    const card = document.createElement("div");
+    card.className = "store-card";
+
+    card.style.backgroundImage = `url(${store.header_image_url || 'images/default-store.jpg'})`;
+    card.style.backgroundSize = "cover";
+    card.style.backgroundPosition = "center";
+    card.style.color = "#fff";
+    card.style.position = "relative";
+    card.style.padding = "1.5rem";
+    card.style.borderRadius = "8px";
+    card.style.cursor = "pointer";
+    card.style.boxShadow = "0 4px 14px rgb(0 77 153 / 0.4)";
+    card.style.transition = "transform 0.2s ease";
+
+    card.innerHTML = `
+      <h3 style="margin-bottom:0.3rem; text-shadow: 0 0 5px rgba(0,0,0,0.8)">${store.store_name}</h3>
+      <p style="font-weight: 600; text-shadow: 0 0 4px rgba(0,0,0,0.7)">Store #: ${store.store_number}</p>
+      <p style="font-weight: 600; text-shadow: 0 0 4px rgba(0,0,0,0.7)">GM: ${store.general_manager}</p>
+    `;
+
+    card.addEventListener("click", () => {
+      window.location.href = `store.html?id=${store.id}`;
+    });
+
+    card.addEventListener("mouseenter", () => {
+      card.style.transform = "translateY(-5px)";
+      card.style.boxShadow = "0 8px 24px rgb(0 77 153 / 0.7)";
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "translateY(0)";
+      card.style.boxShadow = "0 4px 14px rgb(0 77 153 / 0.4)";
+    });
+
+    container.appendChild(card);
+  });
 }
 
-@media (max-width: 600px) {
-  .store-card {
-    max-width: 100%;
-  }
-  .store-header {
-    height: 120px;
-  }
-  .store-header-overlay h3 {
-    font-size: 1.1rem;
-  }
-  .store-header-overlay p {
-    font-size: 0.9rem;
-  }
-}
-
-/* --- Buttons --- */
-button {
-  background-color: #2D5D2A;
-  color: white;
-  border: none;
-  padding: 0.4rem 0.8rem;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #1f3d1a;
-}
-
-/* --- Links --- */
-a {
-  color: #2D5D2A;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
+async function logout() {
+  await supabaseClient.auth.signOut();
+  window.location.href = "login.html";
 }
