@@ -1,23 +1,12 @@
 // js/dashboard.js
 
-// Format phone number helper (optional for other pages)
-function formatPhoneNumber(phoneNum) {
-  if (!phoneNum) return "N/A";
-  let phoneStr = phoneNum.toString().replace(/\D/g, "");
-  if (phoneStr.length !== 10) return phoneStr;
-  return `(${phoneStr.slice(0, 3)}) ${phoneStr.slice(3, 6)}-${phoneStr.slice(6)}`;
-}
-
-// Check session and load user info and stores
 async function checkSession() {
   try {
     const { data } = await supabaseClient.auth.getSession();
-
     if (!data.session) {
       window.location.href = "login.html";
       return;
     }
-
     document.getElementById("user-email").innerText = data.session.user.email;
     document.getElementById("stores-section").style.display = "block";
 
@@ -28,7 +17,6 @@ async function checkSession() {
   }
 }
 
-// Load stores with minimal info and clickable names
 async function loadStores() {
   const { data: stores, error } = await supabaseClient.from("stores").select("*");
 
@@ -44,7 +32,6 @@ async function loadStores() {
   stores.forEach(store => {
     const tr = document.createElement("tr");
 
-    // Store Name cell with link to store page
     const nameCell = document.createElement("td");
     const link = document.createElement("a");
     link.href = `store.html?storeId=${store.id}`;
@@ -52,12 +39,10 @@ async function loadStores() {
     nameCell.appendChild(link);
     tr.appendChild(nameCell);
 
-    // Store number cell
     const numberCell = document.createElement("td");
     numberCell.textContent = store.store_number;
     tr.appendChild(numberCell);
 
-    // General manager cell
     const gmCell = document.createElement("td");
     gmCell.textContent = store.general_manager;
     tr.appendChild(gmCell);
@@ -66,12 +51,13 @@ async function loadStores() {
   });
 }
 
-// Logout function
 function logout() {
   supabaseClient.auth.signOut().then(() => {
     window.location.href = "login.html";
   });
 }
 
-// Initialize dashboard
-checkSession();
+// Run checkSession after script loads
+(async () => {
+  await checkSession();
+})();
