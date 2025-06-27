@@ -1,147 +1,55 @@
-/* ============================
-   Index Page Styles - Green Primary Focus
-   ============================ */
+/* index.css */
 
-.hero {
-  background: linear-gradient(135deg, var(--green), var(--light-beige));
-  color: var(--white);
-  padding: 4rem 1rem;
-  text-align: center;
+.hidden {
+  display: none;
 }
 
-.hero-overlay {
-  max-width: 700px;
-  margin: auto;
-}
-
-.logo {
-  width: 180px;
-  margin-bottom: 1.5rem;
-}
-
-.hero h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: var(--white);
-}
-
-.hero p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  color: var(--white);
-}
-
-/* Primary call-to-action uses green, mint hover */
-.login-btn {
-  background-color: var(--green);
-  color: var(--white);
-  padding: 0.75rem 1.5rem;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
-  transition: background 0.3s ease;
-}
-
-.login-btn:hover {
-  background-color: var(--mint);
-}
-
-/* Section background is light for contrast */
-.content {
-  padding: 2rem 1rem;
-  background-color: var(--white);
-  text-align: center;
-  color: var(--black);
-}
-
-.intro h2 {
-  font-size: 1.8rem;
-  color: var(--green);
-  margin-bottom: 1rem;
-}
-
-.intro p {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Footer is deep red with white text */
-.footer {
-  background-color: var(--deep-red);
-  color: var(--white);
-  text-align: center;
-  padding: 1rem;
-  margin-top: 2rem;
-}
-/* ============================
-   Contact Section
-   ============================ */
-
-.contact-section {
-  padding: 3rem 1rem;
-  background-color: var(--light-beige);
-  text-align: center;
-}
-
-.contact-section h2,
-.contact-section h3 {
-  color: var(--green);
-  margin-bottom: 1rem;
-}
-
-/* Leadership Card Layout */
-.leadership-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: center;
-  margin-bottom: 3rem;
-}
-
-.contact-card {
-  background-color: var(--white);
-  border: 2px solid var(--green);
-  border-radius: 12px;
-  padding: 1rem;
-  width: 250px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* Store Table */
-.store-table-wrapper {
-  overflow-x: auto;
-}
-
-.store-table {
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  border-collapse: collapse;
-  background-color: var(--white);
-}
-
-.store-table th,
-.store-table td {
-  border: 1px solid var(--green);
-  padding: 0.75rem;
-  text-align: left;
-}
-
-.store-table th {
-  background-color: var(--mint);
-  color: var(--black);
-}
-
-.store-table td {
-  color: var(--black);
-}
+/* Leadership card photo styling */
 .leader-photo {
   width: 100%;
   max-width: 120px;
   height: auto;
   margin-bottom: 0.5rem;
   border-radius: 8px;
+}
+
+/* Basic styling for leadership cards */
+.leadership-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.contact-card {
+  background: #f5e8dc; /* light beige */
+  border-radius: 8px;
+  padding: 1rem;
+  width: 200px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  color: #2d5d2a; /* dark green */
+  text-align: center;
+}
+
+/* Store table styling */
+.store-table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 3rem;
+}
+
+.store-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.store-table th,
+.store-table td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.store-table th {
+  background-color: #2d5d2a; /* dark green */
+  color: white;
 }
