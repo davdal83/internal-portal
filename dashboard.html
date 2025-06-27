@@ -4,33 +4,29 @@
   <meta charset="UTF-8" />
   <title>Dashboard - Internal Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+  
   <link rel="stylesheet" href="css/style.css" />
 
-  <!-- Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <!-- Supabase client config -->
   <script src="js/supabase.js"></script>
-
-  <!-- Navbar JS -->
-  <script src="js/navbar.js" defer></script>
-
-  <!-- Dashboard JS -->
   <script src="js/dashboard.js" defer></script>
 </head>
 <body>
-  <header>
-    <h1>Internal Portal Dashboard</h1>
-  </header>
-
-  <!-- Navbar will be injected here -->
-  <div id="navbar"></div>
+  <nav class="navbar">
+    <div class="nav-brand">Papa John's Internal Portal</div>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="documents.html">Documents & Forms</a></li>
+      <li><a href="contacts.html">Team Directory</a></li>
+      <li><button class="logout-btn" onclick="logout()">Logout</button></li>
+    </ul>
+    <div class="nav-welcome" id="nav-welcome">Welcome</div>
+  </nav>
 
   <section id="stores-section" style="display:none;">
     <h2>Stores</h2>
     <div id="stores-container" class="stores-container">
-      <!-- Store cards inserted here by dashboard.js -->
+      <!-- Store cards will be rendered here -->
     </div>
   </section>
 </body>
