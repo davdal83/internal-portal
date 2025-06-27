@@ -54,3 +54,11 @@
   background-color: #2d5d2a; /* dark green */
   color: white;
 }
+/* Responsive logo image in hero */
+.hero .logo {
+  max-width: 200px;     /* limits max size */
+  width: 100%;          /* scales down on small screens */
+  height: auto;         /* keep aspect ratio */
+  display: block;
+  margin: 0 auto 1rem;  /* center and add bottom spacing */
+}
