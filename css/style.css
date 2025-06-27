@@ -1,1 +1,174 @@
+/* style.css - Global styles for the Papa John's Portal */
+
+/* Root brand colors */
+:root {
+  --red-primary: #FF0000;
+  --green-primary: #2D5D2A;
+  --green-secondary: #65A17A;
+  --beige-light: #F5E8DC;
+  --deep-red: #710500;
+  --lavender: #E3C2ED;
+  --yellow-bright: #CFEB0C;
+
+  --font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-color-dark: #222222;
+  --font-color-light: #f0f4f8;
+  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --max-content-width: 1100px;
+}
+
+/* Reset and base styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family-base);
+  color: var(--font-color-dark);
+  background-color: var(--beige-light);
+  line-height: 1.5;
+  font-weight: var(--font-weight-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--red-primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover,
+a:focus {
+  color: var(--deep-red);
+  outline: none;
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 0.5rem 0;
+  color: var(--green-primary);
+  user-select: none;
+}
+
+p {
+  margin: 0 0 1rem 0;
+}
+
+/* Containers */
+.container {
+  max-width: var(--max-content-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+}
+
+/* Buttons */
+button {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  color: var(--beige-light);
+  background-color: var(--green-primary);
+  transition: background-color 0.3s ease, box-shadow 0.2s ease;
+  user-select: none;
+}
+
+button:hover,
+button:focus {
+  background-color: var(--green-secondary);
+  box-shadow: 0 0 8px var(--green-secondary);
+  outline: none;
+}
+
+/* Inputs */
+input,
+select,
+textarea {
+  font-family: var(--font-family-base);
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--green-primary);
+  box-shadow: 0 0 6px var(--green-primary);
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Scrollbar (optional) */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--beige-light);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--green-primary);
+  border-radius: 10px;
+  border: 3px solid var(--beige-light);
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+  h2 {
+    font-size: 1.4rem;
+  }
+}
+
+/* Accessibility focus */
+:focus-visible {
+  outline: 3px solid var(--red-primary);
+  outline-offset: 2px;
+  user-select: none;
+}
 
