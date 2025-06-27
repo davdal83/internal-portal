@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Papa John's Jacksonville</title>
 
   <!-- Global & Page-Specific Styles -->
@@ -10,31 +10,28 @@
   <link rel="stylesheet" href="css/index.css" />
   <link rel="stylesheet" href="css/navbar.css" />
 
-  <!-- Font setup (Papa Sans fallback) -->
+  <!-- Font setup -->
   <style>
     body {
-      font-family: 'Papa Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Papa Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        Roboto, Helvetica, Arial, sans-serif;
     }
   </style>
 </head>
 <body>
-
   <!-- PUBLIC NAVBAR -->
   <nav class="public-navbar">
     <div class="navbar-container">
-      <!-- Logo -->
       <a href="index.html" class="nav-logo">
         <img src="images/DIGITAL_USE_PJS_LOGO_STACK_RED_RGB.png" alt="Papa John's Logo" />
       </a>
 
-      <!-- Hamburger Button -->
       <button class="nav-toggle" aria-label="Toggle Menu">☰</button>
 
-      <!-- Navigation Links -->
       <ul class="nav-links">
         <li><a href="index.html" class="active">Home</a></li>
         <li><a href="login.html">Login</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#contact" id="contact-link">Contact</a></li>
       </ul>
     </div>
   </nav>
@@ -62,16 +59,16 @@
     </section>
   </main>
 
-  <!-- CONTACT SECTION -->
-  <section class="contact-section" id="contact">
+  <!-- CONTACT SECTION hidden by default -->
+  <section class="contact-section hidden" id="contact">
     <h2>Contact Us</h2>
 
-    <!-- LEADERSHIP CARDS (Empty container — JS will fill dynamically) -->
+    <!-- Leadership cards container -->
     <div class="leadership-cards">
-      <!-- Leadership cards will be injected here by contact.js -->
+      <!-- Dynamically loaded leadership cards -->
     </div>
 
-    <!-- STORE TABLE -->
+    <!-- Store table -->
     <h3>Our Stores</h3>
     <div class="store-table-wrapper">
       <table class="store-table">
@@ -83,7 +80,7 @@
           </tr>
         </thead>
         <tbody id="store-table-body">
-          <!-- Supabase store rows will be injected here -->
+          <!-- Stores loaded dynamically from Supabase -->
         </tbody>
       </table>
     </div>
