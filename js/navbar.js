@@ -1,24 +1,21 @@
-// Inject navbar HTML dynamically into pages that have <div id="navbar"></div>
-document.addEventListener("DOMContentLoaded", async () => {
-  const navContainer = document.getElementById('navbar');
-  if (!navContainer) return;
+// navbar.js
+document.addEventListener("DOMContentLoaded", () => {
+  // Example: Get user email from wherever you have it (update this line as needed)
+  const userEmail = window.userEmail || "User";
 
-  // Get current user email for welcome message
-  let email = 'Guest';
-  try {
-    const { data } = await supabaseClient.auth.getSession();
-    if (data?.session) {
-      email = data.session.user.email || 'User';
-    }
-  } catch (error) {
-    console.error('Error getting session for navbar:', error);
-  }
-
+  const navContainer = document.getElementById("navbar-container");
   navContainer.innerHTML = `
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="nav-brand">Papa John's Portal</div>
+
+      <div class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" role="button" tabindex="0">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
       <ul class="nav-links" role="menubar">
-        <li role="none"><span class="welcome-msg" role="menuitem" tabindex="0">Welcome, ${email}</span></li>
+        <li role="none"><span class="welcome-msg" role="menuitem" tabindex="0">Welcome, ${userEmail}</span></li>
         <li role="none"><a href="dashboard.html" role="menuitem" tabindex="0">Dashboard</a></li>
         <li role="none"><a href="documents.html" role="menuitem" tabindex="0">Documents & Forms</a></li>
         <li role="none"><a href="contacts.html" role="menuitem" tabindex="0">Team Directory</a></li>
@@ -27,8 +24,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     </nav>
   `;
 
-  document.getElementById('logout-btn').addEventListener('click', async () => {
-    await supabaseClient.auth.signOut();
-    window.location.href = 'login.html';
-  });
+  const navToggle = document.getElementById("nav-toggle");
+  const navLinks = document.querySelector(".nav-links");
+  const logoutBtn = document.getElementById("logout-btn");
+
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+      navToggle.classList.toggle("open");
+      const expanded = navToggle.getAttribute("aria-expanded") === "true";
+      navToggle.setAttribute("aria-expanded", String(!expanded));
+    });
+
+    navToggle.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        navToggle.click();
+      }
+    });
+  }
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      // Your logout logic here
+      console.log("Logout clicked");
+      // Example: redirect to login page
+      window.location.href = "login.html";
+    });
+  }
 });
