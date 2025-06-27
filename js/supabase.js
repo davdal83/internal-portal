@@ -7,5 +7,3 @@ const supabaseClient = supabase.createClient(
 );
 
 window.supabaseClient = supabaseClient;
-
-window.supabaseClient = supabaseClient;
