@@ -1,3 +1,5 @@
+/* navbar.css */
+
 .navbar {
   background-color: #2D5D2A; /* Papa John's dark green */
   color: white;
@@ -5,16 +7,21 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 1rem;
+  position: relative;
+  z-index: 10;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .nav-brand {
   font-size: 1.4rem;
   font-weight: bold;
   letter-spacing: 0.5px;
+  user-select: none;
 }
 
+/* Nav links container */
 .nav-links {
   list-style: none;
   display: flex;
@@ -22,11 +29,13 @@
   margin: 0;
   padding: 0;
   align-items: center;
-  flex-grow: 1;
+  user-select: none;
 }
 
+/* Links and buttons style */
 .nav-links li a,
-.nav-links li button {
+.nav-links li button,
+.nav-links li span {
   color: white;
   text-decoration: none;
   font-weight: 500;
@@ -40,14 +49,78 @@
 }
 
 .nav-links li a:hover,
-.nav-links li button:hover {
+.nav-links li button:hover,
+.nav-links li span:hover {
   opacity: 0.8;
 }
 
-.nav-welcome {
+.welcome-msg {
   font-weight: 600;
   font-size: 1rem;
-  margin-left: auto;
   user-select: none;
 }
 
+/* Hamburger toggle button */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 21px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nav-toggle span {
+  display: block;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Hamburger open state */
+.nav-toggle.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    background-color: #2D5D2A;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .nav-links.open {
+    max-height: 500px; /* large enough to show all links */
+  }
+
+  .nav-links li {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-links li a,
+  .nav-links li button,
+  .nav-links li span {
+    display: block;
+    width: 100%;
+  }
+}
