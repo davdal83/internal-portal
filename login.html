@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login – Internal Portal</title>
   <link rel="stylesheet" href="css/style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script src="js/supabase.js"></script>
 </head>
 <body>
   <div class="container">
@@ -17,22 +15,31 @@
     <p id="status"></p>
   </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js" defer></script>
-    <script src="js/supabase.js" defer></script>
-    <script defer>
-      async function login() {
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-    
+  <!-- Load Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js" defer></script>
+
+  <!-- Load your Supabase client configuration -->
+  <script src="js/supabase.js" defer></script>
+
+  <!-- Login logic -->
+  <script defer>
+    async function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
         const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
-    
+
         if (error) {
           document.getElementById("status").innerText = "Error: " + error.message;
         } else {
           window.location.href = "dashboard.html";
         }
+      } catch (err) {
+        document.getElementById("status").innerText = "Unexpected error. Check console.";
+        console.error("Login exception:", err);
       }
-    </script>
-
+    }
+  </script>
 </body>
 </html>
