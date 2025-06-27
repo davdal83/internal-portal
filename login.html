@@ -1,46 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Login</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase.js"></script>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
 </head>
 <body>
-<div>
-  <h1>Login</h1>
-  <form id="login-form">
-    <input type="email" id="email" required placeholder="Email" />
-    <input type="password" id="password" required placeholder="Password" />
-    <button type="submit">Login</button>
-    <div id="login-message"></div>
-  </form>
-</div>
+  <div>
+    <h1>Login</h1>
+    <form id="login-form">
+      <input type="email" id="email" required placeholder="Email" />
+      <input type="password" id="password" required placeholder="Password" />
+      <button type="submit">Login</button>
+      <div id="login-message"></div>
+    </form>
+  </div>
 
-<script>
-  // Check if user already logged in and redirect to dashboard
-  async function checkAuth() {
-    const { data } = await supabaseClient.auth.getSession();
-    if (data.session) {
-      window.location.href = 'dashboard.html';
+  <script>
+    async function checkAuth() {
+      try {
+        const { data } = await supabaseClient.auth.getSession();
+        if (data?.session) {
+          // User is logged in, redirect once
+          window.location.href = 'dashboard.html';
+        }
+      } catch (error) {
+        console.error("Error checking auth session", error);
+      }
     }
-  }
-  checkAuth();
 
-  // Handle login form submit
-  const form = document.getElementById('login-form');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    // Run checkAuth on page load
+    checkAuth();
 
-    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-    if (error) {
-      document.getElementById('login-message').innerText = error.message;
-    } else {
-      window.location.href = 'dashboard.html';
-    }
-  });
-</script>
+    const form = document.getElementById('login-form');
+    const messageDiv = document.getElementById('login-message');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      messageDiv.textContent = '';
+
+      try {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+        if (error) {
+          messageDiv.textContent = `Login failed: ${error.message}`;
+          return;
+        }
+
+        if (data?.session) {
+          // Redirect after successful login
+          window.location.href = 'dashboard.html';
+        }
+      } catch (err) {
+        messageDiv.textContent = `Error: ${err.message}`;
+      }
+    });
+  </script>
 </body>
 </html>
