@@ -1,0 +1,161 @@
+/* login.css - styled for Papa John's Jacksonville login */
+
+/* Use your global colors */
+:root {
+  --green-dark: #2D5D2A;
+  --green-mid: #65A17A;
+  --red-primary: #FF0000;
+  --beige-light: #F5E8DC;
+  --white: #FFFFFF;
+  --black: #000000;
+}
+
+/* Reset body and html for full height */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  background: var(--beige-light);
+  color: var(--green-dark);
+}
+
+/* Container splits screen into 2 columns */
+.login-container {
+  display: flex;
+  min-height: 100vh;
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+/* Left side: logo and welcome text */
+.login-logo-side {
+  background: var(--green-dark);
+  color: var(--white);
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.login-logo {
+  max-width: 220px;
+  margin-bottom: 2rem;
+}
+
+.login-logo-side h1 {
+  font-size: 2.8rem;
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+}
+
+.login-logo-side p {
+  font-size: 1.25rem;
+  font-weight: 400;
+  opacity: 0.85;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* Right side: login form */
+.login-form-side {
+  flex: 1;
+  background: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 2rem;
+}
+
+#login-form {
+  width: 100%;
+  max-width: 380px;
+}
+
+/* Form Labels */
+#login-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--green-dark);
+}
+
+/* Inputs */
+#login-form input[type="email"],
+#login-form input[type="password"] {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.5rem;
+  border: 1.8px solid var(--green-mid);
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+#login-form input[type="email"]:focus,
+#login-form input[type="password"]:focus {
+  border-color: var(--red-primary);
+  outline: none;
+}
+
+/* Submit button */
+#login-form button.btn-primary {
+  width: 100%;
+  padding: 1rem;
+  background: var(--red-primary);
+  color: var(--white);
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#login-form button.btn-primary:hover {
+  background: var(--green-mid);
+}
+
+/* Error message */
+.error-msg {
+  color: var(--red-primary);
+  font-weight: 600;
+  margin-top: 1rem;
+  display: none;
+}
+
+.error-msg.visible {
+  display: block;
+}
+
+/* Forgot password link */
+.forgot-link {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.forgot-link a {
+  color: var(--green-dark);
+  text-decoration: underline;
+}
+
+.forgot-link a:hover {
+  color: var(--red-primary);
+}
+
+/* Responsive for smaller devices */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+  }
+  .login-logo-side {
+    flex: none;
+    padding: 2rem 1rem;
+  }
+  .login-form-side {
+    padding: 2rem 1rem;
+  }
+}
