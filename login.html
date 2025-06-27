@@ -11,102 +11,10 @@
   <!-- Supabase scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
-
-  <style>
-    /* Full page background with subtle gradient */
-    body {
-      height: 100vh;
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #f0f4f8;
-    }
-
-    /* The login card */
-    .login-container {
-      background: #fff;
-      color: #222;
-      padding: 2.5rem 3rem;
-      border-radius: 12px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-      width: 350px;
-      max-width: 90vw;
-      text-align: center;
-    }
-
-    .login-container h1 {
-      margin-bottom: 1.8rem;
-      font-weight: 700;
-      color: #004d99;
-      letter-spacing: 1px;
-    }
-
-    /* Form labels and inputs */
-    label {
-      display: block;
-      margin: 1rem 0 0.3rem 0;
-      font-weight: 600;
-      text-align: left;
-    }
-
-    input[type="email"],
-    input[type="password"] {
-      width: 100%;
-      padding: 0.7rem 0.9rem;
-      font-size: 1rem;
-      border-radius: 6px;
-      border: 1.5px solid #ccc;
-      transition: border-color 0.3s ease;
-      box-sizing: border-box;
-      font-family: inherit;
-    }
-
-    input[type="email"]:focus,
-    input[type="password"]:focus {
-      outline: none;
-      border-color: #004d99;
-      box-shadow: 0 0 6px #004d99aa;
-    }
-
-    /* Submit button */
-    button {
-      margin-top: 2rem;
-      width: 100%;
-      background-color: #004d99;
-      color: white;
-      font-weight: 700;
-      font-size: 1.1rem;
-      padding: 0.75rem 0;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    button:hover,
-    button:focus {
-      background-color: #003366;
-      box-shadow: 0 0 10px #003366cc;
-      outline: none;
-    }
-
-    /* Login message (error) */
-    #login-message {
-      margin-top: 1rem;
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: #d9534f; /* red error */
-      min-height: 1.4em;
-      user-select: none;
-    }
-  </style>
 </head>
-<body>
+<body class="login-page">
   <div class="login-container" role="main" aria-label="Login form">
-    <h1>Internal Portal Login</h1>
+    <h1>Internal Portal Login 1</h1>
     <form id="login-form" novalidate>
       <label for="email">Email</label>
       <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="username" />
