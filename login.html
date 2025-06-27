@@ -13,6 +13,9 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js" defer></script>
 
+  <script src="js/forgot-password.js"></script>
+
+
   <!-- Login logic -->
   <script>
     async function smartAutoLogin() {
@@ -54,10 +57,10 @@
             <input type="checkbox" id="remember-me" />
             Remember Me
           </label>
-          <a href="#" id="forgot-password">Forgot Password?</a>
         </div>
       
         <button type="submit">Log In</button>
+        <a href="#" id="forgot-password">Forgot Password?</a>
         <div id="login-message"></div>
       </form>
 
