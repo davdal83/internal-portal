@@ -1,75 +1,84 @@
-/* css/navbar.css */
+/* ============================
+   Public Navbar Styles
+   ============================ */
 
-.navbar {
-  background-color: #2D5D2A;
-  color: white;
-  padding: 0.75rem 1.25rem;
+/* Navbar wrapper */
+.public-navbar {
+  background-color: var(--green);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Flex layout for navbar content */
+.navbar-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.nav-brand {
-  font-size: 1.4rem;
-  font-weight: bold;
+/* Logo image link */
+.nav-logo img {
+  height: 40px;
 }
 
+/* Nav link list */
 .nav-links {
   list-style: none;
   display: flex;
   gap: 1.5rem;
-  align-items: center;
-  margin: 0;
-  padding: 0;
 }
 
-.nav-links li a,
-.nav-links li button,
-.welcome-msg {
-  color: white;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
+/* Nav link items */
+.nav-links a {
+  color: var(--white);
   text-decoration: none;
-  transition: opacity 0.2s ease;
+  font-weight: 600;
+  transition: color 0.3s ease;
 }
 
-.nav-links li a:hover,
-.nav-links li button:hover {
-  opacity: 0.8;
+/* Active link style */
+.nav-links a.active,
+.nav-links a:hover {
+  color: var(--mint);
 }
 
-.hamburger {
+/* Mobile hamburger button */
+.nav-toggle {
   display: none;
   background: none;
-  color: white;
-  font-size: 1.6rem;
   border: none;
-  cursor: pointer;
+  font-size: 1.8rem;
+  color: var(--white);
 }
 
-/* Responsive menu */
+/* Responsive: show hamburger, hide links on small screens */
 @media (max-width: 768px) {
-  .hamburger {
+  .nav-toggle {
     display: block;
   }
 
   .nav-links {
     display: none;
     flex-direction: column;
+    background-color: var(--green);
+    position: absolute;
+    top: 100%;
+    left: 0;
     width: 100%;
-    padding-top: 0.75rem;
+    padding: 1rem 0;
   }
 
-  .nav-links.active {
+  .nav-links.open {
     display: flex;
   }
 
   .nav-links li {
-    margin-bottom: 0.5rem;
+    text-align: center;
+    margin: 0.5rem 0;
   }
 }
