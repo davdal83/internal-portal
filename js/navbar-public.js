@@ -1,11 +1,13 @@
-<script>
-  // Toggle mobile nav menu
-  document.addEventListener('DOMContentLoaded', () => {
-    const toggleBtn = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
+// js/navbar-public.js
 
-    toggleBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
+// Simple mobile menu toggle for navbar
+document.addEventListener('DOMContentLoaded', () => {
+  const toggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  if (toggle && navLinks) {
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
     });
-  });
-</script>
+  }
+});
