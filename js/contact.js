@@ -1,14 +1,11 @@
 // js/contact.js
-// Fetches both leadership cards and store table from Supabase
 
-// Supabase setup
 const SUPABASE_URL = 'https://oxvnggohpjpuucsfwvmz.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im94dmduZ29ocGpwdXVjc2Z3dm16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5NzkyNDgsImV4cCI6MjA2NjU1NTI0OH0.lTD9lI2wUWSxTVBPY4wcdo81O1S87M-ZNqYasAezKQ8';
+const SUPABASE_ANON_KEY =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im94dmduZ29ocGpwdXVjc2Z3dm16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5NzkyNDgsImV4cCI6MjA2NjU1NTI0OH0.lTD9lI2wUWSxTVBPY4wcdo81O1S87M-ZNqYasAezKQ8';
 
-// Initialize Supabase client
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Load leadership cards from Supabase
 async function loadLeadership() {
   const { data, error } = await supabase
     .from('leadership')
@@ -23,9 +20,9 @@ async function loadLeadership() {
   const container = document.querySelector('.leadership-cards');
   if (!container) return;
 
-  container.innerHTML = ''; // Clear existing cards
+  container.innerHTML = '';
 
-  data.forEach(person => {
+  data.forEach((person) => {
     const card = document.createElement('div');
     card.classList.add('contact-card');
 
@@ -41,7 +38,6 @@ async function loadLeadership() {
   });
 }
 
-// Load store table from Supabase
 async function loadStores() {
   const { data, error } = await supabase
     .from('stores')
@@ -56,4 +52,43 @@ async function loadStores() {
   const tableBody = document.getElementById('store-table-body');
   if (!tableBody) return;
 
-  data.forEach(sto
+  tableBody.innerHTML = '';
+
+  data.forEach((store) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${store.store_number}</td>
+      <td>${store.store_name}</td>
+      <td>${store.store_address}</td>
+    `;
+    tableBody.appendChild(row);
+  });
+}
+
+function showContactSection() {
+  const contactSection = document.getElementById('contact');
+  if (!contactSection) return;
+
+  contactSection.classList.remove('hidden');
+
+  if (!contactSection.dataset.loaded) {
+    loadLeadership();
+    loadStores();
+    contactSection.dataset.loaded = 'true';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const contactLink = document.getElementById('contact-link');
+  if (contactLink) {
+    contactLink.addEventListener('click', (event) => {
+      event.preventDefault();
+      showContactSection();
+
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+
+      document.querySelectorAll('.nav-links a').forEach((link) => link.classList.remove('active'));
+      contactLink.classList.add('active');
+    });
+  }
+});
