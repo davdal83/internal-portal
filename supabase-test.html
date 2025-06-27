@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Supabase SDK Load Test</title>
+</head>
+<body>
+  <h1>Supabase SDK Load Test</h1>
+  <p id="status">Waiting...</p>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    console.log("Supabase object:", typeof supabase);
+    document.getElementById("status").textContent = typeof supabase !== "undefined" ? "Supabase loaded" : "Supabase NOT loaded";
+  </script>
+</body>
+</html>
