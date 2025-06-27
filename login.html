@@ -2,81 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login – Internal Portal</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <title>Login</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h2>Login to Internal Portal</h2>
-
-    <form id="login-form" onsubmit="event.preventDefault(); login();">
-      <input
-        type="email"
-        id="email"
-        placeholder="Email"
-        required
-        autocomplete="username"
-      />
-      <input
-        type="password"
-        id="password"
-        placeholder="Password"
-        required
-        autocomplete="current-password"
-      />
-      <button type="submit">Login</button>
-    </form>
-
-    <p id="message"></p>
-  </div>
-
-  <!-- Supabase SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <!-- Your Supabase client -->
-  <script src="js/supabase.js"></script>
+  <h1>Login</h1>
+  <form id="login-form">
+    <input type="email" id="email" placeholder="Email" required />
+    <br />
+    <input type="password" id="password" placeholder="Password" required />
+    <br />
+    <button type="submit">Login</button>
+  </form>
 
   <script>
-    async function login() {
+    const form = document.getElementById("login-form");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
 
-      if (!email || !password) {
-        showMessage("Please enter email and password.", "error");
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        alert("Login failed: " + error.message);
         return;
       }
 
-      showMessage("Logging in…", "info");
-
-      try {
-        const { data, error } = await window.supabaseClient.auth.signInWithPassword({
-          email,
-          password,
-        });
-
-        if (error) {
-          showMessage("Login failed: " + error.message, "error");
-          return;
-        }
-
-        if (data.session) {
-          showMessage("Login successful! Redirecting…", "success");
-          setTimeout(() => {
-            window.location.href = "dashboard.html";
-          }, 1000);
-        } else {
-          showMessage("Login failed: No session returned.", "error");
-        }
-      } catch (err) {
-        showMessage("Unexpected error: " + err.message, "error");
-      }
-    }
-
-    function showMessage(msg, type = "info") {
-      const msgEl = document.getElementById("message");
-      msgEl.textContent = msg;
-      msgEl.style.color = type === "error" ? "red" : type === "success" ? "green" : "black";
-    }
+      // Redirect only after successful login
+      window.location.href = "dashboard.html";
+    });
   </script>
 </body>
 </html>
