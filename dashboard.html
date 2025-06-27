@@ -1,1 +1,40 @@
-<h1>dashboard</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard - Papa John’s Jacksonville</title>
+
+  <!-- Font fallback -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+  <header>
+    <h1>Papa John’s Jacksonville</h1>
+    <nav>
+      <a href="dashboard.html" class="active">Dashboard</a>
+      <a href="stores.html">Stores</a>
+      <a href="leadership.html">Leadership Team</a>
+      <a href="docs.html">Documents &amp; Forms</a>
+      <a href="#" id="logout-link">Logout</a>
+    </nav>
+  </header>
+
+  <main>
+    <p class="welcome" id="welcome-msg">Welcome, user@example.com</p>
+
+    <div class="placeholder">
+      <p>Dashboard content coming soon.</p>
+    </div>
+  </main>
+
+  <!-- Supabase & Logic -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
