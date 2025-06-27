@@ -2,42 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Login - Internal Portal</title>
+  <title>Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
-  <!-- Link external CSS -->
   <link rel="stylesheet" href="css/style.css" />
 
-  <!-- Supabase client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
 </head>
 <body class="login-page">
-  <div class="login-container" role="main" aria-label="Login form">
+  <div class="login-container">
     <h1>Internal Portal Login</h1>
-    <form id="login-form" novalidate>
+    <form id="login-form">
       <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="you@example.com"
-        required
-        autocomplete="username"
-      />
+      <input type="email" id="email" placeholder="you@example.com" required autocomplete="username" />
 
       <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        placeholder="Your password"
-        required
-        autocomplete="current-password"
-      />
+      <input type="password" id="password" placeholder="Your password" required autocomplete="current-password" />
 
       <button type="submit">Log In</button>
-      <div id="login-message" role="alert" aria-live="polite"></div>
+      <div id="login-message"></div>
     </form>
   </div>
 
@@ -52,6 +36,7 @@
         console.error("Error checking auth session", error);
       }
     }
+
     checkAuth();
 
     const form = document.getElementById('login-form');
