@@ -1,24 +1,39 @@
+// forgot-password.js
+
 document.addEventListener("DOMContentLoaded", () => {
-  const forgotLink = document.getElementById("forgot-password");
-  const emailInput = document.getElementById("email");
+  const forgotLink = document.getElementById("forgot-link");
+  const modal = document.getElementById("forgot-password-modal");
+  const closeModal = document.getElementById("close-modal");
+  const sendReset = document.getElementById("send-reset-link");
+  const resetMessage = document.getElementById("reset-message");
+  const emailInput = document.getElementById("forgot-email");
 
-  forgotLink.addEventListener("click", async (e) => {
+  forgotLink.addEventListener("click", (e) => {
     e.preventDefault();
+    modal.style.display = "flex";
+    resetMessage.textContent = "";
+    emailInput.value = "";
+  });
 
+  closeModal.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  sendReset.addEventListener("click", async () => {
     const email = emailInput.value.trim();
     if (!email) {
-      alert("Please enter your email to receive a reset link.");
+      resetMessage.textContent = "Please enter your email address.";
       return;
     }
 
-    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-      redirectTo: "https://yourdomain.com/reset.html" // Replace with your real reset handler URL
+    const { data, error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password.html`, // or your real redirect URL
     });
 
     if (error) {
-      alert("Reset failed: " + error.message);
+      resetMessage.textContent = `Error: ${error.message}`;
     } else {
-      alert("Password reset link sent! Check your inbox.");
+      resetMessage.textContent = "Check your email for a reset link.";
     }
   });
 });
