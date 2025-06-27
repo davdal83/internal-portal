@@ -1,36 +1,39 @@
 // js/navbar.js
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const { data: { session } } = await supabaseClient.auth.getSession();
-  const email = session?.user?.email || "User";
+document.addEventListener('DOMContentLoaded', () => {
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  const contactLink = document.getElementById('contact-link');
+  const contactSection = document.getElementById('contact');
 
-  const navContainer = document.getElementById("nav-container");
-  if (!navContainer) return;
-
-  navContainer.innerHTML = `
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="nav-brand">Papa John's Portal</div>
-      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navbar-menu">
-        ☰
-      </button>
-      <ul class="nav-links" id="navbar-menu" role="menubar">
-        <li role="none"><span class="welcome-msg" role="menuitem" tabindex="0">Welcome, ${email}</span></li>
-        <li role="none"><a href="dashboard.html" role="menuitem">Dashboard</a></li>
-        <li role="none"><a href="documents.html" role="menuitem">Documents & Forms</a></li>
-        <li role="none"><a href="contacts.html" role="menuitem">Team Directory</a></li>
-        <li role="none"><button id="logout-btn" role="menuitem">Logout</button></li>
-      </ul>
-    </nav>
-  `;
-
-  document.querySelector(".hamburger").addEventListener("click", () => {
-    const menu = document.getElementById("navbar-menu");
-    const expanded = menu.classList.toggle("active");
-    menu.setAttribute("aria-expanded", expanded);
+  // Toggle hamburger menu on small screens
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
   });
 
-  document.getElementById("logout-btn")?.addEventListener("click", async () => {
-    await supabaseClient.auth.signOut();
-    window.location.href = "login.html";
+  // Show contact section and scroll into view when Contact clicked
+  contactLink.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    // Close menu if open (mobile)
+    if (navLinks.classList.contains('open')) {
+      navLinks.classList.remove('open');
+    }
+
+    if (contactSection.classList.contains('hidden')) {
+      contactSection.classList.remove('hidden');
+    }
+
+    contactSection.scrollIntoView({ behavior: 'smooth' });
+
+    // Set active link styling
+    document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+    contactLink.classList.add('active');
   });
+
+  // Optional: Set Home active by default or based on current URL
+  const homeLink = document.querySelector('.nav-links a[href="index.html"]');
+  if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/' ) {
+    homeLink.classList.add('active');
+  }
 });
