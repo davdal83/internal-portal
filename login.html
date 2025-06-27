@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <title>Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/login.css" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
 </head>
@@ -23,47 +23,33 @@
   </div>
 
   <script>
-    console.log("Checking session...");
-checkAuth();
-    // Redirect if already logged in
     async function checkAuth() {
-      try {
-        const { data, error } = await supabaseClient.auth.getSession();
-        if (error) throw error;
-        if (data?.session) {
-          window.location.href = 'dashboard.html';
-        }
-      } catch (err) {
-        console.error('Auth check error:', err);
+      const { data, error } = await supabaseClient.auth.getSession();
+      if (data?.session) {
+        window.location.href = "dashboard.html";
       }
     }
 
     checkAuth();
 
-    // Handle form login
-    const form = document.getElementById('login-form');
-    const messageDiv = document.getElementById('login-message');
+    const form = document.getElementById("login-form");
+    const messageDiv = document.getElementById("login-message");
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      messageDiv.textContent = "";
 
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-      messageDiv.textContent = '';
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
-      try {
-        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (error) {
+        messageDiv.textContent = `Login failed: ${error.message}`;
+        return;
+      }
 
-        if (error) {
-          messageDiv.textContent = `Login failed: ${error.message}`;
-          return;
-        }
-
-        if (data?.session) {
-          window.location.href = 'dashboard.html';
-        }
-      } catch (err) {
-        messageDiv.textContent = `Error: ${err.message}`;
+      if (data?.session) {
+        window.location.href = "dashboard.html";
       }
     });
   </script>
