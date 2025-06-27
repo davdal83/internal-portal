@@ -1,5 +1,6 @@
 // js/dashboard.js
 
+// Check if user is logged in, if not redirect to login page
 async function checkSession() {
   try {
     const { data } = await supabaseClient.auth.getSession();
@@ -7,56 +8,54 @@ async function checkSession() {
       window.location.href = "login.html";
       return;
     }
-    document.getElementById("user-email").innerText = data.session.user.email;
-    document.getElementById("stores-section").style.display = "block";
 
+    // Show logged-in user email
+    document.getElementById("user-email").textContent = data.session.user.email;
+
+    // Load stores after confirming user is logged in
     await loadStores();
+
+    // Show the stores section now that data is ready
+    document.getElementById("stores-section").style.display = "block";
   } catch (error) {
     console.error("Error checking session:", error);
     window.location.href = "login.html";
   }
 }
 
+// Fetch stores from Supabase and render table rows
 async function loadStores() {
-  const { data: stores, error } = await supabaseClient.from("stores").select("*");
+  const { data: stores, error } = await supabaseClient.from("stores").select("store_name, store_number, general_manager");
 
-  const tbody = document.querySelector("#stores-table tbody");
   if (error) {
-    tbody.innerHTML = `<tr><td colspan="3">Error loading stores.</td></tr>`;
-    console.error("Load stores error:", error);
+    console.error("Error loading stores:", error);
     return;
   }
 
+  const tbody = document.querySelector("#stores-table tbody");
   tbody.innerHTML = "";
 
-  stores.forEach(store => {
+  stores.forEach((store) => {
     const tr = document.createElement("tr");
-
-    const nameCell = document.createElement("td");
-    const link = document.createElement("a");
-    link.href = `store.html?storeId=${store.id}`;
-    link.textContent = store.store_name;
-    nameCell.appendChild(link);
-    tr.appendChild(nameCell);
-
-    const numberCell = document.createElement("td");
-    numberCell.textContent = store.store_number;
-    tr.appendChild(numberCell);
-
-    const gmCell = document.createElement("td");
-    gmCell.textContent = store.general_manager;
-    tr.appendChild(gmCell);
-
+    // Clicking a store row could take user to a separate page (store.html?store=number)
+    tr.innerHTML = `
+      <td><a href="store.html?store=${store.store_number}">${store.store_name}</a></td>
+      <td>${store.store_number}</td>
+      <td>${store.general_manager || "N/A"}</td>
+    `;
     tbody.appendChild(tr);
   });
 }
 
+// Logout function
 function logout() {
   supabaseClient.auth.signOut().then(() => {
     window.location.href = "login.html";
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  checkSession();
-});
+// Expose logout to global scope so inline onclick works
+window.logout = logout;
+
+// Run session check when page loads
+checkSession();
