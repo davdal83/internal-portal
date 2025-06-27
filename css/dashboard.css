@@ -83,7 +83,7 @@ main {
   border-radius: 8px;
   text-align: center;
   max-width: 600px;
-  margin: 10rem auto 0 auto; /* ← added top spacing */
+  margin: 4rem auto 0 auto; /* ← added top spacing */
 }
 header {
   display: flex;
