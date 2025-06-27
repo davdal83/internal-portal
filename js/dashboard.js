@@ -1,3 +1,18 @@
+// Lightbox open
+function openLightbox(src) {
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  lightboxImg.src = src;
+  lightbox.style.display = "flex";
+}
+
+// Lightbox close
+function closeLightbox(event) {
+  if (event) event.stopPropagation();
+  const lightbox = document.getElementById("lightbox");
+  lightbox.style.display = "none";
+}
+
 // Format phone number
 function formatPhoneNumber(phoneNum) {
   if (!phoneNum) return "N/A";
