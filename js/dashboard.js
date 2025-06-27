@@ -57,7 +57,6 @@ function logout() {
   });
 }
 
-// Run checkSession after script loads
-(async () => {
-  await checkSession();
-})();
+document.addEventListener("DOMContentLoaded", () => {
+  checkSession();
+});
