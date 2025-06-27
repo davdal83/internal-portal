@@ -3,84 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Papa John's Jacksonville</title>
+  <title>Papa John’s Jacksonville</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/index.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <header class="hero">
-    <nav class="navbar">
-      <div class="logo">Papa John's <span>Jacksonville</span></div>
-      <button class="nav-toggle" aria-label="Toggle navigation">
-        <span class="hamburger"></span>
-      </button>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#locations">Locations</a></li>
-        <li><a href="#promos">Promos</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-    <div class="hero-content">
-      <h1>Better Ingredients. Better Pizza.</h1>
-      <p>Welcome to Papa John's Jacksonville – proudly serving Northeast Florida with quality you can taste.</p>
-      <a href="#promos" class="btn-primary">View Current Deals</a>
-    </div>
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <a href="#" class="logo" aria-label="Papa John’s Jacksonville">Papa John’s <span>Jacksonville</span></a>
+    <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-navigation">
+      <span class="hamburger"></span>
+    </button>
+    <ul class="nav-links" id="primary-navigation">
+      <li><a href="#" class="active" aria-current="page">Home</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <!-- Add other nav links as needed -->
+    </ul>
+  </nav>
+
+  <header>
+    <h1>Welcome to Papa John’s Jacksonville</h1>
+    <p>Delicious pizza, fresh ingredients, and fast delivery — your local Papa John’s at its best.</p>
   </header>
 
-  <section id="about" class="section about">
-    <div class="container">
-      <h2>About Us</h2>
-      <p>
-        Papa John's Jacksonville is a family of locally owned stores committed to delivering high-quality pizza, exceptional service,
-        and community support. From neighborhood events to late-night cravings – we’ve got you covered.
-      </p>
-    </div>
-  </section>
-
-  <section id="locations" class="section locations">
-    <div class="container">
-      <h2>Our Locations</h2>
-      <p>Find a Papa John’s near you across the greater Jacksonville area.</p>
-      <div class="map-placeholder">Google Map Integration Coming Soon</div>
-    </div>
-  </section>
-
-  <section id="promos" class="section promos">
-    <div class="container">
-      <h2>Current Promotions</h2>
-      <div class="promo-grid">
-        <div class="promo-card">
-          <h3>Large 1-Topping Pizza</h3>
-          <p>Only $7.99 – Order Online</p>
-        </div>
-        <div class="promo-card">
-          <h3>Family Combo Deal</h3>
-          <p>2 Large Pizzas + Breadsticks + 2-Liter for $21.99</p>
+  <main>
+    <section id="promos" class="section promos">
+      <div class="container">
+        <h2>Current Promotions</h2>
+        <div id="promo-grid" class="promo-grid">
+          <!-- Deals load here dynamically -->
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="contact" class="section contact">
-    <div class="container">
-      <h2>Contact Us</h2>
-      <p>Email: <a href="mailto:info@papajohnsjax.com">info@papajohnsjax.com</a></p>
-      <p>Phone: (904) 555-7272</p>
-      <p>Follow us on social:
-        <a href="#">Facebook</a> |
-        <a href="#">Instagram</a>
+    <section class="about section container">
+      <h2>About Us</h2>
+      <p>
+        Papa John’s Jacksonville is proud to serve our community with the freshest ingredients and best pizza experience. From classic favorites to exciting new deals, we’re your go-to spot for pizza perfection.
       </p>
-    </div>
-  </section>
+    </section>
 
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2025 Papa John's Jacksonville. All rights reserved.</p>
-    </div>
+    <section class="locations section container">
+      <h2>Our Locations</h2>
+      <p>Find us all over Jacksonville for pickup, delivery, and dine-in.</p>
+      <div class="map-placeholder">
+        Map coming soon!
+      </div>
+    </section>
+
+    <section class="contact section container">
+      <h2>Contact Us</h2>
+      <p>Email us at <a href="mailto:contact@papajohnsjacksonville.com">contact@papajohnsjacksonville.com</a> or call (904) 555-1234</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Papa John’s Jacksonville. All rights reserved.</p>
+    <p>
+      <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+    </p>
   </footer>
 
-  <script src="js/index.js"></script>
+  <script type="module" src="js/index.js"></script>
 </body>
 </html>
