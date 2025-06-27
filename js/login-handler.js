@@ -1,4 +1,4 @@
-// login-handler.js
+// js/login-handler.js
 
 document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('login-form');
@@ -10,10 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const email = loginForm.email.value.trim();
     const password = loginForm.password.value.trim();
 
-    // Hide previous error
     loginError.classList.remove('visible');
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
       email,
       password,
     });
@@ -22,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('Login failed:', error.message);
       loginError.classList.add('visible');
     } else {
-      // Redirect on success
       window.location.href = 'dashboard.html';
     }
   });
