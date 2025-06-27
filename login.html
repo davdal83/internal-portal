@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Team Login | Papa John’s Jacksonville</title>
+
+  <!-- Global and page-specific styles -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/login.css" />
+
+  <!-- Papa Sans font (Google Fonts equivalent or load locally if needed) -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body class="login-body">
+
+  <div class="login-container">
+    <div class="login-logo-side">
+      <img src="images/DIGITAL_USE_PJS_LOGO_STACK_RED_RGB.png" alt="Papa John's Logo" class="login-logo" />
+      <h1>Welcome Back</h1>
+      <p>Sign in to access your dashboard</p>
+    </div>
+
+    <div class="login-form-side">
+      <form id="login-form">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" required placeholder="you@example.com" />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" required placeholder="Your password" />
+
+        <button type="submit" class="btn btn-primary">Login</button>
+
+        <p id="login-error" class="error-msg hidden">Invalid email or password. Please try again.</p>
+        <p class="forgot-link">
+          <a href="forgot-password.html">Forgot your password?</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Supabase client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/login-handler.js"></script>
+</body>
+</html>
