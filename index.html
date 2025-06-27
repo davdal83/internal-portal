@@ -88,8 +88,12 @@
   </footer>
 
   <!-- Load scripts at end for faster page load -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script src="js/navbar-public.js"></script>
-  <script src="js/contact.js"></script>
+<!-- Load Supabase library first with defer -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js" defer></script>
+
+<!-- Your custom scripts, also with defer -->
+<script src="js/navbar-public.js" defer></script>
+<script src="js/contact.js" defer></script>
+
 </body>
 </html>
