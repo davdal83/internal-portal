@@ -4,10 +4,52 @@
   <meta charset="UTF-8" />
   <title>Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-<!--  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/login.css" /> -->
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/login.css" />
+
+  <!-- Supabase library & config -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase.js"></script>
+  <script src="js/supabase.js" defer></script>
+  
+  <!-- Login script -->
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("login-form");
+      const messageDiv = document.getElementById("login-message");
+
+      // Check if user is already logged in
+      supabaseClient.auth.getSession().then(({ data, error }) => {
+        if (error) {
+          console.error("Session error:", error.message);
+          return;
+        }
+        if (data?.session) {
+          window.location.href = "dashboard.html";
+        }
+      });
+
+      // Handle login form submission
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        messageDiv.textContent = "";
+
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+        if (error) {
+          messageDiv.textContent = `Login failed: ${error.message}`;
+          return;
+        }
+
+        if (data?.session) {
+          window.location.href = "dashboard.html";
+        }
+      });
+    });
+  </script>
 </head>
 <body class="login-page">
   <div class="login-container">
@@ -21,45 +63,5 @@
       <div id="login-message"></div>
     </form>
   </div>
-
-    <!-- Load Supabase library -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <!-- Load your supabaseClient config -->
-    <script src="js/supabase.js"></script>
-    
-    <!-- Your login logic must come after -->
-    <script>
-      async function checkAuth() {
-        const { data, error } = await supabaseClient.auth.getSession();
-        if (data?.session) {
-          window.location.href = "dashboard.html";
-        }
-      }
-    
-      checkAuth();
-    
-      const form = document.getElementById("login-form");
-      const messageDiv = document.getElementById("login-message");
-    
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value;
-        messageDiv.textContent = "";
-    
-        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-    
-        if (error) {
-          messageDiv.textContent = `Login failed: ${error.message}`;
-          return;
-        }
-    
-        if (data?.session) {
-          window.location.href = "dashboard.html";
-        }
-      });
-    </script>
-
 </body>
 </html>
