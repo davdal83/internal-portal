@@ -1,0 +1,114 @@
+/* login.css */
+
+body {
+  background-color: #F5E8DC; /* light beige */
+  color: #2D5C2A; /* main green */
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 1rem;
+}
+
+.login-container {
+  background-color: #FFFFFF;
+  padding: 2.5rem 3rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.login-container h1 {
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #2D5C2A;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  text-align: left;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+input[type="email"],
+input[type="password"] {
+  padding: 0.6rem 0.9rem;
+  border: 2px solid #2D5C2A;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline-offset: 2px;
+  transition: border-color 0.3s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #65A17A;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #2D5C2A;
+}
+
+button[type="submit"] {
+  background-color: #2D5C2A;
+  color: #FFFFFF;
+  font-weight: 700;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover,
+button[type="submit"]:focus {
+  background-color: #65A17A;
+  outline: none;
+}
+
+.login-links {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: #2D5C2A;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font-size: 0.95rem;
+  transition: color 0.25s ease;
+}
+
+.link-button:hover,
+.link-button:focus {
+  color: #65A17A;
+  outline: none;
+}
+
+#message {
+  margin-top: 1.25rem;
+  font-weight: 600;
+  min-height: 1.2em;
+}
