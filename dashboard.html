@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard - Papa John’s Jacksonville</title>
 
-  <!-- Font fallback -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
 
-  <!-- CSS -->
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/dashboard.css" />
 </head>
@@ -25,14 +25,26 @@
   </header>
 
   <main>
-    <p class="welcome" id="welcome-msg">Welcome, user@example.com</p>
+    <section class="welcome-section">
+      <h2 id="welcome-msg">Welcome!</h2>
+      <p>We’re glad to have you here. Use this portal to access everything you need to run a great shift, stay updated, and lead your team.</p>
+    </section>
+
+    <section id="admin-panel" class="admin-section" style="display: none;">
+      <h3>Admin Tools</h3>
+      <ul>
+        <li><a href="#">User Management</a></li>
+        <li><a href="#">Data Reports</a></li>
+        <li><a href="#">System Settings</a></li>
+      </ul>
+    </section>
 
     <div class="placeholder">
-      <p>Dashboard content coming soon.</p>
+      <p>More features coming soon!</p>
     </div>
   </main>
 
-  <!-- Supabase & Logic -->
+  <!-- Supabase Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="js/supabase.js"></script>
   <script src="js/dashboard.js"></script>
