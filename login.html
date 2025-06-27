@@ -5,17 +5,9 @@
   <title>Login - Internal Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
-<!-- Include supabase and your config file -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase.js"></script>
-
-<script>
-  // Use supabaseClient directly here
-  document.getElementById('login-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    // your login logic using supabaseClient
-  });
-</script>
+  <!-- Include supabase library and your config -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
 
   <!-- Styles -->
   <style>
@@ -99,11 +91,6 @@
   </div>
 
   <script>
-    const supabaseClient = supabase.createClient(
-      'https://oxvgngohpjpuucsfwvmz.supabase.co', // your supabase URL
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im94dmduZ29ocGpwdXVjc2Z3dm16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5NzkyNDgsImV4cCI6MjA2NjU1NTI0OH0.lTD9lI2wUWSxTVBPY4wcdo81O1S87M-ZNqYasAezKQ8' // your anon key
-    );
-
     const form = document.getElementById('login-form');
     const messageDiv = document.getElementById('login-message');
 
