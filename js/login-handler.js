@@ -1,25 +1,24 @@
-// js/login-handler.js
-
 document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('login-form');
-  const loginError = document.getElementById('login-error');
 
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const email = loginForm.email.value.trim();
-    const password = loginForm.password.value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
 
-    loginError.classList.remove('visible');
+    if (!supabase) {
+      alert('Supabase client not initialized.');
+      return;
+    }
 
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
-      password,
+      password
     });
 
     if (error) {
-      console.error('Login failed:', error.message);
-      loginError.classList.add('visible');
+      alert('Login failed: ' + error.message);
     } else {
       window.location.href = 'dashboard.html';
     }
