@@ -44,17 +44,19 @@ nav.navbar {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #000000;
+  background: linear-gradient(135deg, #2D5C2A, #65A17A);
   display: flex;
   align-items: center;
-  padding: 0 1rem;
+  justify-content: space-between;
+  padding: 1.25rem 2rem;
   z-index: 9999;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  color: #fff;
 }
 
 /* Add padding top to body or main content to avoid overlap */
 body {
-  padding-top: 60px; /* adjust based on navbar height */
+  padding-top: 80px; /* adjust based on navbar height */
 }
 
 
