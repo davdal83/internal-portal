@@ -5,76 +5,11 @@
   <title>Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
-  <!-- Link your style.css -->
+  <!-- Link external CSS -->
   <link rel="stylesheet" href="css/style.css" />
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
-
-  <style>
-    /* Optional: Add some login-specific overrides or container styling */
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: #f9fafb;
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #222;
-    }
-
-    .login-container {
-      background: white;
-      padding: 2rem 3rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
-      width: 320px;
-      text-align: center;
-    }
-
-    h1 {
-      margin-bottom: 1.5rem;
-      color: #004d99;
-      font-weight: 700;
-    }
-
-    input[type="email"],
-    input[type="password"] {
-      width: 100%;
-      padding: 0.5rem 0.7rem;
-      margin-top: 0.3rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1rem;
-      box-sizing: border-box;
-    }
-
-    button {
-      margin-top: 1.8rem;
-      width: 100%;
-      background-color: #007bff;
-      color: white;
-      font-weight: 600;
-      font-size: 1rem;
-      border: none;
-      padding: 0.6rem 0;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    #login-message {
-      margin-top: 1rem;
-      color: #d9534f;
-      min-height: 1.3em;
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-  </style>
 </head>
 <body>
   <div class="login-container">
