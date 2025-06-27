@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   <link rel="stylesheet" href="css/style.css" />
-
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
 </head>
@@ -16,10 +15,8 @@
     <form id="login-form">
       <label for="email">Email</label>
       <input type="email" id="email" placeholder="you@example.com" required autocomplete="username" />
-
       <label for="password">Password</label>
       <input type="password" id="password" placeholder="Your password" required autocomplete="current-password" />
-
       <button type="submit">Log In</button>
       <div id="login-message"></div>
     </form>
@@ -28,12 +25,13 @@
   <script>
     async function checkAuth() {
       try {
-        const { data } = await supabaseClient.auth.getSession();
+        const { data, error } = await supabaseClient.auth.getSession();
+        if (error) throw error;
         if (data?.session) {
           window.location.href = 'dashboard.html';
         }
-      } catch (error) {
-        console.error("Error checking auth session", error);
+      } catch (err) {
+        console.error('Auth check error:', err);
       }
     }
 
@@ -47,7 +45,6 @@
 
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
-
       messageDiv.textContent = '';
 
       try {
