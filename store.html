@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Store Details</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <link rel="stylesheet" href="css/style.css" />
+  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/store.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Store Details</h1>
+    <div>
+      Logged in as: <span id="user-email">...</span>
+      <button onclick="logout()">Logout</button>
+      <button onclick="goBack()" style="margin-left: 1rem;">Back to Dashboard</button>
+    </div>
+  </header>
+
+  <section id="store-info" style="margin-top: 1rem;">
+    <!-- Store info loaded here -->
+  </section>
+
+  <section id="admin-upload" style="display:none; margin-top: 2rem; border: 1px solid #ccc; padding: 1rem; border-radius: 8px;">
+    <h2>Upload New Photo</h2>
+    <form id="upload-form">
+      <input type="file" id="image-file" accept="image/*" required />
+      <button type="submit">Upload</button>
+      <div id="upload-progress" style="margin-top: 10px;"></div>
+    </form>
+  </section>
+
+  <section id="photos-section" style="margin-top: 2rem;">
+    <h2>Photos</h2>
+    <div id="photos-container">
+      Loading photos…
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" style="
+    display:none;
+    position: fixed; top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+  " onclick="closeLightbox(event)">
+    <img id="lightbox-img" src="" alt="Full Image" style="max-width: 90%; max-height: 90%; border-radius: 8px;" />
+  </div>
+</body>
+</html>
