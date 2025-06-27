@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - Internal Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- Link external CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Supabase client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+</head>
 <body class="login-page">
   <div class="login-container" role="main" aria-label="Login form">
     <h1>Internal Portal Login</h1>
@@ -27,5 +41,45 @@
     </form>
   </div>
 
-  <!-- your existing login.js code here -->
+  <script>
+    async function checkAuth() {
+      try {
+        const { data } = await supabaseClient.auth.getSession();
+        if (data?.session) {
+          window.location.href = 'dashboard.html';
+        }
+      } catch (error) {
+        console.error("Error checking auth session", error);
+      }
+    }
+    checkAuth();
+
+    const form = document.getElementById('login-form');
+    const messageDiv = document.getElementById('login-message');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      messageDiv.textContent = '';
+
+      try {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+        if (error) {
+          messageDiv.textContent = `Login failed: ${error.message}`;
+          return;
+        }
+
+        if (data?.session) {
+          window.location.href = 'dashboard.html';
+        }
+      } catch (err) {
+        messageDiv.textContent = `Error: ${err.message}`;
+      }
+    });
+  </script>
 </body>
+</html>
