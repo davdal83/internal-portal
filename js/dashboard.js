@@ -54,3 +54,22 @@ function logout() {
     window.location.href = "login.html";
   });
 }
+async function checkSession() {
+  try {
+    const { data } = await supabaseClient.auth.getSession();
+    if (!data.session) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    const email = data.session.user.email;
+    const userInfo = document.getElementById("user-info");
+    if (userInfo) userInfo.innerText = email;
+
+    document.getElementById("stores-section").style.display = "block";
+    loadStores();
+  } catch (error) {
+    console.error("Session error:", error);
+    window.location.href = "login.html";
+  }
+}
