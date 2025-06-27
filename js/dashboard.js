@@ -1,61 +1,73 @@
-// js/dashboard.js
+// dashboard.js
 
-// Check if user is logged in, if not redirect to login page
+// Format phone number helper
+function formatPhoneNumber(phoneNum) {
+  if (!phoneNum) return "N/A";
+  let phoneStr = phoneNum.toString().replace(/\D/g, "");
+  if (phoneStr.length !== 10) return phoneStr;
+  return `(${phoneStr.slice(0,3)}) ${phoneStr.slice(3,6)}-${phoneStr.slice(6)}`;
+}
+
 async function checkSession() {
   try {
     const { data } = await supabaseClient.auth.getSession();
-    if (!data.session) {
-      window.location.href = "login.html";
+
+    if (!data?.session) {
+      window.location.href = 'login.html';
       return;
     }
 
-    // Show logged-in user email
-    document.getElementById("user-email").textContent = data.session.user.email;
+    const email = data.session.user.email;
+    document.getElementById("user-email").textContent = email;
 
-    // Load stores after confirming user is logged in
-    await loadStores();
-
-    // Show the stores section now that data is ready
+    // Show stores section after session confirmed
     document.getElementById("stores-section").style.display = "block";
+    loadStores();
+
   } catch (error) {
     console.error("Error checking session:", error);
-    window.location.href = "login.html";
+    window.location.href = 'login.html';
   }
 }
 
-// Fetch stores from Supabase and render table rows
 async function loadStores() {
-  const { data: stores, error } = await supabaseClient.from("stores").select("store_name, store_number, general_manager");
+  const { data: stores, error } = await supabaseClient.from("stores").select("id, store_name, store_number, general_manager");
 
   if (error) {
-    console.error("Error loading stores:", error);
+    document.getElementById("stores-container").textContent = "Error loading stores.";
     return;
   }
 
-  const tbody = document.querySelector("#stores-table tbody");
-  tbody.innerHTML = "";
+  const container = document.getElementById("stores-container");
+  container.innerHTML = "";
 
-  stores.forEach((store) => {
-    const tr = document.createElement("tr");
-    // Clicking a store row could take user to a separate page (store.html?store=number)
-    tr.innerHTML = `
-      <td><a href="store.html?store=${store.store_number}">${store.store_name}</a></td>
-      <td>${store.store_number}</td>
-      <td>${store.general_manager || "N/A"}</td>
+  stores.forEach(store => {
+    const card = document.createElement("div");
+    card.className = "store-card";
+    card.tabIndex = 0; // Make it keyboard focusable
+
+    card.innerHTML = `
+      <h3>${store.store_name}</h3>
+      <p><strong>Store #:</strong> ${store.store_number}</p>
+      <p><strong>General Manager:</strong> ${store.general_manager}</p>
     `;
-    tbody.appendChild(tr);
+
+    card.addEventListener("click", () => {
+      // For now, just alert store info
+      alert(`Store: ${store.store_name}\nNumber: ${store.store_number}\nGM: ${store.general_manager}`);
+
+      // TODO: Replace with navigation to store detail page
+      // window.location.href = `store.html?id=${store.id}`;
+    });
+
+    container.appendChild(card);
   });
 }
 
-// Logout function
 function logout() {
   supabaseClient.auth.signOut().then(() => {
-    window.location.href = "login.html";
+    window.location.href = 'login.html';
   });
 }
 
-// Expose logout to global scope so inline onclick works
-window.logout = logout;
-
-// Run session check when page loads
 checkSession();
