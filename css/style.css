@@ -4,7 +4,7 @@ body.login-page {
   height: 100vh;
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  background: linear-gradient(135deg, #FF0000, #710500);
   display: flex;
   justify-content: center;
   align-items: center;
