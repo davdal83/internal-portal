@@ -5,6 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard – Internal Portal</title>
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Quick styles for upload form and images */
+    #admin-panel {
+      border: 1px solid #ccc;
+      padding: 1em;
+      margin-top: 2em;
+      border-radius: 8px;
+      background: #f9f9f9;
+    }
+    #upload-progress {
+      margin-top: 10px;
+      font-style: italic;
+    }
+    .store {
+      margin-bottom: 1.5em;
+      padding-bottom: 1em;
+      border-bottom: 1px solid #ddd;
+    }
+    .store img {
+      max-width: 150px;
+      margin: 5px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -16,64 +41,62 @@
       <div id="stores-list">Loading stores…</div>
     </section>
 
-    <div id="admin-panel" style="display: none; margin-top: 20px;">
-      <h3>Admin Panel</h3>
-      <p>Upload form and admin tools will go here.</p>
+    <div id="admin-panel" style="display: none;">
+      <h3>Admin Upload Panel</h3>
+      <form id="upload-form">
+        <label for="store-select">Select Store:</label>
+        <select id="store-select" required>
+          <option value="" disabled selected>Choose a store</option>
+        </select>
+        <br /><br />
+        <label for="image-file">Choose image to upload:</label>
+        <input type="file" id="image-file" accept="image/*" required />
+        <br /><br />
+        <button type="submit">Upload Image</button>
+      </form>
+      <p id="upload-progress"></p>
     </div>
 
     <button onclick="logout()">Log Out</button>
   </div>
 
-  <!-- Load Supabase SDK first -->
+  <!-- Supabase SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <!-- Load your Supabase client next -->
+  <!-- Your Supabase client -->
   <script src="js/supabase.js"></script>
-  <!-- Your dashboard script last -->
-  <script>
-    console.log("supabase object:", typeof supabase);
-    console.log("window.supabaseClient:", window.supabaseClient);
 
+  <script>
+    // Helper to format phone number
     function formatPhoneNumber(phoneNum) {
       if (!phoneNum) return "N/A";
-
       let phoneStr = phoneNum.toString().replace(/\D/g, "");
-
       if (phoneStr.length !== 10) return phoneStr;
-
       return `(${phoneStr.slice(0,3)}) ${phoneStr.slice(3,6)}-${phoneStr.slice(6)}`;
     }
 
-    async function checkSession() {
-      try {
-        const { data: { session } } = await window.supabaseClient.auth.getSession();
+    // Check if user is admin from admins table
+    async function checkIfAdmin(userEmail) {
+      const { data, error } = await window.supabaseClient
+        .from("admins")
+        .select("email")
+        .eq("email", userEmail)
+        .single();
 
-        if (!session) {
-          window.location.href = "login.html";
-          return;
-        }
-
-        const user = session.user;
-        document.getElementById("user-email").innerText = "Logged in as " + user.email;
-
-        document.getElementById("stores-section").style.display = "block";
-
-        const admins = ["david@bajco.net", "ashley@bajco.net"];
-        if (admins.includes(user.email)) {
-          document.getElementById("admin-panel").style.display = "block";
-        }
-
-        loadStores();
-      } catch (error) {
-        console.error("Error checking session:", error);
-        document.getElementById("user-email").innerText = "Error checking session";
+      if (error && error.code !== 'PGRST116') { // no rows found code
+        console.error("Error checking admin status:", error);
+        return false;
       }
+
+      return data !== null;
     }
 
+    // Load store list for display and for the upload select dropdown
     async function loadStores() {
       try {
         const { data: stores, error } = await window.supabaseClient.from("stores").select("*");
 
         const container = document.getElementById("stores-list");
+        const storeSelect = document.getElementById("store-select");
 
         if (error) {
           container.innerText = "Error loading stores: " + error.message;
@@ -82,12 +105,15 @@
 
         if (!stores.length) {
           container.innerText = "No stores found.";
+          storeSelect.innerHTML = '<option value="" disabled>No stores available</option>';
           return;
         }
 
         container.innerHTML = "";
+        storeSelect.innerHTML = '<option value="" disabled selected>Choose a store</option>';
 
         for (const store of stores) {
+          // Append store info to stores list display
           const storeDiv = document.createElement("div");
           storeDiv.classList.add("store");
 
@@ -110,6 +136,13 @@
 
           container.appendChild(storeDiv);
 
+          // Add to upload form dropdown
+          const option = document.createElement("option");
+          option.value = store.id;
+          option.textContent = `${store.store_number} – ${store.store_name}`;
+          storeSelect.appendChild(option);
+
+          // Load photos for this store
           loadPhotos(store.id);
         }
       } catch (error) {
@@ -117,6 +150,7 @@
       }
     }
 
+    // Load photos for a store and display them
     async function loadPhotos(storeId) {
       try {
         const { data: photos, error } = await window.supabaseClient
@@ -142,12 +176,91 @@
           const img = document.createElement("img");
           img.src = photo.image_url;
           img.alt = `Photo for store ${storeId}`;
-          img.style = "max-width: 150px; margin: 5px; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.2);";
           photosDiv.appendChild(img);
         }
       } catch (error) {
         const photosDiv = document.getElementById(`photos-for-store-${storeId}`);
         photosDiv.innerText = "Error loading photos: " + error.message;
+      }
+    }
+
+    // Upload image to Supabase Storage and add photo record
+    async function uploadImage(storeId, file) {
+      const uploadProgress = document.getElementById("upload-progress");
+      uploadProgress.style.color = "black";
+      uploadProgress.textContent = "Uploading image…";
+
+      try {
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${storeId}/${Date.now()}.${fileExt}`;
+        const filePath = fileName;
+
+        // Upload to Supabase Storage bucket named 'store-photos'
+        let { error: uploadError } = await window.supabaseClient.storage
+          .from("store-photos")
+          .upload(filePath, file, { cacheControl: '3600', upsert: false });
+
+        if (uploadError) {
+          uploadProgress.style.color = "red";
+          uploadProgress.textContent = "Upload failed: " + uploadError.message;
+          return;
+        }
+
+        // Get public URL of uploaded image
+        const { data: { publicUrl } } = window.supabaseClient.storage
+          .from("store-photos")
+          .getPublicUrl(filePath);
+
+        // Insert photo record in photos table
+        const { error: insertError } = await window.supabaseClient
+          .from("photos")
+          .insert([{ store_id: storeId, image_url: publicUrl, uploaded_at: new Date() }]);
+
+        if (insertError) {
+          uploadProgress.style.color = "red";
+          uploadProgress.textContent = "Failed to save photo record: " + insertError.message;
+          return;
+        }
+
+        uploadProgress.style.color = "green";
+        uploadProgress.textContent = "Image uploaded successfully!";
+
+        // Reload photos for store to show new image
+        loadPhotos(storeId);
+
+        // Reset form
+        document.getElementById("upload-form").reset();
+      } catch (error) {
+        uploadProgress.style.color = "red";
+        uploadProgress.textContent = "Unexpected error: " + error.message;
+      }
+    }
+
+    async function checkSession() {
+      try {
+        const { data: { session } } = await window.supabaseClient.auth.getSession();
+
+        if (!session) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        const user = session.user;
+        document.getElementById("user-email").innerText = "Logged in as " + user.email;
+        document.getElementById("stores-section").style.display = "block";
+
+        const isAdmin = await checkIfAdmin(user.email);
+
+        if (isAdmin) {
+          document.getElementById("admin-panel").style.display = "block";
+        } else {
+          document.getElementById("admin-panel").style.display = "none";
+        }
+
+        await loadStores();
+      } catch (error) {
+        console.error("Error checking session:", error);
+        document.getElementById("user-email").innerText = "Error checking session";
       }
     }
 
@@ -157,7 +270,29 @@
       });
     }
 
-    // Run after everything is loaded
+    // Handle upload form submit
+    document.getElementById("upload-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const storeSelect = document.getElementById("store-select");
+      const fileInput = document.getElementById("image-file");
+
+      if (!storeSelect.value) {
+        alert("Please select a store.");
+        return;
+      }
+      if (!fileInput.files.length) {
+        alert("Please select an image file.");
+        return;
+      }
+
+      const storeId = parseInt(storeSelect.value);
+      const file = fileInput.files[0];
+
+      await uploadImage(storeId, file);
+    });
+
+    // Run after page load
     checkSession();
   </script>
 </body>
