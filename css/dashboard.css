@@ -83,5 +83,5 @@ main {
   border-radius: 8px;
   text-align: center;
   max-width: 600px;
-  margin: 3rem auto 0 auto; /* ← added top spacing */
+  margin: 10rem auto 0 auto; /* ← added top spacing */
 }
