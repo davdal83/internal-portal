@@ -2,19 +2,177 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Dashboard</title>
+  <title>Internal Portal Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- Supabase client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Your Supabase config -->
   <script src="js/supabase.js"></script>
+  
+  <!-- Your dashboard JS (defer so DOM is ready) -->
   <script src="js/dashboard.js" defer></script>
-</head>
-<body>
-  <h1>Dashboard</h1>
-  <div>
-    Logged in as: <span id="user-email"></span>
-    <button onclick="logout()">Logout</button>
-  </div>
 
-  <!-- Add your store UI etc. here -->
+  <!-- Styles -->
+  <style>
+    /* Reset & basics */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      background: #004d99;
+      color: white;
+      padding: 1rem 2rem;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.15);
+    }
+    header h1 {
+      margin: 0;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    header div {
+      font-weight: 600;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: 600;
+      margin-left: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    main {
+      max-width: 1200px;
+      width: 100%;
+      padding: 2rem;
+      flex-grow: 1;
+    }
+    /* Admin Panel */
+    #admin-panel {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    #admin-panel h2 {
+      margin-top: 0;
+      font-weight: 700;
+      font-size: 1.3rem;
+    }
+    #admin-panel label {
+      font-weight: 600;
+    }
+    #admin-panel select,
+    #admin-panel input[type="file"] {
+      margin-top: 0.3rem;
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+    #upload-progress {
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
 
-</body>
-</html>
+    /* Stores Section */
+    #stores-section h2 {
+      font-weight: 700;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #004d99;
+      padding-bottom: 0.3rem;
+    }
+    #stores-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+      gap: 1rem;
+    }
+    .store {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      padding: 1rem;
+    }
+    .store h4 {
+      margin: 0 0 0.5rem 0;
+      font-weight: 700;
+      color: #004d99;
+    }
+    .store p {
+      margin: 0 0 1rem 0;
+      font-size: 0.9rem;
+      line-height: 1.3;
+    }
+
+    /* Photo gallery */
+    .photo-wrapper {
+      display: inline-block;
+      position: relative;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .photo-wrapper img {
+      width: 120px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      box-shadow: 0 1px 4px rgb(0 0 0 / 0.1);
+    }
+    .photo-wrapper img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.2);
+    }
+    .delete-photo-btn {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      background-color: #dc3545;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+    .delete-photo-btn:hover {
+      opacity: 1;
+    }
+
+    /* Lightbox */
+    #lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    #lightbox img {
+      max-wid
