@@ -14,33 +14,30 @@
   <script src="js/supabase.js" defer></script>
 
   <!-- Login logic -->
-  <script defer>
-    document.addEventListener("DOMContentLoaded", () => {
-      const form = document.getElementById("login-form");
+  <script>
+    async function smartAutoLogin() {
       const messageDiv = document.getElementById("login-message");
-
-      // Removed auto-redirect logic here
-
-      // Handle login form submission
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value;
-        messageDiv.textContent = "";
-
-        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-
+      try {
+        const { data, error } = await supabaseClient.auth.getSession();
         if (error) {
-          messageDiv.textContent = `Login failed: ${error.message}`;
-          return;
+          console.warn("Session check error:", error.message);
+          return; // show form as normal
         }
-
+  
         if (data?.session) {
-          window.location.href = "dashboard.html";
+          messageDiv.textContent = "Already logged in... Redirecting";
+          setTimeout(() => {
+            window.location.href = "dashboard.html";
+          }, 1000); // short delay to show message
         }
-      });
-    });
+      } catch (err) {
+        console.warn("Auto-login failed:", err);
+      }
+    }
+  
+    smartAutoLogin();
   </script>
+
 </head>
 <body class="login-page">
   <div class="login-container">
