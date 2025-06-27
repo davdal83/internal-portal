@@ -11,23 +11,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <div class="login-page">
-    <div class="login-card">
-      <img src="images/DIGITAL_USE_PJS_LOGO_STACK_RED_RGB.png" alt="Papa John's Logo" class="login-logo" />
-      <h2>Team Login</h2>
+  <div class="login-wrapper">
+    <div class="login-left">
+      <img src="images/DIGITAL_USE_PJS_LOGO_STACK_RED_RGB.png" alt="Papa John's Logo" class="side-logo" />
+      <h1>Welcome Team</h1>
+      <p>Your gateway to operations, forms, and tools. Let’s make great pizza.</p>
+    </div>
 
-      <form id="login-form">
-        <input type="email" id="email" placeholder="Email address" required autocomplete="email" />
-        <input type="password" id="password" placeholder="Your password" required autocomplete="current-password" />
-        <button type="submit">Log In</button>
-      </form>
+    <div class="login-right">
+      <div class="login-card">
+        <h2>Team Login</h2>
 
-      <div class="login-actions">
-        <a href="#">Forgot Password?</a>
-        <a href="#">Sign Up</a>
+        <form id="login-form">
+          <input type="email" id="email" placeholder="Email address" required autocomplete="email" />
+          <input type="password" id="password" placeholder="Your password" required autocomplete="current-password" />
+          <button type="submit">Log In</button>
+        </form>
+
+        <div class="login-actions">
+          <a href="#">Forgot Password?</a>
+          <a href="#">Sign Up</a>
+        </div>
+
+        <a href="index.html" class="home-link">← Return to Home</a>
       </div>
-
-      <a href="index.html" class="home-link">← Return to Home</a>
     </div>
   </div>
 
