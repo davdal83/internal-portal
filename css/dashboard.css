@@ -85,3 +85,39 @@ main {
   max-width: 600px;
   margin: 10rem auto 0 auto; /* ← added top spacing */
 }
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* pushes nav to right */
+  padding: 1rem 2rem;
+  background-color: #2D5D2A; /* example */
+  color: white;
+}
+
+/* Style the header title */
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* Align nav items on right */
+nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+/* Style links */
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.3rem 0.5rem;
+}
+
+nav a:hover,
+nav a.active {
+  color: #FFCF6E; /* accent color */
+  border-bottom: 2px solid #FFCF6E;
+}
