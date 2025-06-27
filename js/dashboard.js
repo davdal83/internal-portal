@@ -32,5 +32,10 @@ function logout() {
   });
 }
 
+const { data, error } = await supabaseClient.auth.getSession();
+console.log("Session data:", data);
+console.log("Session error:", error);
+
+
 // Run session check on page load
 checkSession();
