@@ -51,6 +51,23 @@
         document.getElementById("admin-panel").style.display = "block";
       }
 
+      function formatPhoneNumber(phoneNum) {
+  if (!phoneNum) return "N/A";
+
+  // Convert numeric phone to string, just in case
+  let phoneStr = phoneNum.toString();
+
+  // Remove any non-digit characters just in case
+  phoneStr = phoneStr.replace(/\D/g, "");
+
+  // If not exactly 10 digits, just return as is
+  if (phoneStr.length !== 10) return phoneStr;
+
+  // Format (XXX) XXX-XXXX
+  return `(${phoneStr.slice(0, 3)}) ${phoneStr.slice(3, 6)}-${phoneStr.slice(6)}`;
+}
+
+
       // Load store data
       loadStores();
     }
