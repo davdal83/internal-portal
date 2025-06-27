@@ -2,21 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Login</title>
+  <title>Login - Internal Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Link external CSS -->
   <link rel="stylesheet" href="css/style.css" />
 
+  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
 </head>
 <body>
   <div class="login-container">
-    <h1>Internal Portal Login 1</h1>
+    <h1>Internal Portal Login</h1>
     <form id="login-form">
       <label for="email">Email</label>
       <input type="email" id="email" placeholder="you@example.com" required autocomplete="username" />
+
       <label for="password">Password</label>
       <input type="password" id="password" placeholder="Your password" required autocomplete="current-password" />
+
       <button type="submit">Log In</button>
       <div id="login-message"></div>
     </form>
@@ -27,9 +32,7 @@
       try {
         const { data } = await supabaseClient.auth.getSession();
         if (data?.session) {
-          if (!window.location.href.includes('dashboard.html')) {
-            window.location.href = 'dashboard.html';
-          }
+          window.location.href = 'dashboard.html';
         }
       } catch (error) {
         console.error("Error checking auth session", error);
@@ -43,16 +46,20 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
+
       messageDiv.textContent = '';
 
       try {
         const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
         if (error) {
           messageDiv.textContent = `Login failed: ${error.message}`;
           return;
         }
+
         if (data?.session) {
           window.location.href = 'dashboard.html';
         }
