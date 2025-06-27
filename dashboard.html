@@ -5,20 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard – Internal Portal</title>
   <link rel="stylesheet" href="css/style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script src="js/supabase.js"></script>
 </head>
 <body>
   <div class="container">
     <h2>Welcome to the Internal Portal</h2>
-    <p id="user-email"></p>
+    <p id="user-email">Checking session…</p>
 
-    <section id="stores-section">
+    <section id="stores-section" style="display: none;">
       <h3>Store Locations</h3>
       <div id="stores-list">Loading stores…</div>
     </section>
 
-    <div id="admin-panel" style="display:none; margin-top:20px;">
+    <div id="admin-panel" style="display: none; margin-top: 20px;">
       <h3>Admin Panel</h3>
       <p>Upload form and admin tools will go here.</p>
     </div>
@@ -26,7 +24,13 @@
     <button onclick="logout()">Log Out</button>
   </div>
 
-  <script>
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js" defer></script>
+  <!-- Supabase client -->
+  <script src="js/supabase.js" defer></script>
+
+  <!-- Dashboard Logic -->
+  <script defer>
     async function checkSession() {
       const { data: { session } } = await supabaseClient.auth.getSession();
 
@@ -38,11 +42,16 @@
       const user = session.user;
       document.getElementById("user-email").innerText = "Logged in as " + user.email;
 
+      // Show store section
+      document.getElementById("stores-section").style.display = "block";
+
+      // Show admin panel for specific emails
       const admins = ["david@bajco.net", "ashley@bajco.net"];
       if (admins.includes(user.email)) {
         document.getElementById("admin-panel").style.display = "block";
       }
 
+      // Load store data
       loadStores();
     }
 
@@ -106,7 +115,7 @@
         const img = document.createElement("img");
         img.src = photo.image_url;
         img.alt = `Photo for store ${storeId}`;
-        img.style = "max-width:150px; margin:5px; border-radius:8px; box-shadow:0 0 5px rgba(0,0,0,0.2);";
+        img.style = "max-width: 150px; margin: 5px; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.2);";
         photosDiv.appendChild(img);
       }
     }
@@ -117,6 +126,7 @@
       });
     }
 
+    // Run session check on load
     checkSession();
   </script>
 </body>
