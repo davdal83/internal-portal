@@ -2,11 +2,12 @@
 
 /* Header */
 header {
-  background: linear-gradient(135deg, #2D5C2A, #65A17A);
+  background-color: #2D5C2A;
   color: #FFFFFF;
-  padding: 1.5rem 2rem;
+  padding: 2rem;
   text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 80px;
 }
 
 header h1 {
@@ -20,31 +21,12 @@ header p {
 }
 
 /* Navigation */
-nav {
-  display: flex;
-  justify-content: center;
-  background-color: #000000;
-}
-
-nav a {
-  color: #FFFFFF;
-  padding: 1rem;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background 0.3s;
-}
-
-nav a:hover {
-  background-color: #FF0000;
-}
-
-/* Make navbar fixed at top */
 nav.navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #2D5C2A; /* Solid Papa John’s Green */
+  background-color: #2D5C2A;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -54,47 +36,109 @@ nav.navbar {
   color: #FFFFFF;
 }
 
-/* Add padding top to body or main content to avoid overlap */
 body {
-  padding-top: 80px; /* adjust based on navbar height */
+  padding-top: 80px;
 }
 
+.logo {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.logo span {
+  color: #FFCF6E;
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0.5rem;
+}
+
+.nav-toggle .hamburger,
+.nav-toggle .hamburger::before,
+.nav-toggle .hamburger::after {
+  display: block;
+  background-color: #fff;
+  height: 3px;
+  width: 25px;
+  border-radius: 3px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-toggle .hamburger::before,
+.nav-toggle .hamburger::after {
+  content: '';
+  position: absolute;
+  left: 0;
+}
+
+.nav-toggle .hamburger::before {
+  top: -8px;
+}
+
+.nav-toggle .hamburger::after {
+  top: 8px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin-left: auto;
+}
+
+.nav-links li a {
+  color: #FFFFFF;
+  padding: 1rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.nav-links li a:hover,
+.nav-links li a.active {
+  background-color: #FF0000;
+  border-radius: 5px;
+}
 
 /* Hero Section */
-.hero {
-  background: url('/images/papa-johns-hero.jpg') no-repeat center center/cover;
-  min-height: 70vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #FFFFFF;
-  text-align: center;
-  padding: 2rem;
-  position: relative;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 0;
-}
-
 .hero-content {
-  z-index: 1;
   max-width: 800px;
+  margin: 2rem auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
-.hero h2 {
+.hero h1 {
   font-size: 2.75rem;
-  color: #FFCF6E;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .hero p {
   font-size: 1.25rem;
+  color: #FFCF6E;
+  margin-bottom: 1.5rem;
+}
+
+.btn-primary {
+  background-color: #FF0000;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #710500;
 }
 
 /* Sections */
@@ -167,70 +211,15 @@ footer a:hover {
 
 /* Responsive */
 @media (max-width: 768px) {
-  header h1 {
-    font-size: 2rem;
-  }
-
-  .hero h2 {
-    font-size: 2rem;
-  }
-
-  .promo-grid {
-    grid-template-columns: 1fr;
-  }
-}
-.nav-toggle {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-left: auto;
-  padding: 0.5rem;
-}
-
-.nav-toggle .hamburger,
-.nav-toggle .hamburger::before,
-.nav-toggle .hamburger::after {
-  display: block;
-  background-color: #fff;
-  height: 3px;
-  width: 25px;
-  border-radius: 3px;
-  position: relative;
-}
-
-.nav-toggle .hamburger::before,
-.nav-toggle .hamburger::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  transition: 0.3s ease;
-}
-
-.nav-toggle .hamburger::before {
-  top: -8px;
-}
-
-.nav-toggle .hamburger::after {
-  top: 8px;
-}
-
-.nav-links {
-  display: flex;
-  list-style: none;
-  gap: 1.5rem;
-}
-
-@media (max-width: 768px) {
   .nav-toggle {
     display: block;
   }
 
   .nav-links {
     position: absolute;
-    top: 60px; /* height of navbar */
+    top: 60px;
     right: 0;
-    background-color: #000;
+    background-color: #2D5C2A;
     flex-direction: column;
     width: 200px;
     max-height: 0;
@@ -240,14 +229,22 @@ footer a:hover {
   }
 
   .nav-links.open {
-    max-height: 500px; /* enough to show all */
+    max-height: 500px;
   }
 
   .nav-links li {
     padding: 1rem;
   }
 
-  .nav-links li a {
-    display: block;
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero h2 {
+    font-size: 2rem;
+  }
+
+  .promo-grid {
+    grid-template-columns: 1fr;
   }
 }
