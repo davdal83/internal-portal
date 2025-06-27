@@ -2,50 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard - Papa John’s Jacksonville</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
-
-  <!-- Stylesheets -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Papa John's Dashboard</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/dashboard.css" />
 </head>
 <body>
-  <header>
-    <h1>Papa John’s Jacksonville</h1>
-      <nav>
-        <a href="dashboard.html" class="active">Dashboard</a>
-        <a href="stores.html">Stores</a>
-        <a href="leadership.html">Leadership Team</a>
-        <a href="docs.html">Documents &amp; Forms</a>
-        <a href="admin.html">Admin Tools</a>  <!-- NEW LINK HERE -->
-        <a href="#" id="logout-link">Logout</a>
-      </nav>
-  </header>
+  <div id="nav-container"></div>
 
-  <main>
-    <section class="welcome-section">
-      <h2 id="welcome-msg">Welcome!</h2>
-      <p>We’re glad to have you here. Use this portal to access everything you need to run a great shift, stay updated, and lead your team.</p>
+  <main class="dashboard-container">
+    <section class="welcome-message">
+      <h1>Welcome to the Papa John's Team Dashboard</h1>
+      <p>Your central hub for updates, resources, and more.</p>
     </section>
 
-        <div id="admin-tools" style="display: none;">
-        <h2>Admin Tools</h2>
-        <ul>
-          <li><a href="admin.html">Go to Admin Tools</a></li>
-        </ul>
-      </section>
+    <!-- Admin tools section, hidden by default -->
+    <section id="admin-tools" style="display: none;">
+      <h2>Admin Tools</h2>
+      <p>This section is visible only to admin users.</p>
+      <!-- Admin features go here -->
+    </section>
 
-    <div class="placeholder">
-      <p>More features coming soon!</p>
-    </div>
+    <!-- Placeholder for future features -->
+    <section class="coming-soon">
+      <h2>More Features Coming Soon</h2>
+      <p>Stay tuned for new functionality and tools!</p>
+    </section>
   </main>
 
-  <!-- Supabase Scripts -->
+  <!-- Scripts: order matters -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="js/supabase.js"></script>
+  <script src="js/navbar.js"></script>
   <script src="js/dashboard.js"></script>
 </body>
 </html>
