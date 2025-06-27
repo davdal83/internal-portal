@@ -4,31 +4,40 @@
   <meta charset="UTF-8" />
   <title>Dashboard - Internal Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/dashboard.js" defer></script>
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f9f9f9;
-      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 1rem;
+      background: #f9fafb;
+      color: #222;
     }
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 2rem;
     }
     h1 {
       margin: 0;
       color: #004d99;
     }
+    #user-email {
+      font-weight: 600;
+    }
     button {
-      padding: 8px 15px;
       background-color: #007bff;
-      border: none;
       color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
       border-radius: 5px;
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
     }
     button:hover {
       background-color: #0056b3;
@@ -36,22 +45,23 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      background: white;
-      box-shadow: 0 0 10px rgb(0 0 0 / 0.1);
     }
-    th, td {
-      text-align: left;
-      padding: 12px;
-      border-bottom: 1px solid #ddd;
-    }
-    th {
+    thead th {
       background-color: #004d99;
       color: white;
+      padding: 0.75rem;
+      text-align: left;
+    }
+    tbody tr:hover {
+      background-color: #e0ebff;
+    }
+    tbody td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid #ddd;
     }
     a {
-      color: #007bff;
+      color: #004d99;
       text-decoration: none;
-      font-weight: 600;
     }
     a:hover {
       text-decoration: underline;
@@ -59,33 +69,28 @@
   </style>
 </head>
 <body>
+  <header>
+    <h1>Internal Portal Dashboard</h1>
+    <div>
+      Logged in as: <span id="user-email">...</span>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </header>
 
-<header>
-  <h1>Internal Portal Dashboard</h1>
-  <div>
-    Logged in as: <span id="user-email"></span>
-    <button onclick="logout()">Logout</button>
-  </div>
-</header>
-
-<section id="stores-section" style="display:none;">
-  <h2>Stores</h2>
-  <table id="stores-table" border="1" >
-    <thead>
-      <tr>
-        <th>Store Name</th>
-        <th>Store #</th>
-        <th>General Manager</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Stores will be injected here -->
-    </tbody>
-  </table>
-</section>
-
-<script src="js/supabase.js"></script>
-<script src="js/dashboard.js"></script>
-
+  <section id="stores-section" style="display:none;">
+    <h2>Stores</h2>
+    <table id="stores-table">
+      <thead>
+        <tr>
+          <th>Store Name</th>
+          <th>Store #</th>
+          <th>General Manager</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Store rows will be inserted here -->
+      </tbody>
+    </table>
+  </section>
 </body>
 </html>
