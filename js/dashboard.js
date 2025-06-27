@@ -1,4 +1,4 @@
-// Lightbox open
+// --- Lightbox ---
 function openLightbox(src) {
   const lightbox = document.getElementById("lightbox");
   const lightboxImg = document.getElementById("lightbox-img");
@@ -6,33 +6,31 @@ function openLightbox(src) {
   lightbox.style.display = "flex";
 }
 
-// Lightbox close
 function closeLightbox(event) {
   if (event) event.stopPropagation();
-  const lightbox = document.getElementById("lightbox");
-  lightbox.style.display = "none";
+  document.getElementById("lightbox").style.display = "none";
 }
 
-// Format phone number
+// --- Format phone number ---
 function formatPhoneNumber(phoneNum) {
   if (!phoneNum) return "N/A";
   let phoneStr = phoneNum.toString().replace(/\D/g, "");
   if (phoneStr.length !== 10) return phoneStr;
-  return `(${phoneStr.slice(0,3)}) ${phoneStr.slice(3,6)}-${phoneStr.slice(6)}`;
+  return `(${phoneStr.slice(0, 3)}) ${phoneStr.slice(3, 6)}-${phoneStr.slice(6)}`;
 }
 
-// Check if user is an admin
-async function checkIfAdmin(userEmail) {
+// --- Admin Check ---
+async function checkIfAdmin(email) {
   const { data, error } = await supabaseClient
     .from("admins")
     .select("email")
-    .eq("email", userEmail)
+    .eq("email", email)
     .single();
 
   return data !== null && !error;
 }
 
-// Load all stores
+// --- Load Stores ---
 async function loadStores() {
   const { data: stores, error } = await supabaseClient.from("stores").select("*");
   const container = document.getElementById("stores-list");
@@ -56,7 +54,7 @@ async function loadStores() {
         <strong>Phone:</strong> ${formatPhoneNumber(store.phone_number)}<br>
         <strong>GM:</strong> ${store.general_manager}
       </p>
-      <div id="photos-for-store-${store.id}">Loading photos...</div>
+      <div id="photos-for-store-${store.id}">Loading photos…</div>
     `;
 
     container.appendChild(storeDiv);
@@ -66,9 +64,9 @@ async function loadStores() {
   }
 }
 
-// Load photos for a specific store
+// --- Load Photos for a Store ---
 async function loadPhotos(storeId) {
-  const { data: photos } = await supabaseClient
+  const { data: photos, error } = await supabaseClient
     .from("photos")
     .select("*")
     .eq("store_id", storeId);
@@ -84,78 +82,94 @@ async function loadPhotos(storeId) {
   for (const photo of photos) {
     const img = document.createElement("img");
     img.src = photo.image_url;
-    img.onclick = () => openLightbox(photo.image_url);
     img.alt = `Store ${storeId}`;
+    img.onclick = () => openLightbox(photo.image_url);
     photosDiv.appendChild(img);
   }
 }
 
-// Upload image
+// --- Upload Image ---
 async function uploadImage(storeId, file) {
   const progress = document.getElementById("upload-progress");
+  progress.innerText = "Uploading…";
+
   const fileExt = file.name.split(".").pop();
   const fileName = `${storeId}/${Date.now()}.${fileExt}`;
 
-  let { error: uploadError } = await supabaseClient
+  console.log("Uploading to bucket: store-photos →", fileName);
+
+  const { data, error: uploadError } = await supabaseClient
     .storage
     .from("store-photos")
     .upload(fileName, file, { upsert: false });
 
   if (uploadError) {
+    console.error("Upload error:", uploadError);
     progress.innerText = "Upload failed.";
     return;
   }
 
-  const { data: { publicUrl } } = supabaseClient
+  const { data: urlData } = supabaseClient
     .storage
     .from("store-photos")
     .getPublicUrl(fileName);
 
-  await supabaseClient.from("photos").insert([
-    { store_id: storeId, image_url: publicUrl }
+  console.log("Image URL:", urlData?.publicUrl);
+
+  const { error: insertError } = await supabaseClient.from("photos").insert([
+    { store_id: storeId, image_url: urlData.publicUrl }
   ]);
+
+  if (insertError) {
+    console.error("DB insert error:", insertError);
+    progress.innerText = "Failed to save photo.";
+    return;
+  }
 
   progress.innerText = "Upload complete.";
   loadPhotos(storeId);
   document.getElementById("upload-form").reset();
 }
 
-// Check login session
+// --- Check Auth Session ---
 async function checkSession() {
-  const { data: { session } } = await supabaseClient.auth.getSession();
+  try {
+    const { data: { session } } = await supabaseClient.auth.getSession();
 
-  if (!session) {
+    if (!session) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    const email = session.user.email;
+    document.getElementById("user-email").innerText = email;
+
+    const isAdmin = await checkIfAdmin(email);
+    if (isAdmin) {
+      document.getElementById("admin-panel").style.display = "block";
+    }
+
+    document.getElementById("stores-section").style.display = "block";
+    loadStores();
+  } catch (error) {
+    console.error("Session check error:", error);
     window.location.href = "login.html";
-    return;
   }
-
-  const email = session.user.email;
-  document.getElementById("user-email").innerText = email;
-
-  const isAdmin = await checkIfAdmin(email);
-  if (isAdmin) {
-    document.getElementById("admin-panel").style.display = "block";
-  }
-
-  document.getElementById("stores-section").style.display = "block";
-  loadStores();
 }
 
-// Logout
+// --- Logout ---
 function logout() {
   supabaseClient.auth.signOut().then(() => {
     window.location.href = "login.html";
   });
 }
 
-// Form submit
+// --- Upload Form Submit ---
 document.getElementById("upload-form").addEventListener("submit", (e) => {
   e.preventDefault();
-
   const storeId = document.getElementById("store-select").value;
   const file = document.getElementById("image-file").files[0];
   if (!storeId || !file) return;
-
   uploadImage(storeId, file);
 });
 
