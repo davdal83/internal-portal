@@ -1,56 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard – Internal Portal</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
 <body>
-
-  <!-- Header/Nav -->
   <header>
-    <h1>Papa John's Internal Portal</h1>
-    <div class="user-info" id="user-email">Checking session…</div>
+    <h1>Internal Portal Dashboard</h1>
+    <div>
+      Logged in as: <span id="user-email"></span>
+      <button onclick="logout()">Logout</button>
+    </div>
   </header>
 
-  <div class="container">
-    <!-- Stores Section -->
-    <section id="stores-section" style="display: none;">
-      <h3>Store Locations</h3>
-      <div id="stores-list">Loading stores…</div>
-    </section>
+  <!-- Admin panel: only visible if isAdmin = true -->
+  <section id="admin-panel" style="display:none; margin: 1em 0; padding: 1em; border: 1px solid #ccc;">
+    <h2>Upload New Photo</h2>
+    <form id="upload-form">
+      <label for="store-select">Select Store:</label>
+      <select id="store-select" required></select><br /><br />
 
-    <!-- Admin Panel -->
-    <div id="admin-panel" style="display: none;">
-      <h3>Admin Upload Panel (1)</h3>
-      <form id="upload-form">
-        <label for="store-select">Select Store:</label>
-        <select id="store-select" required>
-          <option value="" disabled selected>Choose a store</option>
-        </select>
+      <label for="image-file">Choose Image:</label>
+      <input type="file" id="image-file" accept="image/*" required /><br /><br />
 
-        <label for="image-file">Choose image to upload:</label>
-        <input type="file" id="image-file" accept="image/*" required />
+      <button type="submit">Upload</button>
+      <div id="upload-progress" style="margin-top: 10px;"></div>
+    </form>
+  </section>
 
-        <button type="submit">Upload Image</button>
-      </form>
-      <p id="upload-progress"></p>
-    </div>
+  <!-- Stores Section -->
+  <section id="stores-section" style="display:none;">
+    <h2>Store Locations & Photos</h2>
+    <div id="stores-list"></div>
+  </section>
 
-    <br />
-    <button onclick="logout()">Log Out</button>
+  <!-- Lightbox for viewing images fullscreen -->
+  <div
+    id="lightbox"
+    style="
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 1000;
+    "
+    onclick="closeLightbox(event)"
+  >
+    <img id="lightbox-img" src="" alt="Full Image" style="max-width: 90%; max-height: 90%; border-radius: 8px;" />
   </div>
 
-  <!-- Supabase SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script src="js/supabase.js"></script>
   <script src="js/dashboard.js"></script>
-<!-- Lightbox modal -->
-<div id="lightbox" class="lightbox" onclick="closeLightbox()">
-  <img id="lightbox-img" src="" alt="Full size" />
-  <span class="close-btn" onclick="closeLightbox(event)">×</span>
-</div>
-
 </body>
-</html>
