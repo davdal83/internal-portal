@@ -24,12 +24,12 @@
     <button onclick="logout()">Log Out</button>
   </div>
 
-  <!-- Load Supabase SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js" defer></script>
-  <!-- Load your Supabase client -->
-  <script src="js/supabase.js" defer></script>
-
-  <script defer>
+  <!-- Load Supabase SDK first -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <!-- Load your Supabase client next -->
+  <script src="js/supabase.js"></script>
+  <!-- Your dashboard script last -->
+  <script>
     console.log("supabase object:", typeof supabase);
     console.log("window.supabaseClient:", window.supabaseClient);
 
@@ -157,7 +157,7 @@
       });
     }
 
-    // Run on page load
+    // Run after everything is loaded
     checkSession();
   </script>
 </body>
