@@ -1,73 +1,62 @@
-// dashboard.js
+// Wait for DOM content to load before running
+document.addEventListener("DOMContentLoaded", () => {
+  checkSession();
+});
 
-// Format phone number helper
-function formatPhoneNumber(phoneNum) {
-  if (!phoneNum) return "N/A";
-  let phoneStr = phoneNum.toString().replace(/\D/g, "");
-  if (phoneStr.length !== 10) return phoneStr;
-  return `(${phoneStr.slice(0,3)}) ${phoneStr.slice(3,6)}-${phoneStr.slice(6)}`;
-}
-
+// Check if user session exists, else redirect to login
 async function checkSession() {
   try {
     const { data } = await supabaseClient.auth.getSession();
-
-    if (!data?.session) {
-      window.location.href = 'login.html';
+    if (!data.session) {
+      // No active session, redirect to login
+      window.location.href = "login.html";
       return;
     }
 
     const email = data.session.user.email;
-    document.getElementById("user-email").textContent = email;
+    document.getElementById("user-email").innerText = email;
 
-    // Show stores section after session confirmed
+    // Show stores section and load store data
     document.getElementById("stores-section").style.display = "block";
     loadStores();
-
   } catch (error) {
-    console.error("Error checking session:", error);
-    window.location.href = 'login.html';
+    console.error("Session error:", error);
+    window.location.href = "login.html";
   }
 }
 
+// Load stores and render cards
 async function loadStores() {
   const { data: stores, error } = await supabaseClient.from("stores").select("id, store_name, store_number, general_manager");
-
   if (error) {
-    document.getElementById("stores-container").textContent = "Error loading stores.";
+    alert("Failed to load stores: " + error.message);
     return;
   }
 
   const container = document.getElementById("stores-container");
-  container.innerHTML = "";
+  container.innerHTML = ""; // Clear existing
 
   stores.forEach(store => {
     const card = document.createElement("div");
     card.className = "store-card";
-    card.tabIndex = 0; // Make it keyboard focusable
-
     card.innerHTML = `
       <h3>${store.store_name}</h3>
       <p><strong>Store #:</strong> ${store.store_number}</p>
-      <p><strong>General Manager:</strong> ${store.general_manager}</p>
+      <p><strong>GM:</strong> ${store.general_manager}</p>
     `;
 
+    // On click go to store page (or later modal)
     card.addEventListener("click", () => {
-      // For now, just alert store info
-      alert(`Store: ${store.store_name}\nNumber: ${store.store_number}\nGM: ${store.general_manager}`);
-
-      // TODO: Replace with navigation to store detail page
-      // window.location.href = `store.html?id=${store.id}`;
+      window.location.href = `store.html?id=${store.id}`;
     });
 
     container.appendChild(card);
   });
 }
 
+// Logout function
 function logout() {
   supabaseClient.auth.signOut().then(() => {
-    window.location.href = 'login.html';
+    window.location.href = "login.html";
   });
 }
-
-checkSession();
