@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Tools - Papa John’s Jacksonville</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+  <header>
+    <h1>Papa John’s Jacksonville - Admin Tools</h1>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="stores.html">Stores</a>
+      <a href="leadership.html">Leadership Team</a>
+      <a href="docs.html">Documents &amp; Forms</a>
+      <a href="admin.html" class="active">Admin Tools</a>
+      <a href="#" id="logout-link">Logout</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="admin-tabs">
+      <button class="tab-button active" data-tab="users-tab">Users</button>
+      <button class="tab-button" data-tab="stores-tab">Stores</button>
+      <button class="tab-button" data-tab="photos-tab">Photos</button>
+    </section>
+
+    <section id="users-tab" class="tab-content active">
+      <h2>User Management</h2>
+      <div id="users-container">
+        <!-- User list will load here -->
+      </div>
+      <button id="add-user-btn">Add New User</button>
+    </section>
+
+    <section id="stores-tab" class="tab-content">
+      <h2>Store Management</h2>
+      <div id="stores-container">
+        <!-- Store list will load here -->
+      </div>
+      <button id="add-store-btn">Add New Store</button>
+    </section>
+
+    <section id="photos-tab" class="tab-content">
+      <h2>Photo Upload</h2>
+      <div id="photos-container">
+        <!-- Photo upload UI here -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Supabase Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
