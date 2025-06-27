@@ -2,74 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Store Details</title>
+  <title>Store Details - Internal Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
+
   <link rel="stylesheet" href="css/style.css" />
-  
+
+  <!-- Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Supabase client config -->
   <script src="js/supabase.js"></script>
+
+  <!-- Navbar JS -->
+  <script src="js/navbar.js" defer></script>
+
+  <!-- Store page JS -->
   <script src="js/store.js" defer></script>
 </head>
 <body>
-    <!-- NAVIGATION BAR -->
-
-<nav class="navbar">
-  <div class="nav-brand">Papa John's Internal Portal</div>
-  <ul class="nav-links">
-    <li><a href="dashboard.html">Home</a></li>
-    <li><a href="documents.html">Documents & Forms</a></li>
-    <li><a href="contacts.html">Team Directory</a></li>
-    <li><span id="welcome-msg" class="welcome-msg">Welcome...</span></li>
-    <li><a href="#" onclick="logout()">Logout</a></li>
-  </ul>
-</nav>
-
-
-
-  
   <header>
     <h1>Store Details</h1>
-    <div>
-      Logged in as: <span id="user-email">...</span>
-      <button onclick="logout()">Logout</button>
-      <button onclick="goBack()" style="margin-left: 1rem;">Back to Dashboard</button>
-    </div>
   </header>
 
-  <!-- Picture Header Container -->
-  <section id="store-header" class="store-header">
-    <div class="store-header-overlay">
-      <h2 id="header-store-name"></h2>
-      <p id="header-store-number"></p>
-    </div>
-  </section>
+  <!-- Navbar will be injected here -->
+  <div id="navbar"></div>
 
-  <section id="store-info" style="margin-top: 1rem;">
-    <!-- Store info loaded here -->
-  </section>
+  <main>
+    <section id="store-header" class="store-header" style="display:none;">
+      <!-- Background image and store name will be injected here -->
+      <div class="store-header-overlay">
+        <h2 id="store-name"></h2>
+        <p id="store-number"></p>
+        <p id="store-gm"></p>
+      </div>
+    </section>
 
-  <section id="admin-upload" style="display:none; margin-top: 2rem; border: 1px solid #ccc; padding: 1rem; border-radius: 8px;">
-    <h2>Upload New Photo</h2>
-    <form id="upload-form">
-      <input type="file" id="image-file" accept="image/*" required />
-      <button type="submit">Upload</button>
-      <div id="upload-progress" style="margin-top: 10px;"></div>
-    </form>
-  </section>
+    <section id="store-info" class="store-info" style="display:none;">
+      <!-- Additional store info here -->
+      <p id="store-description"></p>
+    </section>
 
-  <section id="photos-section" style="margin-top: 2rem;">
-    <h2>Photos</h2>
-    <div id="photos-container">
-      Loading photos…
-    </div>
-  </section>
-
-  <!-- Lightbox -->
-  <div id="lightbox" style="
-    display:none;
-    position: fixed; top:0; left:0; right:0; bottom:0;
-    background: rgba(0,0,0,0.8);
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+    <section id="photo-gallery" style="margin-top:1rem;">
+      <h3>Photos</h3>
+      <div id="photos-container" class="photo-gallery">
+        <!-- Photos loaded here -->
+      </div>
+    </section>
+  </main>
+</body>
+</html>
