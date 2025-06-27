@@ -1,0 +1,70 @@
+.hero {
+  background: linear-gradient(135deg, #FF0000, #F5E8DC);
+  color: #FFFFFF;
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.hero-overlay {
+  max-width: 700px;
+  margin: auto;
+}
+
+.logo {
+  width: 180px;
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #FFFFFF;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.login-btn {
+  background-color: #2D5D2A;
+  color: #FFFFFF;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #65A17A;
+}
+
+.content {
+  padding: 2rem 1rem;
+  background-color: #FFFFFF;
+  text-align: center;
+  color: #000000;
+}
+
+.intro h2 {
+  font-size: 1.8rem;
+  color: #2D5D2A;
+  margin-bottom: 1rem;
+}
+
+.intro p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer {
+  background-color: #710500;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}
