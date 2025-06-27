@@ -41,6 +41,12 @@
   background-color: var(--green-mid);
   color: var(--white);
 }
+.navbar ul,
+.navbar ul li {
+  list-style: none !important;
+  margin: 0;
+  padding: 0;
+}
 
 /* Hamburger toggle button */
 .nav-toggle {
