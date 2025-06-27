@@ -157,3 +157,75 @@ footer a:hover {
     grid-template-columns: 1fr;
   }
 }
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0.5rem;
+}
+
+.nav-toggle .hamburger,
+.nav-toggle .hamburger::before,
+.nav-toggle .hamburger::after {
+  display: block;
+  background-color: #fff;
+  height: 3px;
+  width: 25px;
+  border-radius: 3px;
+  position: relative;
+}
+
+.nav-toggle .hamburger::before,
+.nav-toggle .hamburger::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  transition: 0.3s ease;
+}
+
+.nav-toggle .hamburger::before {
+  top: -8px;
+}
+
+.nav-toggle .hamburger::after {
+  top: 8px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 60px; /* height of navbar */
+    right: 0;
+    background-color: #000;
+    flex-direction: column;
+    width: 200px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    border-radius: 0 0 0 10px;
+  }
+
+  .nav-links.open {
+    max-height: 500px; /* enough to show all */
+  }
+
+  .nav-links li {
+    padding: 1rem;
+  }
+
+  .nav-links li a {
+    display: block;
+  }
+}
