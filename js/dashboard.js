@@ -1,37 +1,30 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  const welcomeMsg = document.getElementById('welcome-msg');
-  const logoutLink = document.getElementById('logout-link');
-  const adminPanel = document.getElementById('admin-panel');
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
 
-  // Get current session
-  const { data: { session }, error } = await supabaseClient.auth.getSession();
-
-  if (error || !session) {
-    window.location.href = 'login.html';
+  if (userError || !user) {
+    console.error('User not authenticated:', userError);
     return;
   }
 
-  const userEmail = session.user.email.toLowerCase();
-  welcomeMsg.textContent = `Welcome, ${userEmail}`;
+  try {
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single();
 
-  // Check if user's email exists in the 'admins' table
-  const { data: admins, error: adminError } = await supabaseClient
-    .from('admins')
-    .select('email')
-    .eq('email', userEmail);
+    if (profileError) {
+      console.error('Error fetching profile:', profileError);
+      return;
+    }
 
-  if (adminError) {
-    console.error('Error checking admin status:', adminError.message);
+    if (profile?.role === 'admin') {
+      const adminPanel = document.getElementById('admin-tools');
+      if (adminPanel) {
+        adminPanel.style.display = 'block';
+      }
+    }
+  } catch (err) {
+    console.error('Unexpected error in dashboard.js:', err);
   }
-
-  if (admins && admins.length > 0) {
-    adminPanel.style.display = 'block';
-  }
-
-  // Logout handler
-  logoutLink.addEventListener('click', async (e) => {
-    e.preventDefault();
-    await supabaseClient.auth.signOut();
-    window.location.href = 'login.html';
-  });
 });
