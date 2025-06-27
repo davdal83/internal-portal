@@ -1,1 +1,91 @@
+/* Login Page Specific Styling */
 
+body.login-page {
+  height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: radial-gradient(circle at center, #2D5D2A 0%, #1d3d1a 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f0f4f8;
+}
+
+.login-container {
+  background: #fff;
+  color: #222;
+  padding: 2.5rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  width: 350px;
+  max-width: 90vw;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.login-container:hover {
+  transform: scale(1.03);
+}
+
+.login-container h1 {
+  margin-bottom: 1.8rem;
+  font-weight: 700;
+  color: #2D5D2A;
+  letter-spacing: 1px;
+}
+
+.login-container label {
+  display: block;
+  margin: 1rem 0 0.3rem 0;
+  font-weight: 600;
+  text-align: left;
+}
+
+.login-container input[type="email"],
+.login-container input[type="password"] {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1.5px solid #ccc;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.login-container input[type="email"]:focus,
+.login-container input[type="password"]:focus {
+  outline: none;
+  border-color: #2D5D2A;
+  box-shadow: 0 0 6px #2D5D2Aaa;
+}
+
+.login-container button {
+  margin-top: 2rem;
+  width: 100%;
+  background-color: #2D5D2A;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 0.75rem 0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.login-container button:hover,
+.login-container button:focus {
+  background-color: #20471e;
+  box-shadow: 0 0 10px #20471ecc;
+  outline: none;
+}
+
+#login-message {
+  margin-top: 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #d9534f;
+  min-height: 1.4em;
+  text-align: center;
+}
