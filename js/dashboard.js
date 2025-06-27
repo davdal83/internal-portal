@@ -1,55 +1,74 @@
-document.addEventListener("DOMContentLoaded", async () => {
-  // Check user session or redirect to login
+// Wait for DOM content to load before running
+document.addEventListener("DOMContentLoaded", () => {
+  checkSession();
+});
+
+// Check if user session exists, else redirect to login
+async function checkSession() {
   try {
     const { data } = await supabaseClient.auth.getSession();
     if (!data.session) {
-      window.location.href = 'login.html';
+      // No active session, redirect to login
+      window.location.href = "login.html";
       return;
     }
 
-    // Display welcome message handled by navbar.js
+    const user = data.session.user;
+    const displayName = user.user_metadata?.full_name || user.email || "User";
 
-    // Show stores section
-    document.getElementById('stores-section').style.display = 'block';
+    document.getElementById("nav-welcome").innerText = `Welcome, ${displayName}`;
 
-    await loadStores();
+    // Show stores section and load store data
+    document.getElementById("stores-section").style.display = "block";
+    loadStores();
   } catch (error) {
-    console.error('Session check failed:', error);
-    window.location.href = 'login.html';
+    console.error("Session error:", error);
+    window.location.href = "login.html";
   }
-});
+}
 
+// Load stores and render cards
 async function loadStores() {
-  try {
-    const { data: stores, error } = await supabaseClient
-      .from('stores')
-      .select('id, store_name, store_number, general_manager, header_image_url'); // Add header image URL if available
-
-    if (error) throw error;
-
-    const container = document.getElementById('stores-container');
-    container.innerHTML = ''; // Clear existing
-
-    stores.forEach(store => {
-      const card = document.createElement('div');
-      card.className = 'store-card';
-      card.innerHTML = `
-        ${store.header_image_url ? `<div class="store-header" style="background-image: url('${store.header_image_url}')">
-          <div class="store-header-overlay">
-            <h3>${store.store_name}</h3>
-          </div>
-        </div>` : `<h3>${store.store_name}</h3>`}
-        <p><strong>Store #:</strong> ${store.store_number}</p>
-        <p><strong>GM:</strong> ${store.general_manager}</p>
-      `;
-
-      card.addEventListener('click', () => {
-        window.location.href = `store.html?id=${store.id}`;
-      });
-
-      container.appendChild(card);
-    });
-  } catch (error) {
-    alert('Failed to load stores: ' + error.message);
+  const { data: stores, error } = await supabaseClient
+    .from("stores")
+    .select("id, store_name, store_number, general_manager, header_image_url");
+  if (error) {
+    alert("Failed to load stores: " + error.message);
+    return;
   }
+
+  const container = document.getElementById("stores-container");
+  container.innerHTML = ""; // Clear existing
+
+  stores.forEach(store => {
+    const card = document.createElement("div");
+    card.className = "store-card";
+
+    // Use store header image or fallback
+    const headerImage = store.header_image_url || 'images/default-store.jpg';
+
+    card.innerHTML = `
+      <div class="store-header" style="background-image: url('${headerImage}')">
+        <div class="store-header-overlay">
+          <h3>${store.store_name}</h3>
+          <p><strong>Store #:</strong> ${store.store_number}</p>
+          <p><strong>GM:</strong> ${store.general_manager}</p>
+        </div>
+      </div>
+    `;
+
+    // On click go to store page (or later modal)
+    card.addEventListener("click", () => {
+      window.location.href = `store.html?id=${store.id}`;
+    });
+
+    container.appendChild(card);
+  });
+}
+
+// Logout function
+function logout() {
+  supabaseClient.auth.signOut().then(() => {
+    window.location.href = "login.html";
+  });
 }
