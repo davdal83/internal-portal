@@ -112,3 +112,23 @@ button[type="submit"]:focus {
   font-weight: 600;
   min-height: 1.2em;
 }
+.return-home {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.return-home a {
+  color: #2D5C2A;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.return-home a:hover,
+.return-home a:focus {
+  color: #65A17A;
+  text-decoration: underline;
+  outline: none;
+  cursor: pointer;
+}
