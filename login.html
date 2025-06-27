@@ -2,72 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Login</title>
+  <title>Internal Portal Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
-  <!-- Styles -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/login.css" />
-
-    <!-- Supabase lib -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <!-- Your Supabase init -->
-    <script src="js/supabase.js"></script>
-    
-    <!-- THEN your login and forgot logic -->
-    <script src="js/forgot-password.js"></script>
-    <script src="js/login-handler.js"></script> <!-- example -->
-
-
-  <!-- Login logic -->
-  <script>
-    async function smartAutoLogin() {
-      const messageDiv = document.getElementById("login-message");
-      try {
-        const { data, error } = await supabaseClient.auth.getSession();
-        if (error) {
-          console.warn("Session check error:", error.message);
-          return; // show form as normal
-        }
-  
-        if (data?.session) {
-          messageDiv.textContent = "Already logged in... Redirecting";
-          setTimeout(() => {
-            window.location.href = "dashboard.html";
-          }, 1000); // short delay to show message
-        }
-      } catch (err) {
-        console.warn("Auto-login failed:", err);
-      }
-    }
-  
-    smartAutoLogin();
-  </script>
-
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/login-handler.js"></script>
+  <script src="js/forgot-password.js"></script>
 </head>
 <body class="login-page">
   <div class="login-container">
     <h1>Internal Portal Login</h1>
-      <form id="login-form">
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="you@example.com" required autocomplete="username" />
-      
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Your password" required autocomplete="current-password" />
-      
-        <div class="login-options">
-          <label>
-            <input type="checkbox" id="remember-me" />
-            Remember Me
-          </label>
-        </div>
-      
-        <button type="submit">Log In</button>
-        <a href="#" id="forgot-password">Forgot Password?</a>
-        <div id="login-message"></div>
-      </form>
+    <form id="login-form">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="you@example.com" required autocomplete="username" />
 
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Your password" required autocomplete="current-password" />
+
+      <div class="form-row">
+        <label>
+          <input type="checkbox" id="remember-me" />
+          Remember Me
+        </label>
+        <a href="#" id="forgot-password-link">Forgot Password?</a>
+      </div>
+
+      <button type="submit">Log In</button>
+      <div id="login-message"></div>
+    </form>
   </div>
 </body>
 </html>
