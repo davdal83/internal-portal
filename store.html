@@ -2,52 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Store Details - Internal Portal</title>
+  <title>Store Details</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <link rel="stylesheet" href="css/style.css" />
-
-  <!-- Supabase JS -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <!-- Supabase client config -->
-  <script src="js/supabase.js"></script>
-
-  <!-- Navbar JS -->
-  <script src="js/navbar.js" defer></script>
-
-  <!-- Store page JS -->
-  <script src="js/store.js" defer></script>
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
 </head>
 <body>
-  <header>
-    <h1>Store Details</h1>
-  </header>
+  <header id="navbar-container"></header>
 
-  <!-- Navbar will be injected here -->
-  <div id="navbar"></div>
-
-  <main>
-    <section id="store-header" class="store-header" style="display:none;">
-      <!-- Background image and store name will be injected here -->
-      <div class="store-header-overlay">
-        <h2 id="store-name"></h2>
-        <p id="store-number"></p>
-        <p id="store-gm"></p>
-      </div>
-    </section>
-
-    <section id="store-info" class="store-info" style="display:none;">
-      <!-- Additional store info here -->
-      <p id="store-description"></p>
-    </section>
-
-    <section id="photo-gallery" style="margin-top:1rem;">
-      <h3>Photos</h3>
-      <div id="photos-container" class="photo-gallery">
-        <!-- Photos loaded here -->
-      </div>
-    </section>
+  <main class="store-details-container" style="padding: 1rem; max-width: 600px; margin: auto;">
+    <h1 id="store-name">Loading...</h1>
+    <p><strong>Store #:</strong> <span id="store-number"></span></p>
+    <p><strong>General Manager:</strong> <span id="general-manager"></span></p>
+    <!-- Add more store details here -->
   </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/store.js"></script>
 </body>
 </html>
