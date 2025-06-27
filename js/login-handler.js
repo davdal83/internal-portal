@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const email = loginForm.email.value.trim();
     const password = loginForm.password.value.trim();
 
-    // Clear previous error
-    loginError.classList.add('hidden');
+    // Hide previous error
+    loginError.classList.remove('visible');
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (error) {
       console.error('Login failed:', error.message);
-      loginError.classList.remove('hidden');
+      loginError.classList.add('visible');
     } else {
       // Redirect on success
       window.location.href = 'dashboard.html';
