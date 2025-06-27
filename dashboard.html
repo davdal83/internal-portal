@@ -1,1 +1,33 @@
-<h1>this is to test</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/navbar.js" defer></script>
+  <script src="js/dashboard.js" defer></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">Papa John’s Internal Portal</div>
+    <ul class="nav-links">
+      <li><a href="documents.html">Documents & Forms</a></li>
+      <li><a href="contacts.html">Team Directory</a></li>
+      <li><button id="logout-button">Logout</button></li>
+    </ul>
+    <div id="nav-welcome" class="nav-welcome">Welcome, User</div>
+  </nav>
+
+  <main>
+    <section id="stores-section" style="display:none;">
+      <h1>Your Stores</h1>
+      <div id="stores-container" class="stores-container"></div>
+    </section>
+  </main>
+</body>
+</html>
