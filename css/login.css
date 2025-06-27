@@ -1,183 +1,79 @@
-/* login.css - styled for Papa John's Jacksonville login */
+/* login.css */
 
-/* Use your global colors */
-:root {
-  --green-dark: #2D5D2A;
-  --green-mid: #65A17A;
-  --red-primary: #FF0000;
-  --beige-light: #F5E8DC;
-  --white: #FFFFFF;
-  --black: #000000;
-}
-
-/* Reset body and html for full height */
-html, body {
-  height: 100%;
+body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
-  background: var(--beige-light);
-  color: var(--green-dark);
-}
-
-/* Container splits screen into 2 columns */
-.login-container {
+  background: linear-gradient(135deg, #2D5D2A, #F5E8DC);
   display: flex;
-  min-height: 100vh;
-  max-width: 100vw;
-  overflow-x: hidden;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
-}
-
-/* Left side: logo and welcome text */
-.login-logo-side {
-  background: var(--green-dark);
-  color: var(--white);
-  flex: 1.2;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 3rem 2rem;
+  height: 100vh;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.login-card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
 
 .login-logo {
-  max-width: 220px;
-  margin-bottom: 2rem;
+  max-width: 160px;
+  margin-bottom: 20px;
 }
 
-.login-logo-side h1 {
-  font-size: 2.8rem;
-  margin-bottom: 0.8rem;
-  font-weight: 700;
+.login-card h2 {
+  margin-bottom: 20px;
+  color: #2D5D2A;
 }
 
-.login-logo-side p {
-  font-size: 1.25rem;
-  font-weight: 400;
-  opacity: 0.85;
-  max-width: 300px;
-  margin: 0 auto;
-}
-
-/* Right side: login form */
-.login-form-side {
-  flex: 1;
-  background: var(--white);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 3rem 2rem;
-}
-
-#login-form {
+#login-form input {
   width: 100%;
-  max-width: 380px;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
 }
 
-/* Form Labels */
-#login-form label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  color: var(--green-dark);
-}
-
-/* Inputs */
-#login-form input[type="email"],
-#login-form input[type="password"] {
+#login-form button {
   width: 100%;
-  padding: 0.85rem 1rem;
-  margin-bottom: 1.5rem;
-  border: 1.8px solid var(--green-mid);
-  border-radius: 5px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-#login-form input[type="email"]:focus,
-#login-form input[type="password"]:focus {
-  border-color: var(--red-primary);
-  outline: none;
-}
-
-/* Submit button */
-#login-form button.btn-primary {
-  width: 100%;
-  padding: 1rem;
-  background: var(--red-primary);
-  color: var(--white);
+  background-color: #2D5D2A;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
   border: none;
-  font-size: 1.1rem;
-  font-weight: 700;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-#login-form button.btn-primary:hover {
-  background: var(--green-mid);
+#login-form button:hover {
+  background-color: #65A17A;
 }
 
-/* Error message */
-.error-msg {
-  color: var(--red-primary);
-  font-weight: 600;
-  margin-top: 1rem;
-  display: none;
+.login-links {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
 }
 
-.error-msg.visible {
-  display: block;
-}
-
-/* Forgot password link */
-.forgot-link {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-}
-
-.forgot-link a {
-  color: var(--green-dark);
-  text-decoration: underline;
-}
-
-.forgot-link a:hover {
-  color: var(--red-primary);
-}
-
-/* Responsive for smaller devices */
-@media (max-width: 768px) {
-  .login-container {
-    flex-direction: column;
-  }
-  .login-logo-side {
-    flex: none;
-    padding: 2rem 1rem;
-  }
-  .login-form-side {
-    padding: 2rem 1rem;
-  }
-}
-.home-link-container {
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.btn-home {
-  color: var(--green-dark);
-  font-weight: 600;
+.login-links a {
+  color: #710500;
   text-decoration: none;
-  font-size: 1rem;
-  border: 1.5px solid var(--green-dark);
-  padding: 0.3rem 0.75rem;
-  border-radius: 6px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  display: inline-block;
-  cursor: pointer;
 }
 
-.btn-home:hover {
-  background-color: var(--green-dark);
-  color: var(--light-beige);
+.home-link {
+  display: block;
+  margin-top: 20px;
+  color: #2D5D2A;
+  text-decoration: none;
+  font-size: 14px;
 }
