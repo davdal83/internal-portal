@@ -1,34 +1,139 @@
-/* Global Styles - style.css */
+/* ------------------------------------
+   Global Styles - Papa John's Jacksonville
+   Author: David Dale
+   ------------------------------------ */
 
-/* Brand Colors */
-:root {
-  --green-dark: #2D5D2A;    /* Dark Green - primary */
-  --green-mid: #65A17A;     /* Mid Mint Green */
-  --red-primary: #FF0000;   /* Red - accent */
-  --red-deep: #710500;      /* Deep Red */
-  --yellow-bright: #FFCF6E; /* Bright Yellow */
-  --beige-light: #F5E8DC;   /* Light Beige */
-  --white: #FFFFFF;         /* White */
-  --black: #000000;         /* Black */
-}
-
-/* Font Family */
+/* Font: Papa Sans fallback via Open Sans */
 body {
-  font-family: 'Papa Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, Helvetica, Arial, sans-serif;
-  background-color: var(--beige-light);
-  color: var(--green-dark);
+  font-family: 'Open Sans', sans-serif;
   margin: 0;
   padding: 0;
-  line-height: 1.5;
+  background-color: var(--beige-light);
+  color: var(--green-dark);
+  line-height: 1.6;
   font-size: 16px;
 }
 
-/* Container for consistent max width and padding */
+/* --------------------
+   Color Variables
+   -------------------- */
+:root {
+  --green-dark: #2D5D2A;
+  --green-mid: #65A17A;
+  --mint: #65A17A;
+  --red-primary: #FF0000;
+  --red-deep: #710500;
+  --yellow-bright: #FFCF6E;
+  --beige-light: #F5E8DC;
+  --lavender: #E3C2ED;
+  --black: #000000;
+  --white: #FFFFFF;
+}
+
+/* --------------------
+   Typography
+   -------------------- */
+h1, h2, h3, h4 {
+  color: var(--green-dark);
+  margin-top: 0;
+  font-weight: 600;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.4rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--green-mid);
+}
+
+/* --------------------
+   Utility Classes
+   -------------------- */
 .container {
-  max-width: 1100px;
+  width: 90%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--green-dark);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--green-mid);
+}
+
+/* Hide elements */
+.hidden {
+  display: none;
+}
+
+/* Error message */
+.error-msg {
+  color: var(--red-primary);
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+/* Form elements */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--green-mid);
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+label {
+  font-weight: 600;
+  color: var(--green-dark);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  background-color: var(--green-dark);
+  color: var(--white);
+  margin-top: 4rem;
+}
+
+/* Responsive Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* Links */
@@ -37,72 +142,6 @@ a {
   text-decoration: none;
 }
 
-a:hover,
-a:focus {
+a:hover {
   text-decoration: underline;
-  color: var(--red-deep);
-}
-
-/* Buttons */
-.btn {
-  display: inline-block;
-  padding: 0.5rem 1.25rem;
-  font-weight: 600;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  text-align: center;
-  border: none;
-  font-family: inherit;
-  user-select: none;
-}
-
-.btn-primary {
-  background-color: var(--green-dark);
-  color: var(--white);
-}
-
-.btn-primary:hover,
-.btn-primary:focus {
-  background-color: var(--green-mid);
-  outline: none;
-}
-
-/* Headings */
-h1, h2, h3 {
-  margin-top: 0;
-  color: var(--green-dark);
-}
-
-/* Utility classes */
-.hidden {
-  display: none !important;
-}
-
-/* Footer */
-.footer {
-  text-align: center;
-  padding: 1rem 0;
-  background-color: var(--green-dark);
-  color: var(--white);
-  font-size: 0.9rem;
-}
-
-/* Reset list styles */
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* Responsive images */
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Basic typography spacing */
-p {
-  margin-bottom: 1rem;
 }
