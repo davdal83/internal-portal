@@ -5,23 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Papa John's Jacksonville</title>
 
-  <!-- Global & Page Styles -->
+  <!-- Global styles -->
   <link rel="stylesheet" href="css/style.css" />
+  <!-- Page-specific styles -->
   <link rel="stylesheet" href="css/index.css" />
-  <link rel="stylesheet" href="css/navbar.css" />
 
-  <!-- Font setup -->
-  <style>
-    body {
-      font-family: 'Papa Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-        Helvetica, Arial, sans-serif;
-    }
-  </style>
 </head>
 <body>
+
   <!-- Navbar -->
-  <nav class="public-navbar">
-    <div class="navbar-container">
+  <nav class="navbar">
+    <div class="container navbar-container">
       <a href="index.html" class="nav-logo">
         <img src="images/DIGITAL_USE_PJS_LOGO_STACK_RED_RGB.png" alt="Papa John's Logo" />
       </a>
@@ -36,31 +30,29 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- Hero section -->
   <header class="hero">
-    <div class="hero-overlay">
-      <img src="images/DIGITAL_USE_PJS_LOGO_STACK_RED_RGB.png" alt="Papa John's Logo" class="logo" />
+    <div class="hero-content">
+      <img src="images/DIGITAL_USE_PJS_LOGO_STACK_RED_RGB.png" alt="Papa John's Logo" class="hero-logo" />
       <h1>Welcome to Papa John's Jacksonville</h1>
       <p>Serving the community one slice at a time.</p>
-      <a href="login.html" class="login-btn">Team Login</a>
+      <a href="login.html" class="btn btn-primary">Team Login</a>
     </div>
   </header>
 
-  <!-- Intro Section -->
-  <main class="content">
-    <section class="intro">
-      <h2>Locally Owned. Community Driven.</h2>
-      <p>
-        From the River City to the beaches and everywhere in between, Papa John's Jacksonville is proud to bring quality pizza and hometown service to North Florida.
-      </p>
-      <p>
-        Whether you're part of our crew or just here for the pizza, you're in the right place.
-      </p>
-    </section>
+  <!-- Intro section -->
+  <main class="container intro">
+    <h2>Locally Owned. Community Driven.</h2>
+    <p>
+      From the River City to the beaches and everywhere in between, Papa John's Jacksonville is proud to bring quality pizza and hometown service to North Florida.
+    </p>
+    <p>
+      Whether you're part of our crew or just here for the pizza, you're in the right place.
+    </p>
   </main>
 
-  <!-- Contact Section (hidden initially) -->
-  <section class="contact-section hidden" id="contact">
+  <!-- Contact section (hidden by default) -->
+  <section class="container contact-section hidden" id="contact">
     <h2>Contact Us</h2>
 
     <div class="leadership-cards">
@@ -68,32 +60,27 @@
     </div>
 
     <h3>Our Stores</h3>
-    <div class="store-table-wrapper">
-      <table class="store-table">
-        <thead>
-          <tr>
-            <th>Store #</th>
-            <th>Name</th>
-            <th>Address</th>
-          </tr>
-        </thead>
-        <tbody id="store-table-body"></tbody>
-      </table>
-    </div>
+    <table class="store-table">
+      <thead>
+        <tr>
+          <th>Store #</th>
+          <th>Name</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody id="store-table-body">
+        <!-- Store rows loaded dynamically -->
+      </tbody>
+    </table>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
     <p>&copy; 2025 Papa John's Jacksonville. All rights reserved.</p>
   </footer>
 
-  <!-- Load scripts at end for faster page load -->
-<!-- Load Supabase library first with defer -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js" defer></script>
-
-<!-- Your custom scripts, also with defer -->
-<script src="js/navbar-public.js" defer></script>
-<script src="js/contact.js" defer></script>
+  <!-- JS scripts -->
+  <script src="js/navbar.js" defer></script>
+  <script src="js/contact.js" defer></script>
 
 </body>
 </html>
