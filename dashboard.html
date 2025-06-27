@@ -31,7 +31,6 @@
 
   <!-- Dashboard Logic -->
   <script defer>
-    // Format phone numbers as (555) 123-4567
     function formatPhoneNumber(phoneNum) {
       if (!phoneNum) return "N/A";
 
@@ -43,7 +42,7 @@
     }
 
     async function checkSession() {
-      const { data: { session } } = await supabaseClient.auth.getSession();
+      const { data: { session } } = await window.supabaseClient.auth.getSession();
 
       if (!session) {
         window.location.href = "login.html";
@@ -64,7 +63,7 @@
     }
 
     async function loadStores() {
-      const { data: stores, error } = await supabaseClient.from("stores").select("*");
+      const { data: stores, error } = await window.supabaseClient.from("stores").select("*");
 
       const container = document.getElementById("stores-list");
 
@@ -108,7 +107,7 @@
     }
 
     async function loadPhotos(storeId) {
-      const { data: photos, error } = await supabaseClient
+      const { data: photos, error } = await window.supabaseClient
         .from("photos")
         .select("*")
         .eq("store_id", storeId);
@@ -137,12 +136,12 @@
     }
 
     function logout() {
-      supabaseClient.auth.signOut().then(() => {
+      window.supabaseClient.auth.signOut().then(() => {
         window.location.href = "login.html";
       });
     }
 
-    // Initialize on page load
+    // Run on load
     checkSession();
   </script>
 </body>
