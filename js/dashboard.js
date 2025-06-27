@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
   checkSession();
-
   document.getElementById("logout-button").addEventListener("click", logout);
 });
 
@@ -17,8 +16,8 @@ async function checkSession() {
     const user = data.session.user;
     const displayName = user.user_metadata?.full_name || user.email || "User";
     document.getElementById("nav-welcome").innerText = `Welcome, ${displayName}`;
-
     document.getElementById("stores-section").style.display = "block";
+
     loadStores();
   } catch (err) {
     console.error("Session error:", err);
@@ -42,32 +41,21 @@ async function loadStores() {
   stores.forEach((store) => {
     const card = document.createElement("div");
     card.className = "store-card";
-    card.style.backgroundImage = `url(${store.header_image_url || 'images/default-store.jpg'})`;
-    card.style.backgroundSize = "cover";
-    card.style.backgroundPosition = "center";
-    card.style.color = "#fff";
-    card.style.position = "relative";
-    card.style.padding = "1.5rem";
-    card.style.borderRadius = "8px";
-    card.style.cursor = "pointer";
-    card.style.boxShadow = "0 4px 14px rgb(0 77 153 / 0.4)";
-    card.style.transition = "transform 0.2s ease";
 
-    card.innerHTML = `
-      <h3 style="margin-bottom:0.3rem; text-shadow: 0 0 5px rgba(0,0,0,0.8)">${store.store_name}</h3>
-      <p style="font-weight: 600; text-shadow: 0 0 4px rgba(0,0,0,0.7)">Store #: ${store.store_number}</p>
-      <p style="font-weight: 600; text-shadow: 0 0 4px rgba(0,0,0,0.7)">GM: ${store.general_manager}</p>
+    const banner = document.createElement("div");
+    banner.className = "store-header";
+    banner.style.backgroundImage = `url(${store.header_image_url || 'images/default-store.jpg'})`;
+
+    const overlay = document.createElement("div");
+    overlay.className = "store-header-overlay";
+    overlay.innerHTML = `
+      <h3>${store.store_name}</h3>
+      <p>Store #: ${store.store_number}</p>
+      <p>GM: ${store.general_manager}</p>
     `;
 
-    card.addEventListener("mouseenter", () => {
-      card.style.transform = "translateY(-5px)";
-      card.style.boxShadow = "0 8px 24px rgb(0 77 153 / 0.7)";
-    });
-
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "translateY(0)";
-      card.style.boxShadow = "0 4px 14px rgb(0 77 153 / 0.4)";
-    });
+    banner.appendChild(overlay);
+    card.appendChild(banner);
 
     card.addEventListener("click", () => {
       window.location.href = `store.html?id=${store.id}`;
