@@ -84,6 +84,7 @@ async function loadPhotos(storeId) {
   for (const photo of photos) {
     const img = document.createElement("img");
     img.src = photo.image_url;
+    img.onclick = () => openLightbox(photo.image_url);
     img.alt = `Store ${storeId}`;
     photosDiv.appendChild(img);
   }
