@@ -1,67 +1,95 @@
-/* Login Page Styles */
+/* --- Login Page Styles --- */
 
-.login-container {
-  background: white;
-  padding: 2rem 3rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  width: 320px;
-  margin: auto;
-  margin-top: 6rem;
+/* Full page background with subtle gradient */
+body.login-page {
+  height: 100vh;
+  margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f0f4f8;
 }
 
-.login-container h1 {
-  margin-bottom: 1.5rem;
-  color: #004d99;
-  font-weight: 700;
+/* The login card */
+.login-container {
+  background: #fff;
+  color: #222;
+  padding: 2.5rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  width: 350px;
+  max-width: 90vw;
   text-align: center;
 }
 
+.login-container h1 {
+  margin-bottom: 1.8rem;
+  font-weight: 700;
+  color: #004d99;
+  letter-spacing: 1px;
+}
+
+/* Form labels and inputs */
 .login-container label {
   display: block;
-  margin-top: 1rem;
+  margin: 1rem 0 0.3rem 0;
   font-weight: 600;
+  text-align: left;
 }
 
 .login-container input[type="email"],
 .login-container input[type="password"] {
   width: 100%;
-  padding: 0.5rem 0.7rem;
-  margin-top: 0.3rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 0.7rem 0.9rem;
   font-size: 1rem;
-  box-sizing: border-box;
-}
-
-.login-container button {
-  margin-top: 1.8rem;
-  width: 100%;
-  background-color: #007bff;
-  color: white;
-  font-weight: 600;
-  font-size: 1rem;
-  border: none;
-  padding: 0.6rem 0;
   border-radius: 6px;
+  border: 1.5px solid #ccc;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.login-container input[type="email"]:focus,
+.login-container input[type="password"]:focus {
+  outline: none;
+  border-color: #004d99;
+  box-shadow: 0 0 6px #004d99aa;
+}
+
+/* Submit button */
+.login-container button {
+  margin-top: 2rem;
+  width: 100%;
+  background-color: #004d99;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 0.75rem 0;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.login-container button:hover {
-  background-color: #0056b3;
+.login-container button:hover,
+.login-container button:focus {
+  background-color: #003366;
+  box-shadow: 0 0 10px #003366cc;
+  outline: none;
 }
 
+/* Login message (error) */
 #login-message {
   margin-top: 1rem;
-  color: #d9534f;
-  min-height: 1.3em;
   font-weight: 600;
-  font-size: 0.9rem;
-  text-align: center;
+  font-size: 0.95rem;
+  color: #d9534f; /* red error */
+  min-height: 1.4em;
+  user-select: none;
 }
+
 
 /* Dashboard & general styles */
 
