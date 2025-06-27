@@ -1,6 +1,5 @@
 /* --- Login Page Styles --- */
 
-/* Full page background with subtle gradient */
 body.login-page {
   height: 100vh;
   margin: 0;
@@ -12,7 +11,6 @@ body.login-page {
   color: #f0f4f8;
 }
 
-/* The login card */
 .login-container {
   background: #fff;
   color: #222;
@@ -22,6 +20,11 @@ body.login-page {
   width: 350px;
   max-width: 90vw;
   text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.login-container:hover {
+  transform: scale(1.03);
 }
 
 .login-container h1 {
@@ -29,7 +32,69 @@ body.login-page {
   font-weight: 700;
   color: #004d99;
   letter-spacing: 1px;
+  user-select: none;
 }
+
+.login-container label {
+  display: block;
+  margin: 1rem 0 0.3rem 0;
+  font-weight: 600;
+  text-align: left;
+  user-select: none;
+}
+
+.login-container input[type="email"],
+.login-container input[type="password"] {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1.5px solid #ccc;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+  font-family: inherit;
+  user-select: text;
+}
+
+.login-container input[type="email"]:focus,
+.login-container input[type="password"]:focus {
+  outline: none;
+  border-color: #004d99;
+  box-shadow: 0 0 6px #004d99aa;
+}
+
+.login-container button {
+  margin-top: 2rem;
+  width: 100%;
+  background-color: #004d99;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 0.75rem 0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+  user-select: none;
+}
+
+.login-container button:hover,
+.login-container button:focus {
+  background-color: #003366;
+  box-shadow: 0 0 10px #003366cc;
+  outline: none;
+}
+
+#login-message {
+  margin-top: 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #d9534f; /* red error */
+  min-height: 1.4em;
+  user-select: none;
+  text-align: center;
+}
+
 
 /* Form labels and inputs */
 .login-container label {
