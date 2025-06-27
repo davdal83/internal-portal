@@ -89,3 +89,29 @@ body.login-page {
   min-height: 1.4em;
   text-align: center;
 }
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.login-options label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #333;
+  font-weight: 500;
+  user-select: none;
+}
+
+.login-options a {
+  color: #710500;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-options a:hover {
+  text-decoration: underline;
+}
