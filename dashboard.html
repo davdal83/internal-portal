@@ -3,48 +3,162 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard Test - Supabase Setup</title>
+  <title>Dashboard – Internal Portal</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <h2>Dashboard Test</h2>
-  <p id="status">Loading...</p>
+  <div class="container">
+    <h2>Welcome to the Internal Portal</h2>
+    <p id="user-email">Checking session…</p>
 
-  <!-- Supabase SDK -->
+    <section id="stores-section" style="display: none;">
+      <h3>Store Locations</h3>
+      <div id="stores-list">Loading stores…</div>
+    </section>
+
+    <div id="admin-panel" style="display: none; margin-top: 20px;">
+      <h3>Admin Panel</h3>
+      <p>Upload form and admin tools will go here.</p>
+    </div>
+
+    <button onclick="logout()">Log Out</button>
+  </div>
+
+  <!-- Load Supabase SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js" defer></script>
-  <!-- Your Supabase client setup -->
+  <!-- Load your Supabase client -->
   <script src="js/supabase.js" defer></script>
 
   <script defer>
     console.log("supabase object:", typeof supabase);
     console.log("window.supabaseClient:", window.supabaseClient);
 
-    async function testSession() {
-      const statusEl = document.getElementById("status");
+    function formatPhoneNumber(phoneNum) {
+      if (!phoneNum) return "N/A";
 
-      if (!window.supabaseClient) {
-        statusEl.textContent = "Error: supabaseClient is NOT loaded.";
-        return;
-      }
+      let phoneStr = phoneNum.toString().replace(/\D/g, "");
 
+      if (phoneStr.length !== 10) return phoneStr;
+
+      return `(${phoneStr.slice(0,3)}) ${phoneStr.slice(3,6)}-${phoneStr.slice(6)}`;
+    }
+
+    async function checkSession() {
       try {
-        const { data: { session }, error } = await window.supabaseClient.auth.getSession();
+        const { data: { session } } = await window.supabaseClient.auth.getSession();
 
-        if (error) {
-          statusEl.textContent = "Error getting session: " + error.message;
+        if (!session) {
+          window.location.href = "login.html";
           return;
         }
 
-        if (!session) {
-          statusEl.textContent = "No active session, please log in.";
-        } else {
-          statusEl.textContent = "Logged in as: " + session.user.email;
+        const user = session.user;
+        document.getElementById("user-email").innerText = "Logged in as " + user.email;
+
+        document.getElementById("stores-section").style.display = "block";
+
+        const admins = ["david@bajco.net", "ashley@bajco.net"];
+        if (admins.includes(user.email)) {
+          document.getElementById("admin-panel").style.display = "block";
         }
-      } catch (e) {
-        statusEl.textContent = "Exception: " + e.message;
+
+        loadStores();
+      } catch (error) {
+        console.error("Error checking session:", error);
+        document.getElementById("user-email").innerText = "Error checking session";
       }
     }
 
-    testSession();
+    async function loadStores() {
+      try {
+        const { data: stores, error } = await window.supabaseClient.from("stores").select("*");
+
+        const container = document.getElementById("stores-list");
+
+        if (error) {
+          container.innerText = "Error loading stores: " + error.message;
+          return;
+        }
+
+        if (!stores.length) {
+          container.innerText = "No stores found.";
+          return;
+        }
+
+        container.innerHTML = "";
+
+        for (const store of stores) {
+          const storeDiv = document.createElement("div");
+          storeDiv.classList.add("store");
+
+          const header = document.createElement("h4");
+          header.textContent = `${store.store_number} – ${store.store_name}`;
+          storeDiv.appendChild(header);
+
+          const details = document.createElement("p");
+          details.innerHTML = `
+            <strong>Address:</strong> ${store.store_address || "N/A"}<br>
+            <strong>Phone:</strong> ${formatPhoneNumber(store.phone_number)}<br>
+            <strong>GM:</strong> ${store.general_manager || "N/A"}
+          `;
+          storeDiv.appendChild(details);
+
+          const photosDiv = document.createElement("div");
+          photosDiv.id = `photos-for-store-${store.id}`;
+          photosDiv.innerText = "Loading photos...";
+          storeDiv.appendChild(photosDiv);
+
+          container.appendChild(storeDiv);
+
+          loadPhotos(store.id);
+        }
+      } catch (error) {
+        document.getElementById("stores-list").innerText = "Error loading stores: " + error.message;
+      }
+    }
+
+    async function loadPhotos(storeId) {
+      try {
+        const { data: photos, error } = await window.supabaseClient
+          .from("photos")
+          .select("*")
+          .eq("store_id", storeId);
+
+        const photosDiv = document.getElementById(`photos-for-store-${storeId}`);
+
+        if (error) {
+          photosDiv.innerText = "Error loading photos: " + error.message;
+          return;
+        }
+
+        if (!photos.length) {
+          photosDiv.innerText = "No photos uploaded yet.";
+          return;
+        }
+
+        photosDiv.innerHTML = "";
+
+        for (const photo of photos) {
+          const img = document.createElement("img");
+          img.src = photo.image_url;
+          img.alt = `Photo for store ${storeId}`;
+          img.style = "max-width: 150px; margin: 5px; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.2);";
+          photosDiv.appendChild(img);
+        }
+      } catch (error) {
+        const photosDiv = document.getElementById(`photos-for-store-${storeId}`);
+        photosDiv.innerText = "Error loading photos: " + error.message;
+      }
+    }
+
+    function logout() {
+      window.supabaseClient.auth.signOut().then(() => {
+        window.location.href = "login.html";
+      });
+    }
+
+    // Run on page load
+    checkSession();
   </script>
 </body>
 </html>
