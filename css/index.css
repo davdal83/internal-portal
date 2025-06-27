@@ -76,3 +76,65 @@
   padding: 1rem;
   margin-top: 2rem;
 }
+/* ============================
+   Contact Section
+   ============================ */
+
+.contact-section {
+  padding: 3rem 1rem;
+  background-color: var(--light-beige);
+  text-align: center;
+}
+
+.contact-section h2,
+.contact-section h3 {
+  color: var(--green);
+  margin-bottom: 1rem;
+}
+
+/* Leadership Card Layout */
+.leadership-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.contact-card {
+  background-color: var(--white);
+  border: 2px solid var(--green);
+  border-radius: 12px;
+  padding: 1rem;
+  width: 250px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Store Table */
+.store-table-wrapper {
+  overflow-x: auto;
+}
+
+.store-table {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background-color: var(--white);
+}
+
+.store-table th,
+.store-table td {
+  border: 1px solid var(--green);
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.store-table th {
+  background-color: var(--mint);
+  color: var(--black);
+}
+
+.store-table td {
+  color: var(--black);
+}
