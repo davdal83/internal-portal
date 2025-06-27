@@ -22,36 +22,44 @@
     </form>
   </div>
 
-  <script>
-    async function checkAuth() {
-      const { data, error } = await supabaseClient.auth.getSession();
-      if (data?.session) {
-        window.location.href = "dashboard.html";
+    <!-- Load Supabase library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Load your supabaseClient config -->
+    <script src="js/supabase.js"></script>
+    
+    <!-- Your login logic must come after -->
+    <script>
+      async function checkAuth() {
+        const { data, error } = await supabaseClient.auth.getSession();
+        if (data?.session) {
+          window.location.href = "dashboard.html";
+        }
       }
-    }
+    
+      checkAuth();
+    
+      const form = document.getElementById("login-form");
+      const messageDiv = document.getElementById("login-message");
+    
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        messageDiv.textContent = "";
+    
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    
+        if (error) {
+          messageDiv.textContent = `Login failed: ${error.message}`;
+          return;
+        }
+    
+        if (data?.session) {
+          window.location.href = "dashboard.html";
+        }
+      });
+    </script>
 
-    checkAuth();
-
-    const form = document.getElementById("login-form");
-    const messageDiv = document.getElementById("login-message");
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-      messageDiv.textContent = "";
-
-      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-
-      if (error) {
-        messageDiv.textContent = `Login failed: ${error.message}`;
-        return;
-      }
-
-      if (data?.session) {
-        window.location.href = "dashboard.html";
-      }
-    });
-  </script>
 </body>
 </html>
