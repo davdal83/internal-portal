@@ -8,37 +8,74 @@
 </head>
 <body>
   <div class="container">
-    <h2>Internal Portal Login</h2>
-    <input type="email" id="email" placeholder="Email" />
-    <input type="password" id="password" placeholder="Password" />
-    <button onclick="login()">Log In</button>
-    <p id="status"></p>
+    <h2>Login to Internal Portal</h2>
+
+    <form id="login-form" onsubmit="event.preventDefault(); login();">
+      <input
+        type="email"
+        id="email"
+        placeholder="Email"
+        required
+        autocomplete="username"
+      />
+      <input
+        type="password"
+        id="password"
+        placeholder="Password"
+        required
+        autocomplete="current-password"
+      />
+      <button type="submit">Login</button>
+    </form>
+
+    <p id="message"></p>
   </div>
 
-  <!-- Load Supabase SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js" defer></script>
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <!-- Your Supabase client -->
+  <script src="js/supabase.js"></script>
 
-  <!-- Load your Supabase client configuration -->
-  <script src="js/supabase.js" defer></script>
-
-  <!-- Login logic -->
-  <script defer>
+  <script>
     async function login() {
-      const email = document.getElementById("email").value;
+      const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
 
+      if (!email || !password) {
+        showMessage("Please enter email and password.", "error");
+        return;
+      }
+
+      showMessage("Logging in…", "info");
+
       try {
-        const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        const { data, error } = await window.supabaseClient.auth.signInWithPassword({
+          email,
+          password,
+        });
 
         if (error) {
-          document.getElementById("status").innerText = "Error: " + error.message;
+          showMessage("Login failed: " + error.message, "error");
+          return;
+        }
+
+        if (data.session) {
+          showMessage("Login successful! Redirecting…", "success");
+          setTimeout(() => {
+            window.location.href = "dashboard.html";
+          }, 1000);
         } else {
-          window.location.href = "dashboard.html";
+          showMessage("Login failed: No session returned.", "error");
         }
       } catch (err) {
-        document.getElementById("status").innerText = "Unexpected error. Check console.";
-        console.error("Login exception:", err);
+        showMessage("Unexpected error: " + err.message, "error");
       }
+    }
+
+    function showMessage(msg, type = "info") {
+      const msgEl = document.getElementById("message");
+      msgEl.textContent = msg;
+      msgEl.style.color = type === "error" ? "red" : type === "success" ? "green" : "black";
     }
   </script>
 </body>
