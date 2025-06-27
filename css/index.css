@@ -138,3 +138,10 @@
 .store-table td {
   color: var(--black);
 }
+.leader-photo {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+}
