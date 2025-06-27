@@ -1,3 +1,77 @@
+/* Dashboard & general styles */
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 1rem;
+  background: #f9fafb;
+  color: #222;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  margin: 0;
+  color: #004d99;
+}
+
+#user-email {
+  font-weight: 600;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  background-color: #004d99;
+  color: white;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+tbody tr:hover {
+  background-color: #e0ebff;
+  cursor: pointer;
+}
+
+tbody td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #ddd;
+}
+
+a {
+  color: #004d99;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Your existing photo gallery styles */
+
 .photo-wrapper {
   position: relative;
   display: inline-block;
