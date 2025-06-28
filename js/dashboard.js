@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       welcomeEl.textContent = `Welcome back, ${profile.first_name}. Let’s handle business.`;
     }
 
-  } catch (err) {
-    console.error('Dashboard load error:', err);
-    welcomeEl.textContent = 'Something went wrong. Try reloading.';
-  }
+//  } catch (err) {
+ //   console.error('Dashboard load error:', err);
+//    welcomeEl.textContent = 'Something went wrong. Try reloading.';
+//  }
 });
