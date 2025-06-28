@@ -85,3 +85,10 @@ h1 {
   max-width: 1200px;
 }
 
+.team-email {
+  font-size: 0.9rem;
+  color: #2D5C2A;
+  margin-bottom: 0.8rem;
+  font-style: italic;
+}
+
