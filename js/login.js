@@ -38,10 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const userId = signInData.user.id
 
-    // Check approval status
+    // Check approval status and role
     const { data: userData, error: userError } = await supabase
       .from('users')
-      .select('status')
+      .select('status, role')
       .eq('id', userId)
       .single()
 
@@ -60,7 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
     message.textContent = 'Login successful! Redirecting...'
 
     setTimeout(() => {
-      window.location.href = 'dashboard.html'
+      if (userData.role === 'admin') {
+        window.location.href = 'admin-dashboard.html'
+      } else {
+        window.location.href = 'dashboard.html'
+      }
     }, 1200)
   })
 
@@ -131,6 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
           phone,
           store_number: storeNumber,
           status: 'pending',
+          role: 'user',
         },
       ])
 
