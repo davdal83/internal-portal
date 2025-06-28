@@ -1,102 +1,169 @@
+/* Base styles */
+
 body {
-  font-family: 'Montserrat', sans-serif;
   margin: 0;
-  background: #f5e8dc;
-  color: #2d5c2a;
-  min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f5e8dc;
+  color: #000;
+}
+
+.dashboard-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar */
+
+.sidebar {
+  background-color: #2d5c2a; /* Dark green */
+  width: 220px;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  border-right: 3px solid #cfeb0c; /* Bright yellow accent */
 }
 
-.navbar {
-  background-color: #2d5c2a;
-  padding: 1rem 2rem;
-  display: flex;
-  align-items: center;
-}
-
-.logo img {
-  height: 40px;
-}
-
-.container {
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   flex-grow: 1;
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+}
+
+.sidebar nav ul li {
+  margin-bottom: 1.2rem;
+}
+
+.sidebar nav ul li a,
+.sidebar nav ul li button {
+  display: block;
+  color: #f5e8dc; /* Beige text */
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  font-size: 1rem;
+}
+
+.sidebar nav ul li a:hover,
+.sidebar nav ul li button:hover,
+.sidebar nav ul li a:focus,
+.sidebar nav ul li button:focus {
+  background-color: #65a17a; /* Mint green */
+  color: #000000;
+  outline: none;
+}
+
+/* Main content */
+
+.main-content {
+  flex-grow: 1;
+  padding: 2rem 3rem;
+  overflow-y: auto;
+  background-color: #f5e8dc; /* Beige background */
 }
 
 h1 {
+  margin-top: 0;
   font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.admin-return a {
-  color: #710500;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.admin-return a:hover {
-  text-decoration: underline;
-}
-
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-.feature-card {
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 0 8px rgb(0 0 0 / 0.1);
-  padding: 1.5rem;
-  font-weight: 600;
-  text-align: center;
   color: #2d5c2a;
-  user-select: none;
-}
-
-.stores-section {
-  margin-top: 3rem;
 }
 
 .stores-section h2 {
-  color: #2d5c2a;
+  margin-top: 0;
+  color: #710500; /* Deep red accent */
   font-weight: 700;
   margin-bottom: 1rem;
 }
 
+/* Store Cards */
+
 .stores-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
 .store-card {
-  background: #fff;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 0 8px rgba(0,0,0,0.1);
-  color: #2d5c2a;
+  background-color: #ffffff;
   border: 2px solid transparent;
-  transition: border-color 0.3s ease;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+  width: 280px;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  cursor: default;
 }
 
 .store-card.assigned-store {
-  border-color: #cfeb0c; /* bright yellow highlight */
-  background-color: #f5fdd3; /* subtle highlight */
+  border-color: #cfeb0c; /* Bright yellow border */
+  background-color: #fffcdb;
 }
 
 .store-card h3 {
-  margin: 0 0 0.5rem 0;
+  margin-top: 0;
   font-weight: 700;
+  color: #2d5c2a;
 }
 
 .store-card p {
-  margin: 0;
+  margin: 0.2rem 0;
   font-size: 0.9rem;
-  color: #555;
+  color: #000000;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .dashboard-layout {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 3px solid #cfeb0c;
+    flex-direction: row;
+    padding: 0.5rem 1rem;
+    overflow-x: auto;
+  }
+
+  .sidebar nav ul {
+    display: flex;
+    gap: 1rem;
+    flex-grow: 0;
+  }
+
+  .sidebar nav ul li {
+    margin-bottom: 0;
+  }
+
+  .sidebar nav ul li a,
+  .sidebar nav ul li button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+
+  .stores-list {
+    justify-content: center;
+  }
+
+  .store-card {
+    width: 100%;
+    max-width: 400px;
+  }
 }
