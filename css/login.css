@@ -123,19 +123,31 @@ input[type="password"]:focus {
 .login-links {
   margin-top: 30px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
   font-weight: 600;
 }
 
 .login-links a {
   color: #2D5C2A;
   text-decoration: none;
-  transition: color 0.3s ease;
+  font-size: 1rem;
+  padding: 8px 20px;
+  width: 160px;
+  text-align: center;
+  border: 2px solid #2D5C2A;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  background-color: white;
 }
 
 .login-links a:hover {
-  color: #65A17A;
+  color: white;
+  background-color: #65A17A;
+  border-color: #65A17A;
 }
+
 
 /* Responsive */
 @media (max-width: 768px) {
