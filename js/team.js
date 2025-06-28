@@ -76,5 +76,3 @@ function createTeamCard(member) {
 
   return card;
 }
-
-}
