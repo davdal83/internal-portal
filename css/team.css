@@ -76,3 +76,7 @@ h1 {
   font-size: 0.95rem;
   color: #4a7728;
 }
+
+.team-section {
+  padding-top: 100px; /* adjust if your navbar is taller or smaller */
+}
