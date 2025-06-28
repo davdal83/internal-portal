@@ -40,7 +40,6 @@ async function loadStores(userData) {
   let storesList = []
 
   if (userData.role === 'admin' || !userData.store_number) {
-    // Admins or users without assigned store: fetch all stores in numeric order
     const { data: allStores, error } = await supabase
       .from('stores')
       .select('*')
@@ -52,7 +51,6 @@ async function loadStores(userData) {
 
     storesList = allStores || []
   } else {
-    // Regular users with assigned store: fetch assigned store first, then others
     const { data: assignedStore, error: aErr } = await supabase
       .from('stores')
       .select('*')
@@ -94,17 +92,26 @@ function renderStores(stores) {
       div.classList.add('assigned-store')
     }
 
-    div.innerHTML = `
-      <h3>${store.name} (${store.store_number})</h3>
-      <p>${store.address}</p>
-      <p><strong>Phone:</strong> ${store.phone_number || 'N/A'}</p>
+    // Set background image
+    div.style.backgroundImage = `url(${store.store_photo_url || 'images/default-store.jpg'})`
+    div.style.backgroundSize = 'cover'
+    div.style.backgroundPosition = 'center'
+
+    // Overlay with store details
+    const overlay = document.createElement('div')
+    overlay.className = 'store-card-overlay'
+
+    overlay.innerHTML = `
+      <h3>${store.name}</h3>
+      <p>Store ${store.store_number} ${store.phone_number ? `&nbsp;&nbsp;${store.phone_number}` : ''}</p>
+      <p><strong>General Manager:</strong> ${store.gm_name || 'N/A'}</p>
     `
 
+    div.appendChild(overlay)
     container.appendChild(div)
   })
 }
 
-// Logout button handler
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('logout-btn').addEventListener('click', async () => {
     const { error } = await supabase.auth.signOut()
