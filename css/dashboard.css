@@ -1,11 +1,15 @@
-/* dashboard.css */
-
-html, body {
-  margin: 0; padding: 0; height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5e8dc; /* Light beige */
-  color: #2d5c2a; /* Dark green */
+/* Reset & base */
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+}
+
+body, html, .container {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5e8dc;
+  color: #2d5c2a;
 }
 
 .container {
@@ -14,158 +18,115 @@ html, body {
 }
 
 /* Sidebar */
-
-.sidebar {
+#sidebar {
+  background-color: #2d5c2a;
   width: 220px;
-  background-color: #2d5c2a; /* Dark green */
-  color: white;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 1rem;
+  padding: 1.5rem;
+  color: #fff;
 }
 
-.sidebar ul {
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #cfeb0c;
+  user-select: none;
+}
+
+.nav-links {
   list-style: none;
-  padding: 0; margin: 0;
+  flex-grow: 1;
 }
 
-.sidebar ul li {
-  margin-bottom: 0.6rem;
+.nav-links li {
+  margin-bottom: 1.25rem;
 }
 
-.sidebar ul li a {
-  color: white;
+.nav-link {
+  color: #f5e8dc;
   text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
   display: block;
-  padding: 0.5rem 0.8rem;
-  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
   transition: background-color 0.3s ease;
 }
 
-.sidebar ul li a:hover {
-  background-color: #65a17a; /* Mint green */
-  color: #000;
+.nav-link:hover,
+.nav-link.active {
+  background-color: #65a17a;
+  color: #000000;
 }
 
-/* Logout button */
+.bottom-links {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 
-.logout-btn {
-  background-color: #ff0000; /* Papa John's red */
+.btn-logout {
+  background-color: #ff0000;
+  color: #fff;
+  font-weight: 700;
   border: none;
-  color: white;
-  padding: 0.5rem;
+  padding: 0.6rem 1rem;
   border-radius: 5px;
   cursor: pointer;
-  width: 100%;
-  margin-top: 1rem;
-  font-weight: bold;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.25s ease;
 }
 
-.logout-btn:hover {
-  background-color: #710500; /* Darker red */
+.btn-logout:hover {
+  background-color: #710500;
 }
 
 /* Main content */
-
-.main-content {
-  flex: 1;
-  padding: 2rem;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+#main-content {
+  flex-grow: 1;
+  padding: 2rem 3rem;
+  background: #ffffff;
+  overflow-y: auto;
 }
 
-#welcome-message {
-  font-size: 1.6rem;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-}
-
-/* Store list */
-
-#stores-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.store-item {
-  display: flex;
-  align-items: center;
-  background-color: #ffffff;
-  border-radius: 8px;
-  padding: 1rem;
+h1 {
   margin-bottom: 1rem;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.12);
-  transition: box-shadow 0.2s ease;
-  cursor: default;
-}
-
-.store-item:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-}
-
-.store-avatar {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 1.25rem;
-  border: 2px solid #65a17a; /* Mint green border */
-  flex-shrink: 0;
-}
-
-.store-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.store-info h3 {
-  margin: 0 0 0.25rem 0;
-  font-size: 1.2rem;
   color: #2d5c2a;
 }
 
-.store-info p {
-  margin: 0.1rem 0;
-  font-size: 0.95rem;
-  color: #555;
-}
-
-/* Responsive tweaks */
-
-@media (max-width: 600px) {
-  .container {
-    flex-direction: column;
+/* Responsive for smaller screens */
+@media (max-width: 700px) {
+  #sidebar {
+    width: 60px;
+    padding: 1rem 0.5rem;
   }
 
-  .sidebar {
-    width: 100%;
-    flex-direction: row;
+  .logo {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .nav-links li {
+    margin-bottom: 1rem;
+  }
+
+  .nav-link {
+    font-size: 0;
     padding: 0.5rem;
-    justify-content: space-around;
+    text-align: center;
   }
 
-  .sidebar ul {
-    display: flex;
-    flex-direction: row;
+  .nav-link::before {
+    content: attr(data-tooltip);
+    font-size: 1rem;
+    display: block;
   }
 
-  .sidebar ul li {
-    margin: 0 0.6rem;
-  }
-
-  .logout-btn {
-    margin-top: 0;
-    width: auto;
-    padding: 0.5rem 1rem;
-  }
-
-  #stores-list {
-    padding: 0 0.5rem;
+  .btn-logout {
+    padding: 0.4rem;
+    font-size: 0;
   }
 }
