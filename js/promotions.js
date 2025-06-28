@@ -37,11 +37,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="promo-content">
           <h2 class="promo-title">${promo.title}</h2>
           <p class="promo-description">${promo.description}</p>
-          ${promo.promo_code ? `<div class="promo-code">${promo.promo_code}</div>` : ''}
+          ${promo.promo_code ? `<a href="https://www.papajohns.com" target="_blank" rel="noopener noreferrer" class="promo-code">${promo.promo_code}</a>` : ''}
           <div class="promo-expiration">Expires: ${formatDate(promo.expiration_date)}</div>
         </div>
       </article>
     `).join('')
+
 
   } catch (err) {
     container.innerHTML = `<p style="color:red; text-align:center;">Failed to load promotions. Please try again later.</p>`
