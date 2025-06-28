@@ -17,14 +17,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     data.forEach(store => {
       const fullAddress = `${store.address}, ${store.city}, ${store.state} ${store.zip_code}`
-      const phoneDigits = store.phone_number.replace(/[^0-9]/g, '')
+      function formatPhone(phone) {
+        const cleaned = phone.replace(/\D/g, '')
+        if (cleaned.length === 10) {
+          return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6)}`
+        }
+        return phone // fallback if not 10 digits
+      }
+      
+      ...
+      
       const tr = document.createElement('tr')
       tr.innerHTML = `
         <td data-label="Store Number">${store.store_number}</td>
         <td data-label="Store Name">${store.name}</td>
         <td data-label="Store Address">${fullAddress}</td>
-        <td data-label="Phone Number"><a href="tel:${phoneDigits}">${store.phone_number}</a></td>
-      `
+        <td data-label="Phone Number">${formatPhone(store.phone_number)}</td>
+  `
       tableBody.appendChild(tr)
     })
   } catch (err) {
