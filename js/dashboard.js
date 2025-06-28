@@ -2,7 +2,7 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 // === Supabase config ===
 const SUPABASE_URL = 'https://ngqsmsdxulgpiywlczcx.supabase.co'
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ncXNtc2R4dWxncGl5d2xjemN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEwNTgxNjYsImV4cCI6MjA2NjYzNDE2Nn0.8F_tH-xhmW2Cne2Mh3lWZmHjWD8sDSZd8ZMcYV7tWnM'
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
@@ -24,7 +24,6 @@ function renderStores(stores) {
   stores.forEach(store => {
     const div = document.createElement('div')
     div.className = 'store-card'
-    if (store.isAssigned) div.classList.add('assigned-store')
 
     div.style.backgroundImage = `url(${store.store_photo_url || 'images/default-store.jpg'})`
 
@@ -64,22 +63,18 @@ async function loadUser() {
     return
   }
 
-  // Show welcome
   document.getElementById('welcome-message').textContent = `Welcome, ${userData.first_name}!`
 
-  // Show admin tools if admin
   if (userData.role === 'admin') {
     document.getElementById('admin-link').style.display = 'block'
     document.getElementById('admin-return-container').style.display = 'block'
   }
 
-  loadStores(userData)
+  loadStores()
 }
 
-// === Load and prioritize store list ===
-async function loadStores(user) {
-  let storeList = []
-
+// === Load all stores in numerical order ===
+async function loadStores() {
   const { data: allStores, error } = await supabase
     .from('stores')
     .select('*')
@@ -91,22 +86,10 @@ async function loadStores(user) {
     return
   }
 
-  // Assigned store first (if not admin)
-  if (user.role !== 'admin' && user.store_number) {
-    const assignedIndex = allStores.findIndex(s => s.store_number == user.store_number)
-    if (assignedIndex !== -1) {
-      const assigned = allStores.splice(assignedIndex, 1)[0]
-      assigned.isAssigned = true
-      storeList.push(assigned)
-    }
-  }
-
-  // Append rest
-  storeList = [...storeList, ...allStores]
-  renderStores(storeList)
+  renderStores(allStores)
 }
 
-// === Handle logout ===
+// === Handle logout & initialize ===
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('logout-btn')?.addEventListener('click', async () => {
     const { error } = await supabase.auth.signOut()
