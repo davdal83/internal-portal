@@ -1,8 +1,7 @@
 // dashboard.js
 
-// === Supabase Config ===
 const SUPABASE_URL = 'https://ngqsmsdxulgpiywlczcx.supabase.co';
-const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY_HERE'; // Replace with your actual anon key
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -10,38 +9,41 @@ document.addEventListener('DOMContentLoaded', async () => {
   const welcomeEl = document.getElementById('welcome-message');
 
   try {
+    // Wait for auth session to fully load
     const {
-      data: { user },
-      error: authError
-    } = await supabase.auth.getUser();
+      data: { session },
+      error: sessionError
+    } = await supabase.auth.getSession();
 
-    if (authError || !user) {
+    if (sessionError || !session || !session.user) {
       window.location.href = 'login.html';
       return;
     }
 
-    // Query your 'users' table to get first_name by user id
-    const { data: userProfile, error: profileError } = await supabase
+    const user = session.user;
+
+    // Query the `users` table for profile info
+    const { data, error } = await supabase
       .from('users')
       .select('first_name')
       .eq('id', user.id)
       .single();
 
-    let username;
-
-    if (profileError || !userProfile || !userProfile.first_name) {
-      // fallback: full email if no first_name found
-      username = user.email;
-    } else {
-      username = userProfile.first_name;
+    if (error) {
+      console.warn('User profile lookup failed, falling back to email.');
     }
 
-    welcomeEl.textContent = `Welcome back, ${username}. Let’s handle business.`;
+    const firstName = data?.first_name;
+    const fallbackName = user.email;
 
-    // TODO: load dashboard content here
+    welcomeEl.textContent = firstName
+      ? `Welcome back, ${firstName}. Let’s handle business.`
+      : `Welcome back, ${fallbackName}. Let’s handle business.`;
 
   } catch (err) {
     console.error('Error loading dashboard:', err);
-    welcomeEl.textContent = 'Something went wrong. Please reload.';
+    if (welcomeEl) {
+      welcomeEl.textContent = 'Something went wrong. Try reloading.';
+    }
   }
 });
