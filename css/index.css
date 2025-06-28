@@ -102,3 +102,27 @@ footer {
     font-size: 1rem;
   }
 }
+.about {
+  background-color: #FFFFFF;
+  color: #2D5C2A;
+  border-left: 8px solid #65A17A;
+  padding: 3rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.about-content p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .about {
+    padding: 2rem 1rem;
+  }
+
+  .about-content p {
+    font-size: 1rem;
+  }
+}
