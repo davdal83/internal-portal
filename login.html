@@ -51,29 +51,29 @@
     </section>
   </main>
 
-  <!-- Signup Modal -->
-    <div id="signup-modal" class="modal-overlay">
-      <div class="modal-content">
-        <span class="close-modal" id="close-signup">&times;</span>
-        <h2>Request Access</h2>
-        <form id="signup-form">
-          <div class="form-row">
-            <input type="text" id="first-name" placeholder="First Name" required />
-            <input type="text" id="last-name" placeholder="Last Name" required />
-          </div>
-          <input type="email" id="signup-email" placeholder="Email" required />
-          <input type="tel" id="signup-phone" placeholder="Phone Number" required />
-          <input type="text" id="signup-store" placeholder="Store Number" required />
-          <input type="password" id="signup-password" placeholder="Password" required />
-          <input type="password" id="confirm-password" placeholder="Confirm Password" required />
-    
-          <button type="submit" class="btn primary">Submit Request</button>
-          <p id="signup-message" class="modal-message"></p>
-        </form>
+      <!-- Signup Modal -->
+      <div id="signup-modal" class="modal-overlay">
+        <div class="modal-content">
+          <span class="close-modal" id="close-signup">&times;</span>
+          <h2>Request Access</h2>
+          <form id="signup-form">
+            <div class="form-row">
+              <input type="text" id="first-name" placeholder="First Name" required autocomplete="given-name" />
+              <input type="text" id="last-name" placeholder="Last Name" required autocomplete="family-name" />
+            </div>
+            <input type="email" id="signup-email" placeholder="Email" required autocomplete="email" />
+            <input type="tel" id="signup-phone" placeholder="Phone Number" required autocomplete="tel" />
+            <input type="text" id="signup-store" placeholder="Store Number" required autocomplete="off" />
+            <input type="password" id="signup-password" placeholder="Password" required autocomplete="new-password" />
+            <input type="password" id="confirm-password" placeholder="Confirm Password" required autocomplete="new-password" />
+      
+            <button type="submit" class="btn primary">Submit Request</button>
+            <p id="signup-message" class="modal-message"></p>
+          </form>
+        </div>
       </div>
-    </div>
 
-
+  
   <!-- <script src="js/navbar.js"></script> -->
   <script type="module" src="js/login.js"></script>
 </body>
