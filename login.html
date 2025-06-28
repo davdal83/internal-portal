@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -12,10 +12,14 @@
   <!-- CSS -->
   <link rel="stylesheet" href="css/navbar.css" />
   <link rel="stylesheet" href="css/login.css" />
+
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+
+  <!-- Your JS -->
+  <script defer src="js/login.js"></script>
 </head>
 <body>
-<!--  <div id="nav-container"></div> -->
-
   <main class="login-wrapper">
     <section class="login-left">
       <img src="images/logo.png" alt="Papa John's Logo" class="logo" />
@@ -38,43 +42,38 @@
 
         <div id="message"></div>
 
-          <div class="login-links">
-            <a href="signup.html">Sign Up</a>
-            <a href="forgot-password.html">Forgot Password?</a>
-          </div>
-          
-          <div class="login-links">
-            <a href="index.html">Return Home</a>
-          </div>
+        <div class="login-links">
+          <a href="signup.html">Sign Up</a>
+          <a href="forgot-password.html">Forgot Password?</a>
+        </div>
 
+        <div class="login-links">
+          <a href="index.html">Return Home</a>
+        </div>
       </div>
     </section>
   </main>
 
-      <!-- Signup Modal -->
-      <div id="signup-modal" class="modal-overlay">
-        <div class="modal-content">
-          <span class="close-modal" id="close-signup">&times;</span>
-          <h2>Request Access</h2>
-          <form id="signup-form">
-            <div class="form-row">
-              <input type="text" id="first-name" placeholder="First Name" required autocomplete="given-name" />
-              <input type="text" id="last-name" placeholder="Last Name" required autocomplete="family-name" />
-            </div>
-            <input type="email" id="signup-email" placeholder="Email" required autocomplete="email" />
-            <input type="tel" id="signup-phone" placeholder="Phone Number" required autocomplete="tel" />
-            <input type="text" id="signup-store" placeholder="Store Number" required autocomplete="off" />
-            <input type="password" id="signup-password" placeholder="Password" required autocomplete="new-password" />
-            <input type="password" id="confirm-password" placeholder="Confirm Password" required autocomplete="new-password" />
-      
-            <button type="submit" class="btn primary">Submit Request</button>
-            <p id="signup-message" class="modal-message"></p>
-          </form>
+  <!-- Signup Modal -->
+  <div id="signup-modal" class="modal-overlay">
+    <div class="modal-content">
+      <span class="close-modal" id="close-signup">&times;</span>
+      <h2>Request Access</h2>
+      <form id="signup-form">
+        <div class="form-row">
+          <input type="text" id="first-name" placeholder="First Name" required autocomplete="given-name" />
+          <input type="text" id="last-name" placeholder="Last Name" required autocomplete="family-name" />
         </div>
-      </div>
+        <input type="email" id="signup-email" placeholder="Email" required autocomplete="email" />
+        <input type="tel" id="signup-phone" placeholder="Phone Number" required autocomplete="tel" />
+        <input type="text" id="signup-store" placeholder="Store Number" required autocomplete="off" />
+        <input type="password" id="signup-password" placeholder="Password" required autocomplete="new-password" />
+        <input type="password" id="confirm-password" placeholder="Confirm Password" required autocomplete="new-password" />
 
-  
-  <!-- <script src="js/navbar.js"></script> -->
-  <script type="module" src="js/login.js"></script>
+        <button type="submit" class="btn primary">Submit Request</button>
+        <p id="signup-message" class="modal-message"></p>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
