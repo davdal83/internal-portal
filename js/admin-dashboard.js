@@ -6,10 +6,8 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 async function checkAdmin() {
-  const user = supabase.auth.getUser()
   const { data: sessionData } = await supabase.auth.getSession()
   if (!sessionData?.session) {
-    // Not logged in
     window.location.href = 'login.html'
     return
   }
@@ -28,8 +26,8 @@ async function checkAdmin() {
     return
   }
 
-  // Show welcome message
-  document.getElementById('welcome-message').textContent = `Welcome, ${userData.first_name}!`
+  // Show welcome message or log it
+  document.getElementById('welcome-message')?.textContent = `Welcome, ${userData.first_name}!`
 }
 
 checkAdmin()
@@ -52,7 +50,6 @@ navItems.forEach((item) => {
     item.classList.add('active')
     sectionTitle.textContent = item.textContent
 
-    // Update section content area
     switch (item.dataset.section) {
       case 'dashboard':
         sectionContent.innerHTML = '<p>Welcome to your admin dashboard. Select a section from the sidebar.</p>'
@@ -68,6 +65,9 @@ navItems.forEach((item) => {
         break
       case 'settings':
         sectionContent.innerHTML = '<p><em>Settings coming soon.</em></p>'
+        break
+      case 'user-dashboard':
+        window.location.href = 'dashboard.html'
         break
       default:
         sectionContent.innerHTML = '<p>Select a section.</p>'
