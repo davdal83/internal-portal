@@ -6,17 +6,22 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 document.addEventListener('DOMContentLoaded', async () => {
   const welcomeEl = document.getElementById('welcome-message');
 
-  try {
-    // Get logged-in user
-    const {
-      data: { user },
-      error: userError
-    } = await supabase.auth.getUser();
+  const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+  console.log('SESSION:', sessionData);
 
-    if (userError || !user) {
-      window.location.href = 'login.html';
-      return;
-    }
+  const {
+    data: { user },
+    error
+  } = await supabase.auth.getUser();
+
+  console.log('USER:', user);
+  console.log('ERROR:', error);
+
+  if (error || !user) {
+    console.warn('No user session found. Redirecting to login.');
+    window.location.href = 'login.html';
+    return;
+  }
 
     // Try to get first_name from 'users' table
     const { data: profile, error: profileError } = await supabase
