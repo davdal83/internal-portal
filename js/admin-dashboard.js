@@ -7,6 +7,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 async function checkAdmin() {
   const { data: sessionData } = await supabase.auth.getSession()
+
   if (!sessionData?.session) {
     window.location.href = 'login.html'
     return
@@ -26,7 +27,7 @@ async function checkAdmin() {
     return
   }
 
-  // Show welcome message or log it
+  // Optional welcome update
   document.getElementById('welcome-message')?.textContent = `Welcome, ${userData.first_name}!`
 }
 
@@ -43,7 +44,7 @@ toggleBtn.addEventListener('click', () => {
   sidebar.classList.toggle('collapsed')
 })
 
-// Load section content (placeholder for now)
+// Sidebar navigation handling
 navItems.forEach((item) => {
   item.addEventListener('click', () => {
     navItems.forEach(i => i.classList.remove('active'))
