@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="our-stores.html">Our Stores</a></li>
-        <li><a href="#">Promotions</a></li>
+        <li><a href="promotions.html">Deals</a></li>
         <li><a href="#">Contact Us</a></li>
         <li><a href="#">Team Access</a></li>
       </ul>
