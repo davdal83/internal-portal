@@ -1,36 +1,33 @@
-/* === Layout Basics === */
-
-body {
+/* === Reset and base styles === */
+html, body {
   margin: 0;
+  padding: 0;
+  height: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5e8dc;
   color: #2d5c2a;
+  box-sizing: border-box;
 }
 
+/* === Container for sidebar and main content === */
 .container {
   display: flex;
   min-height: 100vh;
 }
 
-/* === Sidebar === */
-
+/* === Sidebar styles === */
 .sidebar {
   width: 220px;
   background-color: #2d5c2a;
-  color: #fff;
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 1rem;
+  box-sizing: border-box;
 }
 
-.sidebar h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.2rem;
-  color: #ffffff;
-  text-align: center;
-}
-
+/* Sidebar navigation */
 .sidebar ul {
   list-style: none;
   padding: 0;
@@ -42,12 +39,12 @@ body {
 }
 
 .sidebar ul li a {
-  color: #ffffff;
+  color: white;
   text-decoration: none;
-  padding: 0.4rem 0.6rem;
   display: block;
+  padding: 0.4rem 0.6rem;
   border-radius: 6px;
-  transition: background 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
 .sidebar ul li a:hover {
@@ -55,14 +52,11 @@ body {
   color: #000;
 }
 
-#admin-return-container {
-  margin-top: auto;
-}
-
+/* Logout button */
 .logout-btn {
   background-color: #ff0000;
-  color: white;
   border: none;
+  color: white;
   padding: 0.5rem;
   border-radius: 5px;
   cursor: pointer;
@@ -74,36 +68,36 @@ body {
   background-color: #710500;
 }
 
-/* === Main Content === */
-
+/* === Main content styles === */
 .main-content {
   flex: 1;
   padding: 2rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Welcome message */
 #welcome-message {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
-/* === Stores Grid === */
-
+/* Stores list container */
 #stores-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1rem;
+  flex-grow: 1;
 }
 
-/* === Store Card === */
-
+/* === Store cards === */
 .store-card {
   position: relative;
-  width: 100%;
   min-height: 120px;
   aspect-ratio: 4 / 1;
   border-radius: 10px;
   overflow: hidden;
-  background-color: #ccc;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -111,18 +105,13 @@ body {
   align-items: flex-end;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   border: 2px solid transparent;
+  color: #fff;
   transition: transform 0.2s ease;
 }
 
 .store-card:hover {
   transform: scale(1.01);
 }
-
-.store-card.assigned-store {
-  border-color: #cfeb0c;
-}
-
-/* === Store Overlay Content === */
 
 .store-card-overlay {
   background: rgba(0, 0, 0, 0.65);
@@ -133,13 +122,13 @@ body {
 }
 
 .store-card-overlay h3 {
-  font-size: 1.1rem;
   margin: 0;
-  color: #ffffff;
+  font-size: 1.1rem;
+  color: #fff;
 }
 
 .store-card-overlay p {
   margin: 0.3rem 0;
-  font-size: 0.9rem;
   color: #f5e8dc;
+  font-size: 0.9rem;
 }
