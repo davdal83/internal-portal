@@ -6,29 +6,32 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// === DOM Ready ===
 document.addEventListener('DOMContentLoaded', async () => {
   const welcomeEl = document.getElementById('welcome-message');
 
   try {
-    const {
-      data: { user },
-      error
-    } = await supabase.auth.getUser();
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
 
-    if (error || !user) {
+    if (userError || !user) {
       window.location.href = 'login.html';
       return;
     }
 
-    const { first_name, last_name } = user.user_metadata || {};
-    const username = first_name
-      ? `${first_name} ${last_name || ''}`.trim()
-      : user.email.split('@')[0];
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('first_name')
+      .eq('id', user.id)
+      .single();
 
-    welcomeEl.textContent = `Welcome back, ${username}. Let’s handle business.`;
+    if (profileError || !profile || !profile.first_name) {
+      welcomeEl.textContent = `Welcome back, ${user.email}. Let’s handle business.`;
+      return;
+    }
+
+    welcomeEl.textContent = `Welcome back, ${profile.first_name}. Let’s handle business.`;
 
     // TODO: Load dashboard content here
+
   } catch (err) {
     console.error('Error loading dashboard:', err);
     welcomeEl.textContent = 'Something went wrong. Please reload.';
