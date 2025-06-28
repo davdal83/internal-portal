@@ -19,15 +19,6 @@
       </div>
     </aside>
 
-    <!-- Right form panel -->
-    <main class="login-panel">
-      <!-- Tabs -->
-      <nav class="form-tabs" role="tablist" aria-label="Authentication forms">
-        <button role="tab" aria-selected="true" aria-controls="login-panel" id="login-tab" tabindex="0">Login</button>
-        <button role="tab" aria-selected="false" aria-controls="signup-panel" id="signup-tab" tabindex="-1">Sign Up</button>
-        <button role="tab" aria-selected="false" aria-controls="forgot-panel" id="forgot-tab" tabindex="-1">Forgot Password</button>
-      </nav>
-
       <!-- Login form -->
       <section id="login-panel" role="tabpanel" aria-labelledby="login-tab">
         <form id="login-form" autocomplete="off">
@@ -38,6 +29,14 @@
           <button type="submit">Log In</button>
         </form>
       </section>
+
+        <!-- Right form panel -->
+      <main class="login-panel">
+        <!-- Tabs -->
+        <nav class="form-tabs" role="tablist" aria-label="Authentication forms">
+          <button role="tab" aria-selected="false" aria-controls="signup-panel" id="signup-tab" tabindex="-1">Sign Up</button>
+          <button role="tab" aria-selected="false" aria-controls="forgot-panel" id="forgot-tab" tabindex="-1">Forgot Password</button>
+        </nav>
 
       <!-- Sign Up form -->
       <section id="signup-panel" role="tabpanel" aria-labelledby="signup-tab" hidden>
