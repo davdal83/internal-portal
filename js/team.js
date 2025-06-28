@@ -15,8 +15,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       .eq('active', true)
       .order('display_order', { ascending: true });
 
-    if (error) throw error
-
+    if (error) {
+      console.error('Error fetching team data:', error);
+      return;
+    }
 
     // Target containers for each group
     const doContainer = document.getElementById('do-members');
