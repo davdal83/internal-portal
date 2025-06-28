@@ -33,3 +33,44 @@ async function checkAdmin() {
 }
 
 checkAdmin()
+
+// Sidebar toggle and navigation
+const sidebar = document.getElementById('sidebar')
+const toggleBtn = document.getElementById('sidebar-toggle')
+const navItems = document.querySelectorAll('.sidebar-nav ul li')
+const sectionTitle = document.getElementById('section-title')
+const sectionContent = document.getElementById('section-content')
+
+toggleBtn.addEventListener('click', () => {
+  sidebar.classList.toggle('collapsed')
+})
+
+// Load section content (placeholder for now)
+navItems.forEach((item) => {
+  item.addEventListener('click', () => {
+    navItems.forEach(i => i.classList.remove('active'))
+    item.classList.add('active')
+    sectionTitle.textContent = item.textContent
+
+    // Update section content area
+    switch (item.dataset.section) {
+      case 'dashboard':
+        sectionContent.innerHTML = '<p>Welcome to your admin dashboard. Select a section from the sidebar.</p>'
+        break
+      case 'users':
+        sectionContent.innerHTML = '<p><em>User management coming soon.</em></p>'
+        break
+      case 'stores':
+        sectionContent.innerHTML = '<p><em>Store management coming soon.</em></p>'
+        break
+      case 'docs':
+        sectionContent.innerHTML = '<p><em>Document upload coming soon.</em></p>'
+        break
+      case 'settings':
+        sectionContent.innerHTML = '<p><em>Settings coming soon.</em></p>'
+        break
+      default:
+        sectionContent.innerHTML = '<p>Select a section.</p>'
+    }
+  })
+})
