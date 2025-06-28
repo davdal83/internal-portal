@@ -260,17 +260,25 @@ h1 {
 }
 .store-card {
   position: relative;
-  height: 180px;
-  background-color: #ccc;
+  width: 100%;
+  max-width: 100%;
+  min-height: 120px;
+  height: auto;
+  aspect-ratio: 4 / 1; /* Makes it auto-shrink on narrow screens */
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  color: #fff;
+  background-color: #ccc;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   align-items: flex-end;
-  padding: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+  color: #fff;
   border: 2px solid transparent;
 }
+
 
 .store-card.assigned-store {
   border-color: #cfeb0c;
