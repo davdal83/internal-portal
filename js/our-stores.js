@@ -24,9 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         return phone // fallback if not 10 digits
       }
-      
-      ...
-      
+            
       const tr = document.createElement('tr')
       tr.innerHTML = `
         <td data-label="Store Number">${store.store_number}</td>
