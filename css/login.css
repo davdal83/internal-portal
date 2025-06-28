@@ -66,15 +66,15 @@ html, body {
 /* Right side form panel */
 .login-panel {
   flex: 1;
-  background-color: rgba(245, 232, 220, 0.95);
+  background: rgba(245, 232, 220, 0.95);
   color: #2D5C2A;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   padding: 3rem 4rem;
   box-shadow: -5px 0 15px rgba(0,0,0,0.15);
   position: relative;
-  border-radius: 0; /* remove radius */
 }
 
 /* Tabs container */
