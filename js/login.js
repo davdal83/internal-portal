@@ -1,11 +1,11 @@
 // login.js
 
-// Supabase config
-  const supabaseUrl = 'https://ngqsmsdxulgpiywlczcx.supabase.co'
-  const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ncXNtc2R4dWxncGl5d2xjemN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEwNTgxNjYsImV4cCI6MjA2NjYzNDE2Nn0.8F_tH-xhmW2Cne2Mh3lWZmHjWD8sDSZd8ZMcYV7tWnM'
+// Supabase config - keep the keys as constants
+const SUPABASE_URL = 'https://ngqsmsdxulgpiywlczcx.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ncXNtc2R4dWxncGl5d2xjemN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEwNTgxNjYsImV4cCI6MjA2NjYzNDE2Nn0.8F_tH-xhmW2Cne2Mh3lWZmHjWD8sDSZd8ZMcYV7tWnM';
 
-// Initialize Supabase
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Initialize Supabase client
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('login-form');
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     formMessage.textContent = '';
   }
 
-  // Back to login link
+  // Back to login links (for signup and forgot password panels)
   document.querySelectorAll('[id^="back-to-login"]').forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Tab switching
+  // Tab switching event listeners
   tabs.forEach(tab => tab.addEventListener('click', switchTab));
 
   // === LOGIN ===
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const email = loginForm.email.value;
     const password = loginForm.password.value;
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
     if (error) {
       formMessage.textContent = `Error: ${error.message}`;
@@ -77,12 +77,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     formMessage.textContent = 'Creating account...';
 
-    const { error } = await supabase.auth.signUp({ email, password });
+    const { error } = await supabaseClient.auth.signUp({ email, password });
 
     if (error) {
       formMessage.textContent = `Error: ${error.message}`;
     } else {
-      formMessage.textContent = 'Account created! Check your email to confirm.';
+      formMessage.textContent = 'Account created! Please check your email to confirm.';
       signupForm.reset();
     }
   });
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const email = forgotForm.email.value;
 
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
       redirectTo: window.location.origin + '/login.html'
     });
 
