@@ -3,38 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Admin Dashboard - Papa John's Jacksonville</title>
+  <title>Admin Dashboard</title>
   <link rel="stylesheet" href="css/admin-dashboard.css" />
-  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  <link rel="icon" href="images/favicon.ico" />
 </head>
 <body>
-  
-  <div id="sidebar">
-    <div class="sidebar-header">
-      <h2>Papa John's Admin</h2>
-      <button id="sidebar-toggle">&#9776;</button>
-    </div>
-    <nav class="sidebar-nav">
-      <ul>
-        <li class="active" data-section="dashboard">Dashboard</li>
-        <li data-section="users">Users</li>
-        <li data-section="stores">Stores</li>
-        <li data-section="docs">Documents</li>
-        <li data-section="settings">Settings</li>
-        <li data-section="user-dashboard" id="to-user-dashboard">User Dashboard</li>
+  <div class="container">
+    <nav id="sidebar">
+      <h2 class="logo">Papa John's Admin</h2>
+      <ul class="nav-links">
+        <li><a href="admin-dashboard.html" class="nav-link active">Dashboard</a></li>
+        <li><a href="leadership.html" class="nav-link">Leadership Team</a></li>
+        <li><a href="documents.html" class="nav-link">Documents & Forms</a></li>
       </ul>
+      <div class="bottom-links">
+        <a href="dashboard.html" id="return-to-user" class="nav-link" style="display:none;">Return to Dashboard</a>
+        <button id="logout-button" class="btn-logout">Logout</button>
+      </div>
     </nav>
-  </div>
-  
-  <div id="main-content">
-    <header>
-      <h1 id="section-title">Dashboard</h1>
-    </header>
-    <section id="section-content">
-      <p>Welcome to your admin dashboard. Select a section from the sidebar.</p>
-    </section>
+
+    <main id="main-content">
+      <h1>Welcome to the Admin Dashboard</h1>
+      <p id="welcome-message"></p>
+
+      <!-- Pending Users Section -->
+      <section id="pending-users-section">
+        <h2>Pending User Approvals</h2>
+        <table id="pending-users-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Store</th>
+              <th>Role</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="pending-users-body">
+            <!-- Pending users loaded here -->
+          </tbody>
+        </table>
+      </section>
+    </main>
   </div>
 
-  <script type="module" src="js/admin-dashboard.js"></script>
+  <!-- Load Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+  <script defer src="js/admin-dashboard.js"></script>
 </body>
 </html>
