@@ -1,37 +1,33 @@
-/* Reset and base */
+/* dashboard.css */
+
 html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
+  margin: 0; padding: 0; height: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5e8dc;
-  color: #2d5c2a;
+  background-color: #f5e8dc; /* Light beige */
+  color: #2d5c2a; /* Dark green */
   box-sizing: border-box;
 }
 
-/* Container holding sidebar and main content */
 .container {
   display: flex;
   min-height: 100vh;
 }
 
 /* Sidebar */
+
 .sidebar {
   width: 220px;
-  background-color: #2d5c2a;
+  background-color: #2d5c2a; /* Dark green */
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 1rem;
-  box-sizing: border-box;
 }
 
-/* Sidebar nav */
 .sidebar ul {
   list-style: none;
-  padding: 0;
-  margin: 0;
+  padding: 0; margin: 0;
 }
 
 .sidebar ul li {
@@ -48,13 +44,14 @@ html, body {
 }
 
 .sidebar ul li a:hover {
-  background-color: #65a17a;
+  background-color: #65a17a; /* Mint green */
   color: #000;
 }
 
 /* Logout button */
+
 .logout-btn {
-  background-color: #ff0000;
+  background-color: #ff0000; /* Papa John's red */
   border: none;
   color: white;
   padding: 0.5rem;
@@ -63,13 +60,16 @@ html, body {
   width: 100%;
   margin-top: 1rem;
   font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .logout-btn:hover {
-  background-color: #710500;
+  background-color: #710500; /* Darker red */
 }
 
-/* Main content area */
+/* Main content */
+
 .main-content {
   flex: 1;
   padding: 2rem;
@@ -78,21 +78,20 @@ html, body {
   flex-direction: column;
 }
 
-/* Welcome message */
 #welcome-message {
   font-size: 1.6rem;
   margin-bottom: 1.5rem;
   font-weight: 600;
 }
 
-/* Store list container */
+/* Store list */
+
 #stores-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* Each store item */
 .store-item {
   display: flex;
   align-items: center;
@@ -109,18 +108,16 @@ html, body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
 
-/* Store avatar */
 .store-avatar {
   width: 70px;
   height: 70px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 1.25rem;
-  border: 2px solid #65a17a;
+  border: 2px solid #65a17a; /* Mint green border */
   flex-shrink: 0;
 }
 
-/* Store info text */
 .store-info {
   display: flex;
   flex-direction: column;
@@ -140,28 +137,34 @@ html, body {
 }
 
 /* Responsive tweaks */
+
 @media (max-width: 600px) {
   .container {
     flex-direction: column;
   }
+
   .sidebar {
     width: 100%;
     flex-direction: row;
     padding: 0.5rem;
     justify-content: space-around;
   }
+
   .sidebar ul {
     display: flex;
     flex-direction: row;
   }
+
   .sidebar ul li {
     margin: 0 0.6rem;
   }
+
   .logout-btn {
     margin-top: 0;
     width: auto;
     padding: 0.5rem 1rem;
   }
+
   #stores-list {
     padding: 0 0.5rem;
   }
