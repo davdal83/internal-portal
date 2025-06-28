@@ -92,3 +92,8 @@
     background-color: #65A17A;
   }
 }
+
+#nav-container {
+  margin: 0;
+  padding: 0;
+}
