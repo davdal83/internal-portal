@@ -1,16 +1,19 @@
 /* css/style.css */
 
-/* Universal box-sizing and reset */
-*, *::before, *::after {
+/* Reset margins and paddings */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-}
-
-/* Remove default margin and padding, prevent horizontal scroll */
-html, body {
   margin: 0;
   padding: 0;
+}
+
+html, body {
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: hidden; /* prevent horizontal scroll */
+  margin: 0;
+  padding: 0;
 }
 
 /* Base body styles */
