@@ -1,0 +1,78 @@
+/* login.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Frankfurter&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  height: 100%;
+  font-family: 'Frankfurter', Arial, sans-serif;
+  background: #2D5C2A;
+  color: #F5E8DC;
+  overflow-x: hidden;
+}
+
+.login-wrapper {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  min-width: 320px;
+}
+
+/* Left side image panel */
+.login-image-panel {
+  flex: 1;
+  background: url('../images/hero.png') center center/cover no-repeat;
+  position: relative;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 2rem;
+  text-shadow: 0 0 8px rgba(0,0,0,0.7);
+  user-select: none;
+}
+
+.login-image-panel .overlay {
+  background: rgba(45, 92, 42, 0.75); /* brand green with opacity */
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 400px;
+}
+
+.login-image-panel .logo {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 1rem;
+}
+
+.login-image-panel h1 {
+  font-size: 2.6rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.login-image-panel p {
+  font-size: 1.15rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* Right side form panel */
+.login-panel {
+  flex: 1;
+  background: rgba(245, 232, 220, 0.9); /* light beige */
+  color: #2D5C2A;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 4rem;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+  box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+  position: relative;
+  use
