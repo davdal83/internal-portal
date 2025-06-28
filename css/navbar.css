@@ -1,17 +1,19 @@
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;           /* Add this */
+  width: 100vw !important;  /* Force full viewport width */
   box-sizing: border-box;
+  padding: 1rem 2rem;
   background-color: #2D5C2A;
   color: #FFFFFF;
-  padding: 1rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  position: fixed;
-  top: 0;
-  width: 100%;
   z-index: 1000;
 }
+
 
 .nav-logo {
   display: flex;
