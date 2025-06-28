@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (error) throw error
 
     data.forEach(store => {
-      const fullAddress = `${store.address}, ${store.city}, ${store.state} ${store.zip_code}`
+      const fullAddress = `${store.address}, ${store.city}, ${store.state} ${store.zip_code}`.replace(/\s*,\s*/g, ', ')
       function formatPhone(phone) {
         const cleaned = phone.replace(/\D/g, '')
         if (cleaned.length === 10) {
