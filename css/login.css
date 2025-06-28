@@ -213,6 +213,7 @@ input[type="password"]:focus {
   font-size: 1rem;
   border: 2px solid #2D5C2A;
   border-radius: 8px;
+  box-sizing: border-box; 
 }
 
 .modal-content .form-row {
