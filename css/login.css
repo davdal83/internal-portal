@@ -132,15 +132,16 @@ input[type="password"]:focus {
 .login-links a {
   color: #2D5C2A;
   font-size: 0.95rem;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color 0.3s ease;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .login-links a:hover {
-  color: #65A17A;
+  background-color: #65A17A;
+  color: white;
 }
-
 
 /* Responsive */
 @media (max-width: 768px) {
