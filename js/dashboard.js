@@ -29,35 +29,42 @@ async function loadUser() {
   document.getElementById('welcome-message').textContent = `Welcome, ${userData.first_name}!`
 
   if (userData.role === 'admin') {
-    document.getElementById('admin-return').style.display = 'block'
+    document.getElementById('admin-link').style.display = 'block'
   }
 
-  loadStores(userData.store_number)
+  loadStores(userData)
 }
 
-async function loadStores(assignedStoreNumber) {
+async function loadStores(userData) {
   let storesList = []
 
-  if (assignedStoreNumber) {
-    // Fetch assigned store first
-    const { data: assignedStore, error: assignedError } = await supabase
+  if (userData.role === 'admin' || !userData.store_number) {
+    // Admins or users without assigned store: fetch all stores in numeric order
+    const { data: allStores, error } = await supabase
       .from('stores')
       .select('*')
-      .eq('store_number', assignedStoreNumber)
-
-    if (assignedError) {
-      console.error('Error fetching assigned store:', assignedError)
-    }
-
-    // Fetch other stores except assigned
-    const { data: otherStores, error: otherError } = await supabase
-      .from('stores')
-      .select('*')
-      .neq('store_number', assignedStoreNumber)
       .order('store_number')
 
-    if (otherError) {
-      console.error('Error fetching other stores:', otherError)
+    if (error) {
+      console.error('Error fetching stores:', error)
+    }
+
+    storesList = allStores || []
+  } else {
+    // Regular users with assigned store: fetch assigned store first, then others
+    const { data: assignedStore, error: aErr } = await supabase
+      .from('stores')
+      .select('*')
+      .eq('store_number', userData.store_number)
+
+    const { data: otherStores, error: oErr } = await supabase
+      .from('stores')
+      .select('*')
+      .neq('store_number', userData.store_number)
+      .order('store_number')
+
+    if (aErr || oErr) {
+      console.error('Error fetching stores:', aErr || oErr)
     }
 
     storesList = [...(assignedStore || []), ...(otherStores || [])]
@@ -65,18 +72,6 @@ async function loadStores(assignedStoreNumber) {
     if (storesList.length > 0) {
       storesList[0].isAssigned = true
     }
-  } else {
-    // No assigned store, fetch all
-    const { data: allStores, error: allError } = await supabase
-      .from('stores')
-      .select('*')
-      .order('store_number')
-
-    if (allError) {
-      console.error('Error fetching stores:', allError)
-    }
-
-    storesList = allStores || []
   }
 
   renderStores(storesList)
@@ -101,11 +96,12 @@ function renderStores(stores) {
     div.innerHTML = `
       <h3>${store.name} (${store.store_number})</h3>
       <p>${store.address}</p>
+      <p><strong>Phone:</strong> ${store.phone_number || 'N/A'}</p>
     `
 
     container.appendChild(div)
   })
 }
 
-// Run on page load
+// On page load
 loadUser()
