@@ -6,7 +6,11 @@
   <title>Dashboard</title>
   <link rel="stylesheet" href="css/dashboard.css" />
   <link rel="icon" href="images/favicon.ico" />
+  
+  <!-- ✅ Load Supabase first -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+  
+  <!-- ✅ Load your script after (deferred) -->
   <script defer src="js/dashboard.js"></script>
 </head>
 <body>
@@ -29,7 +33,5 @@
       <!-- Main dashboard content will go here -->
     </main>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
-  <script src="js/dashboard.js"></script>
 </body>
 </html>
