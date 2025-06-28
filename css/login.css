@@ -124,28 +124,21 @@ input[type="password"]:focus {
   margin-top: 30px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
   align-items: center;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .login-links a {
   color: #2D5C2A;
-  text-decoration: none;
-  font-size: 1rem;
-  padding: 8px 20px;
-  width: 160px;
-  text-align: center;
-  border: 2px solid #2D5C2A;
-  border-radius: 25px;
-  transition: all 0.3s ease;
-  background-color: white;
+  font-size: 0.95rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.3s ease;
 }
 
 .login-links a:hover {
-  color: white;
-  background-color: #65A17A;
-  border-color: #65A17A;
+  color: #65A17A;
 }
 
 
