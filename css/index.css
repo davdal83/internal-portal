@@ -31,6 +31,23 @@ body {
   font-size: 1.2rem;
 }
 
+.order-button {
+  display: inline-block;
+  margin-top: 1.5rem;
+  background-color: #FF0000;
+  color: #FFFFFF;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.order-button:hover {
+  background-color: #710500;
+}
+
 section {
   padding: 4rem 2rem;
   max-width: 1200px;
