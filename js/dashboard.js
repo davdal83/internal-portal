@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const welcomeEl = document.getElementById('welcome-message');
 
   try {
+    // Get current authenticated user
     const { data: { user }, error: userError } = await supabase.auth.getUser();
 
     if (userError || !user) {
@@ -17,18 +18,21 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
-    const { data: profile, error: profileError } = await supabase
-      .from('profiles')
+    // Query the 'stores' table for this user's first_name using their id
+    const { data: storeUser, error: storeError } = await supabase
+      .from('stores')
       .select('first_name')
       .eq('id', user.id)
       .single();
 
-    if (profileError || !profile || !profile.first_name) {
+    if (storeError || !storeUser || !storeUser.first_name) {
+      // fallback to full email
       welcomeEl.textContent = `Welcome back, ${user.email}. Let’s handle business.`;
       return;
     }
 
-    welcomeEl.textContent = `Welcome back, ${profile.first_name}. Let’s handle business.`;
+    // Show first name from stores table
+    welcomeEl.textContent = `Welcome back, ${storeUser.first_name}. Let’s handle business.`;
 
     // TODO: Load dashboard content here
 
