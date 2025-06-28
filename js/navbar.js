@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="stores.html">Our Stores</a></li>
+        <li><a href="our-stores.html">Our Stores</a></li>
         <li><a href="promotions.html">Promotions</a></li>
         <li><a href="team.html">The Team</a></li>
         <li><a href="login.html">Team Access</a></li>
@@ -27,6 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const spacer = document.querySelector('.nav-spacer');
 
   if (navbar && spacer) {
-    spacer.style.height = `${navbar.offsetHeight + 10}px`; // add a little buffer
+    spacer.style.height = `${navbar.offsetHeight}px`;
   }
 });
