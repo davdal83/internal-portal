@@ -1,0 +1,26 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #F5E8DC;
+  color: #2D5C2A;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: #710500;
+  margin-bottom: 1rem;
+}
+
+#welcome-message {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+/* Add your admin dashboard styles here */
