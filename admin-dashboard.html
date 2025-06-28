@@ -6,6 +6,12 @@
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="css/admin-dashboard.css" />
   <link rel="icon" href="images/favicon.ico" />
+
+  <!-- ✅ Supabase SDK FIRST -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+
+  <!-- ✅ Your script loaded AFTER -->
+  <script defer src="js/admin-dashboard.js"></script>
 </head>
 <body>
   <div class="container">
@@ -26,7 +32,6 @@
       <h1>Welcome to the Admin Dashboard</h1>
       <p id="welcome-message"></p>
 
-      <!-- Pending Users Section -->
       <section id="pending-users-section">
         <h2>Pending User Approvals</h2>
         <table id="pending-users-table">
@@ -40,15 +45,11 @@
             </tr>
           </thead>
           <tbody id="pending-users-body">
-            <!-- Pending users loaded here -->
+            <!-- Populated by JS -->
           </tbody>
         </table>
       </section>
     </main>
   </div>
-
-  <!-- Load Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
-  <script defer src="js/admin-dashboard.js"></script>
 </body>
 </html>
