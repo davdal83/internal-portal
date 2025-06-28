@@ -34,11 +34,15 @@
   color: #FFFFFF;
   text-decoration: none;
   font-weight: bold;
-  transition: color 0.3s ease;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: inline-block; /* needed for padding & background */
 }
 
 .nav-links a:hover {
-  color: #65A17A; /* lighter green on hover */
+  background-color: #65A17A; /* lighter green box */
+  color: #FFFFFF; /* keep text white on hover */
 }
 
 .menu-icon {
