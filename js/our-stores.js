@@ -27,9 +27,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             
       const tr = document.createElement('tr')
       tr.innerHTML = `
-        <td data-label="Store Number">${store.store_number}</td>
-        <td data-label="Store Name">${store.name}</td>
-        <td data-label="Store Address">${fullAddress}</td>
+        <td data-label="Store #">${store.store_number}</td>
+        <td data-label="Location">${store.name}</td>
+        <td data-label="Address">${fullAddress}</td>
         <td data-label="Phone Number">${formatPhone(store.phone_number)}</td>
   `
       tableBody.appendChild(tr)
