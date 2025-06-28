@@ -78,5 +78,10 @@ h1 {
 }
 
 .team-section {
-  padding-top: 100px; /* adjust if your navbar is taller or smaller */
+  padding-top: 100px; /* for navbar spacing */
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin: 0 auto;
+  max-width: 1200px;
 }
+
