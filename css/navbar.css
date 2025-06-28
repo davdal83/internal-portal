@@ -1,4 +1,5 @@
 .navbar {
+  box-sizing: border-box;
   background-color: #2D5C2A;
   color: #FFFFFF;
   padding: 1rem 2rem;
@@ -6,9 +7,9 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  position: fixed;       /* ← change this */
+  position: fixed;
   top: 0;
-  width: 100%;           /* ← ensure full width */
+  width: 100%;
   z-index: 1000;
 }
 
