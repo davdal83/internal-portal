@@ -30,6 +30,7 @@ async function loadUser() {
 
   if (userData.role === 'admin') {
     document.getElementById('admin-link').style.display = 'block'
+    document.getElementById('admin-return-container').style.display = 'block'
   }
 
   loadStores(userData)
@@ -103,5 +104,12 @@ function renderStores(stores) {
   })
 }
 
-// On page load
-loadUser()
+// Logout button handler
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    const { error } = await supabase.auth.signOut()
+    if (!error) window.location.href = 'login.html'
+  })
+
+  loadUser()
+})
