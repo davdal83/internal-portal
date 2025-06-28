@@ -78,12 +78,15 @@ h1 {
 }
 
 .promo-expiration {
+  padding-top: 0.5rem;
   font-size: 0.9rem;
-  color: #CFEB0C;
+  color: #4a7728;
   font-weight: 600;
 }
 
 .promo-code {
+  text-decoration: none;
+  cursor: pointer;
   background: #65A17A;
   color: white;
   padding: 0.3rem 0.7rem;
