@@ -1,11 +1,11 @@
+// dashboard.js
 
-// Supabase credentials (your provided ones)
 const supabaseUrl = 'https://ngqsmsdxulgpiywlczcx.supabase.co'
 const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ncXNtc2R4dWxncGl5d2xjemN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEwNTgxNjYsImV4cCI6MjA2NjYzNDE2Nn0.8F_tH-xhmW2Cne2Mh3lWZmHjWD8sDSZd8ZMcYV7tWnM'
 
-const supabase = createClient(supabaseUrl, supabaseAnonKey)
+const supabase = supabaseJs.createClient(supabaseUrl, supabaseAnonKey)
 
-// Format US phone numbers (e.g. 9046417272 → (904) 641-7272)
+// Format phone number as (xxx) xxx-xxxx
 function formatPhoneNumber(phone) {
   if (!phone) return ''
   const cleaned = ('' + phone).replace(/\D/g, '')
@@ -15,7 +15,6 @@ function formatPhoneNumber(phone) {
   return phone
 }
 
-// Load all stores and render
 async function loadStores() {
   const { data: stores, error } = await supabase
     .from('stores')
@@ -34,7 +33,7 @@ async function loadStores() {
     return
   }
 
-  storesList.innerHTML = ''  // Clear previous content
+  storesList.innerHTML = ''
 
   if (!stores || stores.length === 0) {
     storesList.innerHTML = '<li>No stores found.</li>'
@@ -45,13 +44,11 @@ async function loadStores() {
     const li = document.createElement('li')
     li.className = 'store-item'
 
-    // Store avatar image
     const img = document.createElement('img')
     img.className = 'store-avatar'
     img.src = store.photo_url || 'images/default-store.jpg'
     img.alt = `Store ${store.store_number} photo`
 
-    // Store info container
     const infoDiv = document.createElement('div')
     infoDiv.className = 'store-info'
 
@@ -64,21 +61,40 @@ async function loadStores() {
     const gm = document.createElement('p')
     gm.textContent = `General Manager: ${store.general_manager || 'N/A'}`
 
-    // Append info elements
     infoDiv.appendChild(storeName)
     infoDiv.appendChild(storeDetails)
     infoDiv.appendChild(gm)
 
-    // Append image and info to list item
     li.appendChild(img)
     li.appendChild(infoDiv)
 
-    // Append to stores list
     storesList.appendChild(li)
   })
 }
 
-// Initialize on page load
+// Logout button event
+document.getElementById('logout-button').addEventListener('click', async () => {
+  const { error } = await supabase.auth.signOut()
+  if (error) {
+    alert('Logout failed: ' + error.message)
+    return
+  }
+  window.location.href = 'login.html'
+})
+
+// Optionally, set a welcome message for the user
+async function setWelcomeMessage() {
+  const user = supabase.auth.getUser()
+  if (user) {
+    const sessionUser = (await user).data.user
+    if (sessionUser && sessionUser.email) {
+      const welcomeEl = document.getElementById('welcome-message')
+      if (welcomeEl) welcomeEl.textContent = `Welcome, ${sessionUser.email}`
+    }
+  }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   loadStores()
+  setWelcomeMessage()
 })
