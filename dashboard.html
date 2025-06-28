@@ -4,39 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Papa John's Jacksonville - Dashboard</title>
-  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/dashboard.css" />
 </head>
 <body>
-  <nav class="navbar">
-    <div class="logo">
-      <img src="images/logo.png" alt="Papa John's Jacksonville Logo" />
-    </div>
-  </nav>
+  <div id="nav-container"></div>
 
-  <main class="container">
-    <h1 id="welcome-message">Welcome!</h1>
+  <div class="dashboard-layout">
+    <aside class="sidebar" role="navigation" aria-label="Main Sidebar Navigation">
+      <nav>
+        <ul>
+          <li><a href="#" tabindex="0">My Profile</a></li>
+          <li><a href="#" tabindex="0">Store Info</a></li>
+          <li><a href="#" tabindex="0">Upload Center</a></li>
+          <li><a href="#" tabindex="0">Team Directory</a></li>
+          <li><a href="admin-dashboard.html" id="admin-link" style="display: none;" tabindex="0">Admin Tools</a></li>
+          <li><button id="logout-btn" tabindex="0">Logout</button></li>
+        </ul>
+      </nav>
+    </aside>
 
-    <p id="admin-return" class="admin-return" style="display: none;">
-      <a href="admin-dashboard.html">Return to Admin Dashboard</a>
-    </p>
+    <main class="main-content" role="main" tabindex="-1">
+      <h1 id="welcome-message">Welcome!</h1>
 
-    <section class="features">
-      <div class="feature-card">My Profile (coming soon)</div>
-      <div class="feature-card">Store Info (coming soon)</div>
-      <div class="feature-card">Upload Center (coming soon)</div>
-      <div class="feature-card">Team Directory (coming soon)</div>
-    </section>
-
-    <section id="stores-section" class="stores-section">
-      <h2>Your Stores</h2>
-      <div id="stores-list" class="stores-list">
-        <!-- Stores will load here -->
-      </div>
-    </section>
-  </main>
+      <section id="stores-section" class="stores-section" aria-label="Stores List">
+        <h2>Your Stores</h2>
+        <div id="stores-list" class="stores-list">
+          <!-- Store cards rendered here -->
+        </div>
+      </section>
+    </main>
+  </div>
 
   <script type="module" src="js/dashboard.js"></script>
+  <script>
+    // Simple logout button handler
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+      const { error } = await supabase.auth.signOut()
+      if (!error) window.location.href = 'login.html'
+    })
+  </script>
 </body>
 </html>
