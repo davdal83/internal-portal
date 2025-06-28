@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Papa Johns Jacksonville</title>
+  <link rel="stylesheet" href="css/sidebar.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+  <div class="dashboard-wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <img src="images/favicon.ico" alt="Logo" />
+        <h1>PJ Jax</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="active">🏠 Dashboard</a>
+        <a href="#">📍 Stores</a>
+        <a href="#">📁 Docs & Downloads</a>
+        <a href="#" class="admin-only">👥 User Management</a>
+        <a href="#" id="logout-btn">🚪 Logout</a>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="dashboard-content">
+      <h2>Welcome to Your Dashboard</h2>
+      <div id="store-grid" class="store-grid">
+        <!-- Store cards will go here -->
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
