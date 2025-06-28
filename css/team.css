@@ -1,0 +1,78 @@
+body {
+  font-family: 'Frankfurter', Arial, sans-serif;
+  background-color: #F5E8DC;
+  color: #2D5C2A;
+  margin: 0;
+  padding: 1rem 2rem;
+}
+
+.team-section {
+  max-width: 900px;
+  margin: 2rem auto;
+}
+
+h1 {
+  text-align: center;
+  color: #710500;
+  margin-bottom: 2rem;
+}
+
+.team-group {
+  margin-bottom: 3rem;
+}
+
+.team-group h2 {
+  border-bottom: 3px solid #65A17A;
+  padding-bottom: 0.3rem;
+  color: #2D5C2A;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+.team-members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: start;
+}
+
+.team-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  padding: 1rem 1.5rem;
+  flex: 1 1 280px;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.team-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  background-color: #CFEB0C; /* placeholder bg */
+}
+
+.team-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #710500;
+  margin-bottom: 0.3rem;
+}
+
+.team-title {
+  font-weight: 600;
+  color: #2D5C2A;
+  margin-bottom: 0.8rem;
+}
+
+.team-bio {
+  font-size: 0.95rem;
+  color: #4a7728;
+}
