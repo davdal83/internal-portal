@@ -24,3 +24,113 @@ h1 {
 }
 
 /* Add your admin dashboard styles here */
+
+/* Sidebar */
+
+body {
+  display: flex;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #F5E8DC;
+  color: #2D5C2A;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#sidebar {
+  background-color: #2D5C2A;
+  color: #FFFFFF;
+  width: 260px;
+  min-width: 260px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+}
+
+#sidebar.collapsed {
+  width: 60px;
+  min-width: 60px;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1rem;
+  border-bottom: 2px solid #65A17A;
+}
+
+.sidebar-header h2 {
+  font-size: 1.25rem;
+  margin: 0;
+  white-space: nowrap;
+  transition: opacity 0.3s ease;
+}
+
+#sidebar.collapsed .sidebar-header h2 {
+  opacity: 0;
+}
+
+#sidebar-toggle {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #65A17A;
+  cursor: pointer;
+  outline: none;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.sidebar-nav ul li {
+  padding: 1rem 1.2rem;
+  cursor: pointer;
+  white-space: nowrap;
+  border-left: 4px solid transparent;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.sidebar-nav ul li:hover,
+.sidebar-nav ul li.active {
+  background-color: #65A17A;
+  color: #000000;
+  border-left-color: #FF0000;
+  font-weight: 700;
+}
+
+#main-content {
+  flex-grow: 1;
+  padding: 2rem 3rem;
+  overflow-y: auto;
+  height: 100vh;
+  background-color: #F5E8DC;
+}
+
+header h1 {
+  margin: 0 0 1.5rem 0;
+  color: #710500;
+  font-weight: 900;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  #sidebar {
+    position: fixed;
+    z-index: 1000;
+    left: -260px;
+    top: 0;
+  }
+  #sidebar.active {
+    left: 0;
+  }
+  #main-content {
+    padding: 1rem;
+  }
+}
