@@ -1,270 +1,106 @@
-/* Base styles */
+/* === Layout Basics === */
 
 body {
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f5e8dc;
-  color: #000;
+  color: #2d5c2a;
 }
 
-.dashboard-layout {
+.container {
   display: flex;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
 }
 
-/* Sidebar */
+/* === Sidebar === */
 
 .sidebar {
-  background-color: #2d5c2a; /* Dark green */
   width: 220px;
-  padding: 2rem 1.5rem;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  border-right: 3px solid #cfeb0c; /* Bright yellow accent */
-}
-
-.sidebar nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  flex-grow: 1;
-}
-
-.sidebar nav ul li {
-  margin-bottom: 1.2rem;
-}
-
-.sidebar nav ul li a,
-.sidebar nav ul li button {
-  display: block;
-  color: #f5e8dc; /* Beige text */
-  text-decoration: none;
-  font-weight: 600;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  background-color: transparent;
-  border: none;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
-  font-size: 1rem;
-}
-
-.sidebar nav ul li a:hover,
-.sidebar nav ul li button:hover,
-.sidebar nav ul li a:focus,
-.sidebar nav ul li button:focus {
-  background-color: #65a17a; /* Mint green */
-  color: #000000;
-  outline: none;
-}
-
-/* Main content */
-
-.main-content {
-  flex-grow: 1;
-  padding: 2rem 3rem;
-  overflow-y: auto;
-  background-color: #f5e8dc; /* Beige background */
-}
-
-h1 {
-  margin-top: 0;
-  font-weight: 700;
-  color: #2d5c2a;
-}
-
-.stores-section h2 {
-  margin-top: 0;
-  color: #710500; /* Deep red accent */
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-/* Store Cards */
-
-.stores-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.store-card {
-  background-color: #ffffff;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  padding: 1rem 1.5rem;
-  box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
-  width: 280px;
-  transition: border-color 0.3s ease, background-color 0.3s ease;
-  cursor: default;
-}
-
-.store-card.assigned-store {
-  border-color: #cfeb0c; /* Bright yellow border */
-  background-color: #fffcdb;
-}
-
-.store-card h3 {
-  margin-top: 0;
-  font-weight: 700;
-  color: #2d5c2a;
-}
-
-.store-card p {
-  margin: 0.2rem 0;
-  font-size: 0.9rem;
-  color: #000000;
-}
-
-/* Responsive */
-
-@media (max-width: 768px) {
-  .dashboard-layout {
-    flex-direction: column;
-    height: auto;
-  }
-
-  .sidebar {
-    width: 100%;
-    border-right: none;
-    border-bottom: 3px solid #cfeb0c;
-    flex-direction: row;
-    padding: 0.5rem 1rem;
-    overflow-x: auto;
-  }
-
-  .sidebar nav ul {
-    display: flex;
-    gap: 1rem;
-    flex-grow: 0;
-  }
-
-  .sidebar nav ul li {
-    margin-bottom: 0;
-  }
-
-  .sidebar nav ul li a,
-  .sidebar nav ul li button {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.85rem;
-    white-space: nowrap;
-  }
-
-  .main-content {
-    padding: 1rem;
-  }
-
-  .stores-list {
-    justify-content: center;
-  }
-
-  .store-card {
-    width: 100%;
-    max-width: 400px;
-  }
-}
-/* Sidebar adjustments for Return to Admin and Logout button */
-
-.sidebar {
-  position: relative;
+  background-color: #2d5c2a;
+  color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
-  padding: 2rem 1.5rem;
-  background-color: #2d5c2a;
-  width: 220px;
-  box-sizing: border-box;
-  border-right: 3px solid #cfeb0c;
+  padding: 1rem;
+}
+
+.sidebar h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+  color: #ffffff;
+  text-align: center;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 0.5rem;
+}
+
+.sidebar ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.4rem 0.6rem;
+  display: block;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.sidebar ul li a:hover {
+  background-color: #65a17a;
+  color: #000;
 }
 
 #admin-return-container {
   margin-top: auto;
-  padding-top: 1rem;
 }
 
-.return-admin-btn {
-  display: block;
-  background-color: #cfeb0c;
-  color: #000;
-  font-weight: 700;
-  text-align: center;
-  padding: 0.6rem 1rem;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: background-color 0.2s ease;
-  cursor: pointer;
-}
-
-.return-admin-btn:hover,
-.return-admin-btn:focus {
-  background-color: #a0c00b;
-  outline: none;
-}
-
-#logout-btn {
-  margin-top: 1rem;
-  background-color: #710500;
-  color: #fff;
-  font-weight: 700;
+.logout-btn {
+  background-color: #ff0000;
+  color: white;
   border: none;
-  border-radius: 6px;
-  padding: 0.6rem 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
   width: 100%;
+  margin-top: 1rem;
 }
 
-#logout-btn:hover,
-#logout-btn:focus {
-  background-color: #4b0300;
-  outline: none;
+.logout-btn:hover {
+  background-color: #710500;
 }
 
-/* Responsive adjustments */
+/* === Main Content === */
 
-@media (max-width: 768px) {
-  .sidebar {
-    height: auto;
-    flex-direction: row;
-    padding: 0.5rem 1rem;
-    border-right: none;
-    border-bottom: 3px solid #cfeb0c;
-    justify-content: flex-start;
-    align-items: center;
-  }
-
-  #admin-return-container {
-    display: none !important;
-  }
-
-  #logout-btn {
-    margin-top: 0;
-    width: auto;
-    padding: 0.5rem 0.75rem;
-    font-size: 0.85rem;
-  }
-
-  nav ul {
-    display: flex;
-    gap: 1rem;
-  }
-
-  nav ul li {
-    margin-bottom: 0;
-  }
+.main-content {
+  flex: 1;
+  padding: 2rem;
 }
+
+#welcome-message {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* === Stores Grid === */
+
+#stores-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+/* === Store Card === */
+
 .store-card {
   position: relative;
   width: 100%;
-  max-width: 100%;
   min-height: 120px;
-  height: auto;
-  aspect-ratio: 4 / 1; /* Makes it auto-shrink on narrow screens */
+  aspect-ratio: 4 / 1;
   border-radius: 10px;
   overflow: hidden;
   background-color: #ccc;
@@ -274,32 +110,36 @@ h1 {
   display: flex;
   align-items: flex-end;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  margin-bottom: 1rem;
-  color: #fff;
   border: 2px solid transparent;
+  transition: transform 0.2s ease;
 }
 
+.store-card:hover {
+  transform: scale(1.01);
+}
 
 .store-card.assigned-store {
   border-color: #cfeb0c;
 }
 
+/* === Store Overlay Content === */
+
 .store-card-overlay {
   background: rgba(0, 0, 0, 0.65);
   width: 100%;
-  padding: 1rem;
+  padding: 0.75rem;
   box-sizing: border-box;
+  font-size: 0.9rem;
 }
 
 .store-card-overlay h3 {
+  font-size: 1.1rem;
   margin: 0;
-  font-size: 1.2rem;
-  font-weight: 700;
   color: #ffffff;
 }
 
 .store-card-overlay p {
   margin: 0.3rem 0;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: #f5e8dc;
 }
