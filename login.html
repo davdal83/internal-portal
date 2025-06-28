@@ -22,24 +22,32 @@
     <!-- Right form panel -->
     <main class="login-panel">
 
-      <!-- Login form -->
-      <section id="login-panel" role="tabpanel" aria-labelledby="login-tab">
-        <h2>Internal Portal Access</h2>
-        <form id="login-form" autocomplete="off">
-          <label for="login-email">Email</label>
-          <input type="email" id="login-email" name="email" required autocomplete="email" />
-          <label for="login-password">Password</label>
-          <input type="password" id="login-password" name="password" required autocomplete="current-password" />
-          <button type="submit">Log In</button>
-        </form>
-      </section>
-
-            <!-- Tabs -->
+      <main class="login-panel">
+        <div class="login-inner">
+          <section id="login-panel" role="tabpanel" aria-labelledby="login-tab">
+            <h2>Internal Portal Access</h2>
+            <form id="login-form" autocomplete="off">
+              <label for="login-email">Email</label>
+              <input type="email" id="login-email" name="email" required autocomplete="email" />
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" name="password" required autocomplete="current-password" />
+              <button type="submit">Log In</button>
+            </form>
+          </section>
       
-      <section class="form-tabs" role="tablist" aria-label="Authentication forms">
-        <button role="tab" aria-selected="false" aria-controls="signup-panel" id="signup-tab" tabindex="-1">Sign Up</button>
-        <button role="tab" aria-selected="false" aria-controls="forgot-panel" id="forgot-tab" tabindex="-1">Forgot Password</button>
-       </section>
+          <section class="form-tabs" role="tablist" aria-label="Authentication forms">
+            <button role="tab" aria-selected="false" aria-controls="signup-panel" id="signup-tab" tabindex="-1">Sign Up</button>
+            <button role="tab" aria-selected="false" aria-controls="forgot-panel" id="forgot-tab" tabindex="-1">Forgot Password</button>
+          </section>
+      
+          <!-- sign up / forgot sections -->
+          <!-- ... -->
+      
+          <a href="index.html" class="return-home">← Return to Home</a>
+          <div id="form-message" role="alert" aria-live="polite"></div>
+        </div>
+      </main>
+
 
       <!-- Sign Up form -->
       <section id="signup-panel" role="tabpanel" aria-labelledby="signup-tab" hidden>
