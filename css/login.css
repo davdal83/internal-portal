@@ -1,4 +1,4 @@
-/* login.css */
+/* login.css - fresh start */
 
 @import url('https://fonts.googleapis.com/css2?family=Frankfurter&display=swap');
 
@@ -6,11 +6,11 @@
   box-sizing: border-box;
 }
 
-body, html {
+html, body {
   margin: 0;
   height: 100%;
   font-family: 'Frankfurter', Arial, sans-serif;
-  background: #2D5C2A;
+  background-color: #2D5C2A;
   color: #F5E8DC;
   overflow-x: hidden;
 }
@@ -26,8 +26,7 @@ body, html {
 .login-image-panel {
   flex: 1;
   background: url('../images/hero.png') center center/cover no-repeat;
-  position: relative;
-  color: #fff;
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -35,10 +34,11 @@ body, html {
   text-shadow: 0 0 8px rgba(0,0,0,0.7);
   user-select: none;
   overflow: hidden;
+  position: relative;
 }
 
 .login-image-panel .overlay {
-  background: rgba(45, 92, 42, 0.75); /* brand green with opacity */
+  background: rgba(45, 92, 42, 0.75);
   padding: 2rem;
   border-radius: 12px;
   max-width: 400px;
@@ -66,20 +66,18 @@ body, html {
 /* Right side form panel */
 .login-panel {
   flex: 1;
-  background: rgba(245, 232, 220, 0.95); /* light beige */
+  background-color: rgba(245, 232, 220, 0.95);
   color: #2D5C2A;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 3rem 4rem;
-  /* Removed border radius for sharp edges */
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
   box-shadow: -5px 0 15px rgba(0,0,0,0.15);
   position: relative;
+  border-radius: 0; /* remove radius */
 }
 
-/* Tab buttons */
+/* Tabs container */
 .form-tabs {
   display: flex;
   gap: 1rem;
@@ -89,28 +87,28 @@ body, html {
 .form-tabs button {
   flex: 1;
   padding: 0.75rem 1rem;
-  background-color: #FFCF6E; /* warm yellow */
-  border: none;
-  border-radius: 8px;
-  color: #2D5C2A; /* dark green text */
+  background-color: #FFCF6E;
+  color: #2D5C2A;
   font-weight: 700;
   font-size: 1rem;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .form-tabs button[aria-selected="true"] {
-  background-color: #2D5C2A; /* brand green active tab */
-  color: #FFCF6E; /* yellow text on active */
+  background-color: #2D5C2A;
+  color: #FFCF6E;
   box-shadow: 0 0 8px #2D5C2A;
 }
 
 .form-tabs button:hover:not([aria-selected="true"]) {
-  background-color: #E6B85A; /* slightly darker yellow on hover */
+  background-color: #E6B85A;
   color: #2D5C2A;
 }
 
-/* Form panels */
+/* Forms */
 form {
   display: flex;
   flex-direction: column;
@@ -141,10 +139,10 @@ input[type="password"]:focus {
   border-color: #FF0000;
 }
 
-/* Buttons */
+/* Submit buttons */
 button[type="submit"] {
   background-color: #FF0000;
-  color: #FFFFFF;
+  color: white;
   font-weight: 700;
   padding: 0.85rem;
   border: none;
@@ -158,7 +156,7 @@ button[type="submit"]:hover {
   background-color: #710500;
 }
 
-/* Message text */
+/* Form message */
 #form-message {
   margin-top: 1rem;
   font-weight: 600;
@@ -166,22 +164,17 @@ button[type="submit"]:hover {
   min-height: 1.5em;
 }
 
-/* Links */
-.form-links {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-.form-links a {
-  color: #2D5C2A;
+/* Return home link */
+.return-home {
+  margin-top: auto;
   font-weight: 700;
+  color: #2D5C2A;
   text-decoration: none;
-  margin: 0 0.5rem;
+  display: inline-block;
   transition: color 0.3s ease;
 }
 
-.form-links a:hover {
+.return-home:hover {
   color: #FF0000;
 }
 
