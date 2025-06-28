@@ -1,5 +1,3 @@
-// dashboard.js
-import { createClient } from '@supabase/supabase-js'
 
 // Supabase credentials (your provided ones)
 const supabaseUrl = 'https://ngqsmsdxulgpiywlczcx.supabase.co'
