@@ -87,8 +87,8 @@ h1 {
 .promo-code {
   text-decoration: none;
   cursor: pointer;
-  background: #65A17A;
-  color: white;
+  background: #FFCF6E; /* yellowish color */
+  color: #2D5C2A;      /* dark green text for contrast */
   padding: 0.3rem 0.7rem;
   border-radius: 4px;
   font-weight: 700;
