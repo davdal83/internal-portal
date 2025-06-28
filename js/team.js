@@ -1,55 +1,66 @@
-// Supabase client already set up in js/supabase.js
-
+// Wait for DOM to load
 document.addEventListener('DOMContentLoaded', async () => {
-  const { data, error } = await supabase
-    .from('leadership_team')
-    .select('*')
-    .eq('active', true)
-    .order('display_order', { ascending: true });
+  try {
+    // Fetch active team members from Supabase
+    const { data, error } = await supabase
+      .from('leadership_team')
+      .select('*')
+      .eq('active', true)
+      .order('display_order', { ascending: true });
 
-  if (error) {
-    console.error('Error fetching team:', error);
-    return;
-  }
-
-  // Separate groups by title
-  const doContainer = document.getElementById('do-members');
-  const asContainer = document.getElementById('as-members');
-  const mdContainer = document.getElementById('md-members');
-
-  data.forEach(member => {
-    const card = createTeamCard(member);
-    if (member.title.toLowerCase().includes('director of operations')) {
-      doContainer.appendChild(card);
-    } else if (member.title.toLowerCase().includes('area supervisor')) {
-      asContainer.appendChild(card);
-    } else if (member.title.toLowerCase().includes('marketing director')) {
-      mdContainer.appendChild(card);
+    if (error) {
+      console.error('Error fetching team data:', error);
+      return;
     }
-  });
+
+    // Target containers for each group
+    const doContainer = document.getElementById('do-members');
+    const asContainer = document.getElementById('as-members');
+    const mdContainer = document.getElementById('md-members');
+
+    // Sort and place each member in the right section
+    data.forEach(member => {
+      const card = createTeamCard(member);
+      const title = member.title.toLowerCase();
+
+      if (title.includes('director of operations')) {
+        doContainer.appendChild(card);
+      } else if (title.includes('area supervisor')) {
+        asContainer.appendChild(card);
+      } else if (title.includes('marketing director')) {
+        mdContainer.appendChild(card);
+      }
+    });
+  } catch (err) {
+    console.error('Unexpected error:', err);
+  }
 });
 
+// Helper function to build card HTML
 function createTeamCard(member) {
   const card = document.createElement('div');
   card.className = 'team-card';
 
-  // Use member photo or placeholder circle
+  // Photo
   const img = document.createElement('img');
   img.className = 'team-photo';
   img.src = member.photo_url || 'images/placeholder-profile.png';
   img.alt = `${member.name} photo`;
   card.appendChild(img);
 
+  // Name
   const name = document.createElement('div');
   name.className = 'team-name';
   name.textContent = member.name;
   card.appendChild(name);
 
+  // Title
   const title = document.createElement('div');
   title.className = 'team-title';
   title.textContent = member.title;
   card.appendChild(title);
 
+  // Bio (optional)
   if (member.bio) {
     const bio = document.createElement('div');
     bio.className = 'team-bio';
