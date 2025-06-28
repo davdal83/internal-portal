@@ -230,3 +230,12 @@ button[type="submit"]:hover {
 .form-tabs button:hover {
   background-color: #e0ad4a;
 }
+
+.login-inner {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
