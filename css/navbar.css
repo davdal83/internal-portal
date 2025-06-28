@@ -6,8 +6,9 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  position: sticky;
+  position: fixed;       /* ← change this */
   top: 0;
+  width: 100%;           /* ← ensure full width */
   z-index: 1000;
 }
 
