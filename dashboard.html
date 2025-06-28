@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Papa John's Admin Dashboard</title>
+  <title>Dashboard</title>
   <link rel="stylesheet" href="css/dashboard.css" />
   <link rel="icon" href="images/favicon.ico" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
@@ -11,28 +11,23 @@
 </head>
 <body>
   <div class="container">
-
-    <!-- Sidebar navigation -->
-    <nav class="sidebar">
-      <ul>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="leadership.html">Leadership Team</a></li>
-        <li><a href="documents.html">Documents & Forms</a></li>
+    <nav id="sidebar">
+      <h2 class="logo">Papa John's</h2>
+      <ul class="nav-links">
+        <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
+        <li><a href="leadership.html" class="nav-link">Leadership Team</a></li>
+        <li><a href="documents.html" class="nav-link">Documents & Forms</a></li>
       </ul>
-      <button class="logout-btn" id="logout-button">Logout</button>
+      <div class="bottom-links">
+        <a href="#" id="return-to-admin" class="nav-link" style="display:none;">Return to Admin</a>
+        <button id="logout-button" class="btn-logout">Logout</button>
+      </div>
     </nav>
-
-    <!-- Main content area -->
-    <main class="main-content">
-      <h2 id="welcome-message">Welcome, [User Name]</h2>
-
-      <!-- Store list rendered here dynamically -->
-      <ul id="stores-list"></ul>
+    <main id="main-content">
+      <h1>Welcome to the Dashboard</h1>
+      <p id="welcome-message"></p>
+      <!-- Main dashboard content will go here -->
     </main>
-
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
-  <script src="js/dashboard.js"></script>
 </body>
 </html>
