@@ -1,123 +1,155 @@
-// admin-dashboard.js
+// Initialize Supabase client using the global supabase object
+const supabaseUrl = 'https://ngqsmsdxulgpiywlczcx.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ncXNtc2R4dWxncGl5d2xjemN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEwNTgxNjYsImV4cCI6MjA2NjYzNDE2Nn0.8F_tH-xhmW2Cne2Mh3lWZmHjWD8sDSZd8ZMcYV7tWnM';
 
-document.addEventListener('DOMContentLoaded', async () => {
-  const supabaseUrl = 'https://ngqsmsdxulgpiywlczcx.supabase.co';
-  const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ncXNtc2R4dWxncGl5d2xjemN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEwNTgxNjYsImV4cCI6MjA2NjYzNDE2Nn0.8F_tH-xhmW2Cne2Mh3lWZmHjWD8sDSZd8ZMcYV7tWnM';
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
 
-  const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+document.addEventListener('DOMContentLoaded', () => {
+  // LOGIN FORM
+  const form = document.getElementById('login-form');
+  const message = document.getElementById('message');
 
-  // Check session
-  const { data: { session }, error } = await supabaseClient.auth.getSession();
-  if (error || !session) {
-    window.location.href = 'login.html';
-    return;
-  }
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    message.style.color = '#710500';
+    message.textContent = '';
 
-  const user = session.user;
+    const email = form.email.value.trim();
+    const password = form.password.value.trim();
 
-  // Welcome message
-  const welcomeMsg = document.getElementById('welcome-message');
-  if (welcomeMsg) {
-    welcomeMsg.textContent = `Welcome, ${user.email}`;
-  }
+    if (!email || !password) {
+      message.textContent = 'Please enter both email and password.';
+      return;
+    }
 
-  // Get user role
-  const { data: userData, error: userDataError } = await supabaseClient
-    .from('users')
-    .select('role')
-    .eq('id', user.id)
-    .single();
+    message.textContent = 'Logging in...';
 
-  if (userDataError) {
-    console.warn('Could not get user role:', userDataError.message);
-  }
-
-  // Show "Switch to Team View" for admin
-  const switchToTeamLink = document.getElementById('return-to-user');
-  if (userData?.role === 'admin' && switchToTeamLink) {
-    switchToTeamLink.style.display = 'block';
-    switchToTeamLink.href = 'dashboard.html';
-  }
-
-  // Logout button
-  const logoutBtn = document.getElementById('logout-button');
-  if (logoutBtn) {
-    logoutBtn.addEventListener('click', async () => {
-      const { error: signOutError } = await supabaseClient.auth.signOut();
-      if (signOutError) {
-        alert('Error logging out: ' + signOutError.message);
-      } else {
-        window.location.href = 'login.html';
-      }
+    // Attempt to sign in
+    const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password,
     });
-  }
 
-  // Load pending users with status "pending"
-  const pendingUsersBody = document.getElementById('pending-users-body');
-  if (pendingUsersBody) {
-    const { data: pendingUsers, error: pendingError } = await supabaseClient
+    if (signInError) {
+      message.textContent = `Error: ${signInError.message}`;
+      return;
+    }
+
+    const userId = signInData.user.id;
+
+    // Check approval status and role in users table
+    const { data: userData, error: userError } = await supabaseClient
       .from('users')
-      .select('id, first_name, last_name, email, store_number, role, status')
-      .eq('status', 'pending');
+      .select('status, role')
+      .eq('id', userId)
+      .single();
 
-    if (pendingError) {
-      pendingUsersBody.innerHTML = `<tr><td colspan="5">Error loading pending users: ${pendingError.message}</td></tr>`;
+    if (userError || !userData) {
+      message.textContent = 'Error retrieving user data.';
       return;
     }
 
-    if (pendingUsers.length === 0) {
-      pendingUsersBody.innerHTML = `<tr><td colspan="5">No pending users for approval.</td></tr>`;
+    if (userData.status !== 'approved') {
+      message.textContent = 'Your account is pending approval. Please wait for an admin.';
+      await supabaseClient.auth.signOut();
       return;
     }
 
-    pendingUsersBody.innerHTML = pendingUsers
-      .map(user => `
-        <tr>
-          <td>${user.first_name} ${user.last_name}</td>
-          <td>${user.email}</td>
-          <td>${user.store_number || ''}</td>
-          <td>${user.role}</td>
-          <td>
-            <button class="approve-btn" data-id="${user.id}">Approve</button>
-            <button class="deny-btn" data-id="${user.id}">Deny</button>
-          </td>
-        </tr>
-      `)
-      .join('');
+    message.style.color = '#2D5C2A';
+    message.textContent = 'Login successful! Redirecting...';
 
-    // Add event listeners for approve and deny buttons
-    pendingUsersBody.querySelectorAll('.approve-btn').forEach(btn => {
-      btn.addEventListener('click', async (e) => {
-        const id = e.target.getAttribute('data-id');
-        const { error } = await supabaseClient
-          .from('users')
-          .update({ status: 'approved' })
-          .eq('id', id);
+    setTimeout(() => {
+      if (userData.role === 'admin') {
+        window.location.href = 'admin-dashboard.html';
+      } else {
+        window.location.href = 'dashboard.html';
+      }
+    }, 1200);
+  });
 
-        if (error) {
-          alert('Error approving user: ' + error.message);
-        } else {
-          alert('User approved!');
-          location.reload();
-        }
+  // SIGNUP MODAL TOGGLE
+  const openSignup = document.querySelector('a[href="signup.html"]');
+  const closeSignup = document.getElementById('close-signup');
+  const signupModal = document.getElementById('signup-modal');
+
+  openSignup.addEventListener('click', (e) => {
+    e.preventDefault();
+    signupModal.classList.add('active');
+  });
+
+  closeSignup.addEventListener('click', () => {
+    signupModal.classList.remove('active');
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target === signupModal) {
+      signupModal.classList.remove('active');
+    }
+  });
+
+  // SIGNUP FORM SUBMISSION
+  const signupForm = document.getElementById('signup-form');
+  const signupMessage = document.getElementById('signup-message');
+
+  signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    signupMessage.style.color = '#710500';
+    signupMessage.textContent = '';
+
+    const firstName = document.getElementById('first-name').value.trim();
+    const lastName = document.getElementById('last-name').value.trim();
+    const email = document.getElementById('signup-email').value.trim();
+    const phone = document.getElementById('signup-phone').value.trim();
+    const storeNumber = document.getElementById('signup-store').value.trim();
+    const password = document.getElementById('signup-password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+
+    if (password !== confirmPassword) {
+      signupMessage.textContent = 'Passwords do not match.';
+      return;
+    }
+
+    signupMessage.textContent = 'Creating your account...';
+
+    try {
+      // Create user in Supabase Auth
+      const { data: signUpData, error: signUpError } = await supabaseClient.auth.signUp({
+        email,
+        password,
       });
-    });
 
-    pendingUsersBody.querySelectorAll('.deny-btn').forEach(btn => {
-      btn.addEventListener('click', async (e) => {
-        const id = e.target.getAttribute('data-id');
-        const { error } = await supabaseClient
-          .from('users')
-          .update({ status: 'denied' })
-          .eq('id', id);
+      if (signUpError) {
+        signupMessage.textContent = `Error: ${signUpError.message}`;
+        return;
+      }
 
-        if (error) {
-          alert('Error denying user: ' + error.message);
-        } else {
-          alert('User denied.');
-          location.reload();
-        }
-      });
-    });
-  }
+      const userId = signUpData.user.id;
+
+      // Insert user details into users table
+      const { error: insertError } = await supabaseClient.from('users').insert([
+        {
+          id: userId,
+          first_name: firstName,
+          last_name: lastName,
+          phone,
+          store_number: storeNumber,
+          status: 'pending',
+          role: 'user',
+        },
+      ]);
+
+      if (insertError) {
+        signupMessage.textContent = `Error: ${insertError.message}`;
+        return;
+      }
+
+      signupMessage.style.color = '#2D5C2A';
+      signupMessage.textContent = 'Signup submitted! Await admin approval.';
+
+      signupForm.reset();
+    } catch (error) {
+      signupMessage.textContent = 'Unexpected error. Please try again later.';
+      console.error(error);
+    }
+  });
 });
