@@ -2,7 +2,7 @@
 
 // === Supabase Config ===
 const SUPABASE_URL = 'https://ngqsmsdxulgpiywlczcx.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ncXNtc2R4dWxncGl5d2xjemN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEwNTgxNjYsImV4cCI6MjA2NjYzNDE2Nn0.8F_tH-xhmW2Cne2Mh3lWZmHjWD8sDSZd8ZMcYV7tWnM';
+const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY_HERE'; // Replace with your actual anon key
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -10,31 +10,35 @@ document.addEventListener('DOMContentLoaded', async () => {
   const welcomeEl = document.getElementById('welcome-message');
 
   try {
-    // Get current authenticated user
-    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    const {
+      data: { user },
+      error: authError
+    } = await supabase.auth.getUser();
 
-    if (userError || !user) {
+    if (authError || !user) {
       window.location.href = 'login.html';
       return;
     }
 
-    // Query the 'stores' table for this user's first_name using their id
-    const { data: storeUser, error: storeError } = await supabase
-      .from('stores')
+    // Query your 'users' table to get first_name by user id
+    const { data: userProfile, error: profileError } = await supabase
+      .from('users')
       .select('first_name')
       .eq('id', user.id)
       .single();
 
-    if (storeError || !storeUser || !storeUser.first_name) {
-      // fallback to full email
-      welcomeEl.textContent = `Welcome back, ${user.email}. Let’s handle business.`;
-      return;
+    let username;
+
+    if (profileError || !userProfile || !userProfile.first_name) {
+      // fallback: full email if no first_name found
+      username = user.email;
+    } else {
+      username = userProfile.first_name;
     }
 
-    // Show first name from stores table
-    welcomeEl.textContent = `Welcome back, ${storeUser.first_name}. Let’s handle business.`;
+    welcomeEl.textContent = `Welcome back, ${username}. Let’s handle business.`;
 
-    // TODO: Load dashboard content here
+    // TODO: load dashboard content here
 
   } catch (err) {
     console.error('Error loading dashboard:', err);
