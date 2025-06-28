@@ -27,8 +27,11 @@ body {
   color: white;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 20px;
+}
+
+#sidebar .nav-links {
+  flex-grow: 1;
 }
 
 #sidebar .logo {
