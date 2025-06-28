@@ -3,51 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Papa John's Jacksonville - Dashboard</title>
-  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/dashboard.css" />
+  <title>Papa John's Admin Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <link rel="icon" href="images/favicon.ico" />
 </head>
 <body>
-  <div id="nav-container"></div>
+  <div class="container">
 
-  <div class="dashboard-layout">
-    <aside class="sidebar" role="navigation" aria-label="Main Sidebar Navigation">
-      <nav>
-        <ul id="main-nav-links">
-          <li><a href="#" tabindex="0">My Profile</a></li>
-          <li><a href="#" tabindex="0">Store Info</a></li>
-          <li><a href="#" tabindex="0">Leadership Team</a></li>
-          <li><a href="documents-center.html" tabindex="0">Documents Center</a></li>
-          <li><a href="admin-dashboard.html" id="admin-link" style="display: none;" tabindex="0">Admin Tools</a></li>
-        </ul>
+    <!-- Sidebar navigation -->
+    <nav class="sidebar">
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="leadership.html">Leadership Team</a></li>
+        <li><a href="documents.html">Documents & Forms</a></li>
+      </ul>
+      <button class="logout-btn" id="logout-button">Logout</button>
+    </nav>
 
-      </nav>
-      <div id="admin-return-container" style="display:none;">
-        <a href="admin-dashboard.html" class="return-admin-btn" tabindex="0">Return to Admin</a>
-      </div>
-      <button id="logout-btn" tabindex="0">Logout</button>
-    </aside>
+    <!-- Main content area -->
+    <main class="main-content">
+      <h2 id="welcome-message">Welcome, [User Name]</h2>
 
-    <main class="main-content" role="main" tabindex="-1">
-      <h1 id="welcome-message">Welcome!</h1>
-
-      <section id="stores-section" class="stores-section" aria-label="Stores List">
-        <h2>Your Stores</h2>
-        <div id="stores-list" class="stores-list">
-          <!-- Store cards rendered here -->
-        </div>
-      </section>
+      <!-- Store list rendered here dynamically -->
+      <ul id="stores-list"></ul>
     </main>
+
   </div>
 
-  <script type="module" src="js/dashboard.js"></script>
-  <script>
-    // Simple logout button handler
-    document.getElementById('logout-btn').addEventListener('click', async () => {
-      const { error } = await supabase.auth.signOut()
-      if (!error) window.location.href = 'login.html'
-    })
-  </script>
+  <script type="module" src="dashboard.js"></script>
 </body>
 </html>
