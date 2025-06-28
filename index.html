@@ -3,101 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Papa John’s Jacksonville - Locally Owned. Community Driven. Always Fresh." />
   <title>Papa John's Jacksonville</title>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/navbar.css" />
-  <link rel="stylesheet" href="css/index.css" />
-
-  <!-- Favicon (Optional) -->
-  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="navbar.css" />
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
 </head>
-
 <body>
-  <!-- Navbar (Loaded from navbar.js) -->
   <div id="nav-container"></div>
 
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-overlay">
-      <h1>Welcome to Papa John’s Jacksonville</h1>
-      <p>Locally Owned. Community Driven. Always Fresh.</p>
-      <div class="hero-buttons">
-        <a href="https://www.papajohns.com" target="_blank" class="btn primary">Order Online</a>
-        <a href="#about" class="btn secondary">Learn More</a>
-      </div>
+      <h1>Welcome to Papa John's Jacksonville</h1>
+      <p>Better Ingredients. Better Pizza. Local Pride.</p>
     </div>
   </section>
 
-  <!-- About Section -->
-    <section class="about" id="about">
-      <div class="container">
-        <h2>About Papa John's Jacksonville</h2>
-        <p>
-          At Papa John's Jacksonville, we're more than just pizza — we're a dedicated team rooted deep in the community. Our commitment to using the highest quality ingredients and delivering unmatched service has made us a trusted favorite across the city.
-        </p>
-        <p>
-          Every pizza we make is crafted with care, using dough that is fresh — never frozen — 100% real mozzarella cheese, and our signature sauce made from vine-ripened tomatoes. We take pride in bringing families and friends together through great food and genuine hospitality.
-        </p>
-        <ul class="fast-facts">
-          <li>🍕 Serving Jacksonville with 25+ locations</li>
-          <li>🧑‍🍳 Locally owned and operated by people who care</li>
-          <li>🚗 Fast, reliable delivery that gets your order right every time</li>
-          <li>🌟 Committed to freshness, quality, and community involvement</li>
-        </ul>
-      </div>
-    </section>
-
-  <!-- Our Promise Section -->
-  <section class="promise">
-    <div class="container">
-      <h2>Our Promise</h2>
-      <div class="promise-items">
-        <div class="item">✔️ Fresh Dough </div>
-        <div class="item">✔️ 100% Real Cheese</div>
-        <div class="item">✔️ No Artificial Flavors</div>
-        <div class="item">✔️ Jacksonville Proud</div>
-      </div>
-    </div>
+  <!-- About Us -->
+  <section class="about reveal">
+    <h2>About Us</h2>
+    <p>
+      Papa John’s Jacksonville is more than just pizza — we're a family of passionate team members dedicated to serving the freshest, best-tasting pizza in Florida. 
+      With a focus on quality, service, and community involvement, we strive to be the brand our city is proud of.
+    </p>
   </section>
 
-  <!-- Join the Team 
-  <section class="join">
-    <div class="container">
-      <h2>Want to Join the Team?</h2>
-      <p>We’re always looking for passionate people who bring the heat. Come grow with us.</p>
-      <a href="login.html" class="btn primary">Team Access</a>
-    </div>
-  </section>-->
-  
-  <!-- Contact Section -->
-  <section class="contact" id="contact">
-    <div class="container">
-      <h2>Get In Touch</h2>
-      <p>Need to reach the local team? We’re here for you, Jacksonville.</p>
-      <p>Email: <a href="mailto:info@papajohnsjax.com">info@papajohnsjax.com</a></p>
+  <!-- Community Highlights -->
+  <section class="community reveal">
+    <h2>In the Community</h2>
+    <div class="community-cards">
+      <div class="card">
+        <img src="https://source.unsplash.com/400x250/?community,event" alt="Community Event">
+        <p>Supporting local events throughout Jacksonville</p>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/400x250/?charity,food" alt="Charity Drive">
+        <p>Feeding families and supporting food banks</p>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/400x250/?team,restaurant" alt="Team Members">
+        <p>Empowering our team to make a difference</p>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <div class="container">
-      <p>&copy; 2025 Papa John’s Jacksonville. All rights reserved.</p>
-      <!-- Social media links (optional) -->
-      <!--
-      <div class="socials">
-        <a href="#"><img src="img/facebook.svg" alt="Facebook" /></a>
-        <a href="#"><img src="img/instagram.svg" alt="Instagram" /></a>
-      </div>
-      -->
+    <p>&copy; 2025 Papa John's Jacksonville. All rights reserved.</p>
+    <!--
+    <div class="socials">
+      <a href="#">Facebook</a>
+      <a href="#">Instagram</a>
+      <a href="#">Twitter</a>
     </div>
+    -->
   </footer>
 
-  <!-- JS Scripts -->
-  <script src="js/navbar.js"></script>
+  <script src="navbar.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>
