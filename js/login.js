@@ -42,3 +42,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1200)
   })
 })
+
+  // Modal handling
+  const openSignup = document.querySelector('a[href="signup.html"]')
+  const closeSignup = document.getElementById('close-signup')
+  const signupModal = document.getElementById('signup-modal')
+  
+  openSignup.addEventListener('click', (e) => {
+    e.preventDefault()
+    signupModal.classList.add('active')
+  })
+  
+  closeSignup.addEventListener('click', () => {
+    signupModal.classList.remove('active')
+  })
+  
+  window.addEventListener('click', (e) => {
+    if (e.target === signupModal) {
+      signupModal.classList.remove('active')
+    }
+  })
