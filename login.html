@@ -42,28 +42,31 @@
       
           <!-- sign up / forgot sections -->
 
-      <!-- Sign Up form -->
-      <section id="signup-panel" role="tabpanel" aria-labelledby="signup-tab" hidden>
-        <form id="signup-form" autocomplete="off">
-          <label for="signup-email">Email</label>
-          <input type="email" id="signup-email" name="email" required autocomplete="email" />
-          <label for="signup-password">Password</label>
-          <input type="password" id="signup-password" name="password" required autocomplete="new-password" />
-          <label for="signup-password-confirm">Confirm Password</label>
-          <input type="password" id="signup-password-confirm" name="password-confirm" required autocomplete="new-password" />
-          <button type="submit">Sign Up</button>
-        </form>
-      </section>
+            <!-- Sign Up form -->
+              <section id="signup-panel" role="tabpanel" aria-labelledby="signup-tab" hidden>
+                <form id="signup-form" autocomplete="off">
+                  <label for="signup-email">Email</label>
+                  <input type="email" id="signup-email" name="email" required autocomplete="email" />
+                  <label for="signup-password">Password</label>
+                  <input type="password" id="signup-password" name="password" required autocomplete="new-password" />
+                  <label for="signup-password-confirm">Confirm Password</label>
+                  <input type="password" id="signup-password-confirm" name="password-confirm" required autocomplete="new-password" />
+                  <button type="submit">Sign Up</button>
+                  <p class="back-link"><a href="login.html" class="back-to-login">← Back to Login</a></p>
+                </form>
+              </section>
+      
+      
+            <!-- Forgot Password form -->
+            <section id="forgot-panel" role="tabpanel" aria-labelledby="forgot-tab" hidden>
+              <form id="forgot-form" autocomplete="off">
+                <label for="forgot-email">Email</label>
+                <input type="email" id="forgot-email" name="email" required autocomplete="email" />
+                <button type="submit">Reset Password</button>
+                <p class="back-link"><a href="login.html" class="back-to-login">← Back to Login</a></p>
+              </form>
+            </section>
 
-      <!-- Forgot Password form -->
-      <section id="forgot-panel" role="tabpanel" aria-labelledby="forgot-tab" hidden>
-        <form id="forgot-form" autocomplete="off">
-          <label for="forgot-email">Email</label>
-          <input type="email" id="forgot-email" name="email" required autocomplete="email" />
-          <button type="submit">Reset Password</button>
-          <p><a href="#" id="back-to-login-from-forgot">Back to Login</a></p>
-        </form>
-      </section>
 
       <!-- Return home link pinned at bottom -->
       <a href="index.html" class="return-home">← Return to Home</a>
