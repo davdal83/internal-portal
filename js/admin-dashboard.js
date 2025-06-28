@@ -5,46 +5,50 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
+// -------------------- CHECK ADMIN ACCESS --------------------
 async function checkAdmin() {
-  const { data: sessionData } = await supabase.auth.getSession()
+  const { data: sessionData, error: sessionError } = await supabase.auth.getSession()
 
-  if (!sessionData?.session) {
+  if (sessionError || !sessionData?.session) {
     window.location.href = 'login.html'
     return
   }
 
   const userId = sessionData.session.user.id
 
-  const { data: userData, error } = await supabase
+  const { data: userData, error: userError } = await supabase
     .from('users')
     .select('role, first_name')
     .eq('id', userId)
     .single()
 
-  if (error || !userData || userData.role !== 'admin') {
+  if (userError || !userData || userData.role !== 'admin') {
     alert('Unauthorized - Admins only')
     window.location.href = 'login.html'
     return
   }
 
-  // Optional welcome update
-  document.getElementById('welcome-message')?.textContent = `Welcome, ${userData.first_name}!`
+  const welcomeEl = document.getElementById('welcome-message')
+  if (welcomeEl) {
+    welcomeEl.textContent = `Welcome, ${userData.first_name}!`
+  }
 }
 
 checkAdmin()
 
-// Sidebar toggle and navigation
+// -------------------- SIDEBAR TOGGLE --------------------
 const sidebar = document.getElementById('sidebar')
 const toggleBtn = document.getElementById('sidebar-toggle')
-const navItems = document.querySelectorAll('.sidebar-nav ul li')
-const sectionTitle = document.getElementById('section-title')
-const sectionContent = document.getElementById('section-content')
 
 toggleBtn.addEventListener('click', () => {
   sidebar.classList.toggle('collapsed')
 })
 
-// Sidebar navigation handling
+// -------------------- SIDEBAR NAVIGATION --------------------
+const navItems = document.querySelectorAll('.sidebar-nav ul li')
+const sectionTitle = document.getElementById('section-title')
+const sectionContent = document.getElementById('section-content')
+
 navItems.forEach((item) => {
   item.addEventListener('click', () => {
     navItems.forEach(i => i.classList.remove('active'))
