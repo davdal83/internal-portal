@@ -58,3 +58,45 @@ h1 {
   color: #2d5c2a;
   user-select: none;
 }
+
+.stores-section {
+  margin-top: 3rem;
+}
+
+.stores-section h2 {
+  color: #2d5c2a;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.stores-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+  gap: 1rem;
+}
+
+.store-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  color: #2d5c2a;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.store-card.assigned-store {
+  border-color: #cfeb0c; /* bright yellow highlight */
+  background-color: #f5fdd3; /* subtle highlight */
+}
+
+.store-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+}
+
+.store-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
