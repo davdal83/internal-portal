@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <li><a href="#">Our Stores</a></li>
         <li><a href="#">Promotions</a></li>
         <li><a href="#">Contact Us</a></li>
-        <li><a href="#">Login</a></li>
+        <li><a href="#">Team Access</a></li>
       </ul>
     </nav>
   `;
