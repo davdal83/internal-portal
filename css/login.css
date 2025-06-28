@@ -239,3 +239,20 @@ button[type="submit"]:hover {
   align-items: center;
 }
 
+.back-link {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.back-link a {
+  color: #2D5C2A;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.back-link a:hover {
+  color: #FF0000;
+}
+
