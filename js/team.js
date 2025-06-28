@@ -59,6 +59,14 @@ function createTeamCard(member) {
   title.textContent = member.title;
   card.appendChild(title);
 
+  // Add email element
+  if (member.email) {
+    const email = document.createElement('div');
+    email.className = 'team-email';
+    email.textContent = member.email;
+    card.appendChild(email);
+  }
+
   if (member.bio) {
     const bio = document.createElement('div');
     bio.className = 'team-bio';
@@ -67,4 +75,6 @@ function createTeamCard(member) {
   }
 
   return card;
+}
+
 }
