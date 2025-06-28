@@ -1,0 +1,31 @@
+/* css/style.css */
+
+/* Universal box-sizing and reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin and padding, prevent horizontal scroll */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Base body styles */
+body {
+  font-family: 'Frankfurter', Arial, sans-serif;
+  background-color: #F5E8DC;
+  color: #2D5C2A;
+  padding: 1rem;
+}
+
+/* Main content padding to clear fixed navbar */
+.team-section {
+  padding-top: 100px; /* space for navbar */
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 900px;
+  margin: 2rem auto;
+}
