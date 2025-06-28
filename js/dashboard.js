@@ -1,100 +1,86 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+// dashboard.js
+import { createClient } from '@supabase/supabase-js'
 
-// === Supabase config ===
-const SUPABASE_URL = 'https://ngqsmsdxulgpiywlczcx.supabase.co'
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ncXNtc2R4dWxncGl5d2xjemN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEwNTgxNjYsImV4cCI6MjA2NjYzNDE2Nn0.8F_tH-xhmW2Cne2Mh3lWZmHjWD8sDSZd8ZMcYV7tWnM'
+// Your Supabase credentials
+const supabaseUrl = 'https://ngqsmsdxulgpiywlczcx.supabase.co'
+const supabaseAnonKey = 'YOUR_ANON_KEY_HERE'  // Replace with your anon key
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
-// === Format phone number (904) 555-1234 ===
-function formatPhone(phone) {
+// Format US phone numbers (e.g. 9046417272 → (904) 641-7272)
+function formatPhoneNumber(phone) {
   if (!phone) return ''
-  const digits = phone.replace(/\D/g, '')
-  if (digits.length === 10) {
-    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`
+  const cleaned = ('' + phone).replace(/\D/g, '')
+  if (cleaned.length === 10) {
+    return cleaned.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3')
   }
   return phone
 }
 
-// === Render store cards ===
-function renderStores(stores) {
-  const container = document.getElementById('stores-list')
-  container.innerHTML = ''
-
-  stores.forEach(store => {
-    const div = document.createElement('div')
-    div.className = 'store-card'
-
-    div.style.backgroundImage = `url(${store.store_photo_url || 'images/default-store.jpg'})`
-
-    const overlay = document.createElement('div')
-    overlay.className = 'store-card-overlay'
-
-    overlay.innerHTML = `
-      <h3>${store.name}</h3>
-      <p>Store ${store.store_number} &nbsp; ${formatPhone(store.phone_number)}</p>
-      <p><strong>General Manager:</strong> ${store.gm_name || 'N/A'}</p>
-    `
-
-    div.appendChild(overlay)
-    container.appendChild(div)
-  })
-}
-
-// === Load user & determine access ===
-async function loadUser() {
-  const { data: sessionData } = await supabase.auth.getSession()
-
-  if (!sessionData?.session) {
-    window.location.href = 'login.html'
-    return
-  }
-
-  const userId = sessionData.session.user.id
-
-  const { data: userData, error: userError } = await supabase
-    .from('users')
-    .select('role, first_name, store_number')
-    .eq('id', userId)
-    .single()
-
-  if (userError || !userData) {
-    alert('Error loading user profile')
-    return
-  }
-
-  document.getElementById('welcome-message').textContent = `Welcome, ${userData.first_name}!`
-
-  if (userData.role === 'admin') {
-    document.getElementById('admin-link').style.display = 'block'
-    document.getElementById('admin-return-container').style.display = 'block'
-  }
-
-  loadStores()
-}
-
-// === Load all stores in numerical order ===
+// Load all stores and render
 async function loadStores() {
-  const { data: allStores, error } = await supabase
+  const { data: stores, error } = await supabase
     .from('stores')
     .select('*')
-    .order('store_number')
+    .order('store_number', { ascending: true })
 
-  if (error || !allStores) {
-    console.error('Error fetching stores:', error)
-    document.getElementById('stores-list').innerHTML = '<p>Error loading stores.</p>'
+  if (error) {
+    console.error('Error loading stores:', error)
+    alert('Failed to load stores. Please try again later.')
     return
   }
 
-  renderStores(allStores)
+  const storesList = document.getElementById('stores-list')
+  if (!storesList) {
+    console.error('No element with id "stores-list" found in DOM.')
+    return
+  }
+
+  storesList.innerHTML = ''  // Clear previous content
+
+  if (!stores || stores.length === 0) {
+    storesList.innerHTML = '<li>No stores found.</li>'
+    return
+  }
+
+  stores.forEach(store => {
+    const li = document.createElement('li')
+    li.className = 'store-item'
+
+    // Store avatar image
+    const img = document.createElement('img')
+    img.className = 'store-avatar'
+    img.src = store.photo_url || 'images/default-store.jpg'
+    img.alt = `Store ${store.store_number} photo`
+
+    // Store info container
+    const infoDiv = document.createElement('div')
+    infoDiv.className = 'store-info'
+
+    const storeName = document.createElement('h3')
+    storeName.textContent = store.store_name || 'Unnamed Store'
+
+    const storeDetails = document.createElement('p')
+    storeDetails.textContent = `Store ${store.store_number} | ${formatPhoneNumber(store.phone_number)}`
+
+    const gm = document.createElement('p')
+    gm.textContent = `General Manager: ${store.general_manager || 'N/A'}`
+
+    // Append info elements
+    infoDiv.appendChild(storeName)
+    infoDiv.appendChild(storeDetails)
+    infoDiv.appendChild(gm)
+
+    // Append image and info to list item
+    li.appendChild(img)
+    li.appendChild(infoDiv)
+
+    // Append to stores list
+    storesList.appendChild(li)
+  })
 }
 
-// === Handle logout & initialize ===
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('logout-btn')?.addEventListener('click', async () => {
-    const { error } = await supabase.auth.signOut()
-    if (!error) window.location.href = 'login.html'
-  })
-
-  loadUser()
+// Initialize on page load
+window.addEventListener('DOMContentLoaded', () => {
+  loadStores()
 })
