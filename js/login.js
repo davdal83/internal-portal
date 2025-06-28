@@ -62,3 +62,69 @@ document.addEventListener('DOMContentLoaded', () => {
       signupModal.classList.remove('active')
     }
   })
+const signupForm = document.getElementById('signup-form')
+const signupMessage = document.getElementById('signup-message')
+
+signupForm.addEventListener('submit', async (e) => {
+  e.preventDefault()
+  signupMessage.style.color = '#710500'
+  signupMessage.textContent = ''
+
+  // Get form values
+  const firstName = document.getElementById('first-name').value.trim()
+  const lastName = document.getElementById('last-name').value.trim()
+  const email = document.getElementById('signup-email').value.trim()
+  const phone = document.getElementById('signup-phone').value.trim()
+  const storeNumber = document.getElementById('signup-store').value.trim()
+  const password = document.getElementById('signup-password').value
+  const confirmPassword = document.getElementById('confirm-password').value
+
+  // Validate passwords match
+  if (password !== confirmPassword) {
+    signupMessage.textContent = 'Passwords do not match.'
+    return
+  }
+
+  signupMessage.textContent = 'Creating your account...'
+
+  try {
+    // Create user in Supabase Auth
+    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+      email,
+      password,
+    })
+
+    if (signUpError) {
+      signupMessage.textContent = `Error: ${signUpError.message}`
+      return
+    }
+
+    const userId = signUpData.user.id
+
+    // Insert user details into users table
+    const { error: insertError } = await supabase.from('users').insert([
+      {
+        id: userId,
+        first_name: firstName,
+        last_name: lastName,
+        phone,
+        store_number: storeNumber,
+        status: 'pending',
+      },
+    ])
+
+    if (insertError) {
+      signupMessage.textContent = `Error: ${insertError.message}`
+      return
+    }
+
+    signupMessage.style.color = '#2D5C2A'
+    signupMessage.textContent = 'Signup submitted! Await admin approval.'
+
+    // Optionally reset form or close modal after a delay
+    signupForm.reset()
+  } catch (error) {
+    signupMessage.textContent = 'Unexpected error. Please try again later.'
+    console.error(error)
+  }
+})
