@@ -125,10 +125,12 @@ body, html {
 }
 
 .store-card {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  overflow: hidden;
   border: 1px solid #ccc;
   border-radius: 8px;
-  overflow: hidden;
-  max-width: 300px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: transform 0.2s ease;
@@ -140,10 +142,10 @@ body, html {
 
 .store-card img {
   width: 100%;
-  height: auto;
-  max-height: 180px;
+  height: 180px;
   object-fit: cover;
   border-bottom: 1px solid #ccc;
+  display: block;
 }
 
 .store-info {
