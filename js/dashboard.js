@@ -43,6 +43,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       .from('stores')
       .select('*');
 
+    function formatPhoneNumber(phone) {
+  const cleaned = ('' + phone).replace(/\D/g, '');
+  const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+  return match ? `(${match[1]}) ${match[2]}-${match[3]}` : phone;
+}
+
+
     if (storesError) {
       console.error('Error fetching stores:', storesError.message);
       storesEl.textContent = 'Could not load store data.';
@@ -56,7 +63,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <h3>${store.name}</h3>
             <p>${store.address.trim()}, ${store.city.trim()}, ${store.state} ${store.zip_code}</p>
             <p><strong>GM:</strong> ${store.gm_name || 'N/A'}</p>
-            <p><strong>Phone:</strong> ${store.phone_number}</p>
+            <p><strong>Phone:</strong> ${formatPhoneNumber(store.phone_number)}</p>
           </div>
         </div>
       `).join('');
