@@ -1,0 +1,52 @@
+body, html {
+  margin: 0;
+  font-family: 'Frankfurter', Arial, sans-serif;
+  background-color: #F5E8DC;
+  color: #2D5C2A;
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #2D5C2A;
+  color: #F5E8DC;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar a {
+  color: #F5E8DC;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.store-card {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.store-card img {
+  width: 100%;
+  height: auto;
+}
+
+.store-info {
+  padding: 20px;
+}
+
+.store-info h2 {
+  margin-top: 0;
+}
