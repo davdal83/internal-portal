@@ -86,3 +86,31 @@ body, html {
     padding: 1rem;
   }
 }
+#stores-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.store-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 300px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.store-card img {
+  width: 100%;
+  height: auto;
+}
+
+.store-info {
+  padding: 12px;
+}
+
+.store-info h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
