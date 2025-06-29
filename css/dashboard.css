@@ -114,3 +114,9 @@ body, html {
   margin-top: 0;
   margin-bottom: 8px;
 }
+
+.store-link {
+  text-decoration: none;
+  color: inherit;
+}
+
