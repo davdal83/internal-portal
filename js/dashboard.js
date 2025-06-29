@@ -15,14 +15,15 @@ function formatPhoneNumber(phone) {
 // === Hamburger Toggle Logic ===
 document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.getElementById('hamburger');
-  const navList = document.querySelector('.sidebar ul');
+  const sidebar = document.querySelector('.sidebar');
 
-  if (hamburger && navList) {
+  if (hamburger && sidebar) {
     hamburger.addEventListener('click', () => {
-      navList.classList.toggle('show');
+      sidebar.classList.toggle('show');
     });
   }
 });
+
 
 // === Dashboard Logic ===
 document.addEventListener('DOMContentLoaded', async () => {
