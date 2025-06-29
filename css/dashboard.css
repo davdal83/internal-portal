@@ -152,8 +152,10 @@ body, html {
     left: 0; /* Slide in */
   }
 
-  .main-content {
-    padding: 1rem;
-    margin-left: 0;
-  }
+.main-content {
+  flex-grow: 1;
+  padding: 2rem 3rem;
+  overflow-y: auto;
+}
+
 }
