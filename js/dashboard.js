@@ -5,20 +5,32 @@ const SUPABASE_ANON_KEY =
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// === Helper ===
+// === Helper Function ===
 function formatPhoneNumber(phone) {
   const cleaned = ('' + phone).replace(/\D/g, '');
   const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
   return match ? `(${match[1]}) ${match[2]}-${match[3]}` : phone;
 }
 
+// === Hamburger Toggle Logic ===
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.getElementById('hamburger');
+  const navList = document.querySelector('.sidebar ul');
+
+  if (hamburger && navList) {
+    hamburger.addEventListener('click', () => {
+      navList.classList.toggle('show');
+    });
+  }
+});
+
+// === Dashboard Logic ===
 document.addEventListener('DOMContentLoaded', async () => {
   const welcomeEl = document.getElementById('welcome-message');
   const storesEl = document.getElementById('stores-list');
 
   try {
-    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
-    console.log('SESSION:', sessionData);
+    const { data: sessionData } = await supabase.auth.getSession();
 
     const {
       data: { user },
@@ -31,13 +43,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
-    const { data: profile, error: profileError } = await supabase
+    const { data: profile } = await supabase
       .from('users')
       .select('first_name')
       .eq('id', user.id)
       .single();
 
-    if (profileError || !profile?.first_name) {
+    if (!profile?.first_name) {
       welcomeEl.textContent = `Welcome back, ${user.email}`;
     } else {
       welcomeEl.textContent = `Welcome back, ${profile.first_name}. Let’s handle business.`;
