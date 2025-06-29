@@ -128,3 +128,26 @@ body, html {
     align-items: flex-start;
   }
 }
+/* Mobile Sidebar Behavior */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px; /* Hidden off-screen */
+    height: 100%;
+    width: 280px;
+    background-color: #2D5C2A;
+    flex-direction: column;
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+
+  .sidebar.show {
+    left: 0; /* Slide in */
+  }
+
+  .main-content {
+    padding: 1rem;
+    margin-left: 0;
+  }
+}
