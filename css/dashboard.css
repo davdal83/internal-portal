@@ -1,5 +1,11 @@
 /* dashboard.css */
 
+body {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
 body, html {
   margin: 0;
   height: 100%;
