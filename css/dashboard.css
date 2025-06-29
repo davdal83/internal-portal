@@ -1,21 +1,17 @@
-/* dashboard.css */
-
-body {
-  display: flex;
-  flex-direction: row;
-  min-height: 100vh;
-}
-
+/* ===== Global Styles ===== */
 body, html {
   margin: 0;
+  padding: 0;
   height: 100%;
   font-family: 'Frankfurter', Arial, sans-serif;
   background-color: #F5E8DC;
   color: #2D5C2A;
   display: flex;
-  height: 100vh;
+  flex-direction: row;
+  min-height: 100vh;
 }
 
+/* ===== Sidebar ===== */
 .sidebar {
   width: 280px;
   background-color: #2D5C2A;
@@ -24,6 +20,8 @@ body, html {
   display: flex;
   flex-direction: column;
   box-shadow: 3px 0 8px rgba(0,0,0,0.15);
+  transition: left 0.3s ease;
+  z-index: 1000;
 }
 
 .sidebar h2 {
@@ -60,6 +58,17 @@ body, html {
   background-color: #710500;
 }
 
+/* ===== Hamburger ===== */
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #F5E8DC;
+  margin-bottom: 1rem;
+  margin-left: 0.5rem;
+}
+
+/* ===== Main Content ===== */
 .main-content {
   flex-grow: 1;
   padding: 2rem 3rem;
@@ -70,11 +79,16 @@ body, html {
   margin-top: 1rem;
 }
 
-}
+/* ===== Store Cards ===== */
 #stores-list {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+}
+
+.store-link {
+  text-decoration: none;
+  color: inherit;
 }
 
 .store-card {
@@ -84,6 +98,11 @@ body, html {
   max-width: 300px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.store-card:hover {
+  transform: scale(1.02);
 }
 
 .store-card img {
@@ -100,84 +119,35 @@ body, html {
   margin-bottom: 8px;
 }
 
-.store-link {
-  text-decoration: none;
-  color: inherit;
-}
-
-.hamburger {
-  display: none;
-  font-size: 2rem;
-  cursor: pointer;
-  color: #F5E8DC;
-  margin-bottom: 1rem;
-}
-
+/* ===== Responsive - Mobile ===== */
 @media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    height: 100%;
+    width: 280px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2rem 1rem;
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+
+  .sidebar.show {
+    left: 0;
+  }
+
   .hamburger {
     display: block;
   }
 
-  .sidebar ul {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .sidebar ul.show {
-    display: flex;
-  }
-
-  .sidebar {
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-/* Mobile Sidebar Behavior */
-@media (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: -280px; /* Hidden off-screen */
-    height: 100%;
-    width: 280px;
-    background-color: #2D5C2A;
-    flex-direction: column;
-    transition: left 0.3s ease;
-    z-index: 1000;
-  }
-
-  .sidebar.show {
-    left: 0; /* Slide in */
-  }
-
-.main-content {
-  flex-grow: 1;
-  padding: 2rem 3rem;
-  overflow-y: auto;
-}
-
-@media (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: -280px; /* Hide it off-screen */
-    height: 100%;
-    width: 280px;
-    background-color: #2D5C2A;
-    flex-direction: column;
-    transition: left 0.3s ease;
-    z-index: 1000;
-  }
-
-  .sidebar.show {
-    left: 0; /* Slide in */
-  }
-
   .main-content {
-    margin-left: 0;
     padding: 1rem;
+    margin-left: 0;
   }
 }
-
