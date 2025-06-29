@@ -6,6 +6,7 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 document.addEventListener('DOMContentLoaded', async () => {
   const welcomeEl = document.getElementById('welcome-message');
+  const storesEl = document.getElementById('stores-list');
 
   try {
     const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
@@ -37,8 +38,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
       welcomeEl.textContent = `Welcome back, ${profile.first_name}. Let’s handle business.`;
     }
+
+    const { data: stores, error: storesError } = await supabase
+      .from('stores')
+      .select('*');
+
+    if (storesError) {
+      console.error('Error fetching stores:', storesError.message);
+      storesEl.textContent = 'Could not load store data.';
+    } else if (!stores || stores.length === 0) {
+      storesEl.textContent = 'No stores found.';
+    } else {
+      storesEl.innerHTML = stores.map(store => `
+        <div class="store-card">
+          <img src="${store.store_photo_url}" alt="Store photo for ${store.name}" />
+          <div class="store-info">
+            <h3>${store.name}</h3>
+            <p>${store.address.trim()}, ${store.city.trim()}, ${store.state} ${store.zip_code}</p>
+            <p><strong>GM:</strong> ${store.gm_name || 'N/A'}</p>
+            <p><strong>Phone:</strong> ${store.phone_number}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
   } catch (err) {
     console.error('Dashboard load error:', err);
     welcomeEl.textContent = 'Something went wrong. Try reloading.';
+    if (storesEl) storesEl.textContent = '';
   }
 });
